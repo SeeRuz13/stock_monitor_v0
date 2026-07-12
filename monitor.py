@@ -88,6 +88,10 @@ def main():
     config = load_json(CONFIG_PATH, {})
     state = load_json(STATE_PATH, {"last_updated": None, "stocks": {}})
 
+    # rimuove dallo stato i ticker non piu' presenti in watchlist (es. dopo una modifica)
+    known_tickers = {s["ticker"] for s in watchlist.get("stocks", []) if s.get("ticker")}
+    state["stocks"] = {k: v for k, v in state["stocks"].items() if k in known_tickers}
+
     market_cfg = config.get("market_data", {"history_period": "3mo", "history_interval": "1d"})
     trend_params = config.get("trend_algorithm", {})
     default_threshold = watchlist.get("default_threshold_pct", 2.0)
