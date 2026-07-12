@@ -1,4 +1,84 @@
 {
-  "last_updated": null,
-  "stocks": {}
+  "last_updated": "2026-07-12T14:19:12.771607Z",
+  "stocks": {
+    "RACE.MI": {
+      "name": "Ferrari",
+      "last_price": 331.0,
+      "open_price": 330.2,
+      "delta_pct": 0.242,
+      "last_checked": "2026-07-12T14:19:10.127553Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": 0.069,
+      "last_trend_signal": "none"
+    },
+    "ROG.SW": {},
+    "CW8.PA": {
+      "name": "Amundi MSCI World",
+      "last_price": 686.72,
+      "open_price": 684.47,
+      "delta_pct": 0.329,
+      "last_checked": "2026-07-12T14:19:10.962798Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": 0.093,
+      "last_trend_signal": "none"
+    },
+    "GOOGL": {
+      "name": "Alphabet",
+      "last_price": 357.18,
+      "open_price": 357.53,
+      "delta_pct": -0.098,
+      "last_checked": "2026-07-12T14:19:11.154019Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": -0.005,
+      "last_trend_signal": "none"
+    },
+    "AAPL": {
+      "name": "Apple",
+      "last_price": 315.32,
+      "open_price": 314.72,
+      "delta_pct": 0.191,
+      "last_checked": "2026-07-12T14:19:11.483185Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": 0.87,
+      "last_trend_alert": "2026-07-12T14:19:11.930929Z",
+      "last_trend_signal": "up"
+    },
+    "G.MI": {
+      "name": "Generali",
+      "last_price": 42.06,
+      "open_price": 42.1,
+      "delta_pct": -0.095,
+      "last_checked": "2026-07-12T14:19:12.139117Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": -0.168,
+      "last_trend_signal": "none"
+    },
+    "ISP.MI": {
+      "name": "Intesa Sanpaolo",
+      "last_price": 6.259,
+      "open_price": 6.203,
+      "delta_pct": 0.903,
+      "last_checked": "2026-07-12T14:19:12.460441Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": 0.337,
+      "last_trend_signal": "none"
+    },
+    "GBS.MI": {
+      "name": "Gold Bullion Securities",
+      "last_price": 327.55,
+      "open_price": 328.39,
+      "delta_pct": -0.256,
+      "last_checked": "2026-07-12T14:19:12.696612Z",
+      "baseline_date": "2026-07-12",
+      "baseline_delta_pct": 0.0,
+      "trend_value": -0.04,
+      "last_trend_signal": "none"
+    }
+  }
 }
