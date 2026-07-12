@@ -1,0 +1,27 @@
+{
+  "default_threshold_pct": 2.0,
+  "stocks": [
+    { "name": "Ferrari", "ticker": "RACE.MI", "enabled": true },
+    { "name": "Roche", "ticker": "ROG.SW", "enabled": true },
+    {
+      "name": "Amundi MSCI Asia",
+      "ticker": null,
+      "isin": "LU190068161",
+      "enabled": false,
+      "note": "ISIN incompleto (11 caratteri, ne servono 12). Verifica su borsaitalia.it o justetf.com, poi imposta ticker ed enabled:true."
+    },
+    { "name": "Amundi MSCI World", "ticker": "CW8.PA", "isin": "LU1681043599", "enabled": true },
+    { "name": "Alphabet", "ticker": "GOOGL", "enabled": true },
+    { "name": "Apple", "ticker": "AAPL", "enabled": true },
+    { "name": "Generali", "ticker": "G.MI", "enabled": true },
+    { "name": "Intesa Sanpaolo", "ticker": "ISP.MI", "enabled": true },
+    { "name": "Gold Bullion Securities", "ticker": "GBS.MI", "enabled": true },
+    {
+      "name": "Amundi MSCI EU",
+      "ticker": null,
+      "isin": "LU1949199711",
+      "enabled": false,
+      "note": "ISIN non trovato: il piu vicino e' LU1940199711 (Amundi MSCI Europe ESG Selection). Verifica quale sia il tuo fondo esatto, poi imposta ticker ed enabled:true."
+    }
+  ]
+}

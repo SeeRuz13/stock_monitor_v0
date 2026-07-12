@@ -1,0 +1,11 @@
+{
+  "market_data": {
+    "history_period": "3mo",
+    "history_interval": "1d"
+  },
+  "trend_algorithm": {
+    "smoothing_window": 5,
+    "rise_threshold_pct_per_day": 0.5,
+    "fall_threshold_pct_per_day": -0.5
+  }
+}

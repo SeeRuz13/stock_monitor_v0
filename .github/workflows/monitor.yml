@@ -1,0 +1,40 @@
+name: Stock monitor
+
+on:
+  schedule:
+    # ogni 15 minuti, lun-ven, 7:00-21:00 UTC (copre Milano 9:00-17:30 CET/CEST
+    # e i mercati USA 15:30-22:00 CET/CEST con margine)
+    - cron: "*/15 7-21 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monitor
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python monitor.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "stock-monitor-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/state.json
+          git diff --cached --quiet || git commit -m "Aggiorna stato watchlist"
+          git push
