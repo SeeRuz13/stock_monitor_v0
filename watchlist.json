@@ -2,7 +2,7 @@
   "default_threshold_pct": 2.0,
   "stocks": [
     { "name": "Ferrari", "ticker": "RACE.MI", "enabled": true },
-    { "name": "Roche", "ticker": "ROG.SW", "enabled": true },
+    { "name": "Roche", "ticker": "RO.SW", "enabled": true },
     {
       "name": "Amundi MSCI Asia",
       "ticker": null,
