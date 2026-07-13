@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-07-13T20:39:38.735148Z",
+  "last_updated": "2026-07-13T23:38:00.079460Z",
   "stocks": {
     "RACE.MI": {
       "name": "Ferrari",
       "last_price": 327.95,
       "open_price": 328.1,
       "delta_pct": -0.046,
-      "last_checked": "2026-07-13T20:39:36.146895Z",
+      "last_checked": "2026-07-13T23:37:57.406536Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.045,
+      "trend_value": 0.046,
       "last_trend_signal": "none"
     },
     "CW8.PA": {
@@ -17,10 +17,10 @@
       "last_price": 687.62,
       "open_price": 686.1,
       "delta_pct": 0.222,
-      "last_checked": "2026-07-13T20:39:36.893806Z",
+      "last_checked": "2026-07-13T23:37:58.296239Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.123,
+      "trend_value": 0.062,
       "last_trend_signal": "none"
     },
     "GOOGL": {
@@ -28,7 +28,7 @@
       "last_price": 352.51,
       "open_price": 356.2,
       "delta_pct": -1.036,
-      "last_checked": "2026-07-13T20:39:37.104969Z",
+      "last_checked": "2026-07-13T23:37:58.540230Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
       "trend_value": -0.226,
@@ -39,7 +39,7 @@
       "last_price": 317.31,
       "open_price": 317.015,
       "delta_pct": 0.093,
-      "last_checked": "2026-07-13T20:39:37.399276Z",
+      "last_checked": "2026-07-13T23:37:58.891149Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
       "trend_value": 0.769,
@@ -51,10 +51,10 @@
       "last_price": 42.25,
       "open_price": 42.06,
       "delta_pct": 0.452,
-      "last_checked": "2026-07-13T20:39:37.790915Z",
+      "last_checked": "2026-07-13T23:37:59.214505Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.114,
+      "trend_value": -0.112,
       "last_trend_signal": "none"
     },
     "ISP.MI": {
@@ -62,10 +62,10 @@
       "last_price": 6.325,
       "open_price": 6.221,
       "delta_pct": 1.672,
-      "last_checked": "2026-07-13T20:39:38.090741Z",
+      "last_checked": "2026-07-13T23:37:59.565180Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.469,
+      "trend_value": 0.225,
       "last_trend_signal": "none"
     },
     "GBS.MI": {
@@ -73,10 +73,10 @@
       "last_price": 321.34,
       "open_price": 324.78,
       "delta_pct": -1.059,
-      "last_checked": "2026-07-13T20:39:38.374966Z",
+      "last_checked": "2026-07-13T23:37:59.806532Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.267,
+      "trend_value": -0.026,
       "last_trend_signal": "none"
     },
     "RO.SW": {
@@ -84,10 +84,10 @@
       "last_price": 336.2,
       "open_price": 342.4,
       "delta_pct": -1.811,
-      "last_checked": "2026-07-13T20:39:36.484513Z",
+      "last_checked": "2026-07-13T23:37:57.832020Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.171,
+      "trend_value": -0.004,
       "last_trend_signal": "none"
     },
     "APEX.MI": {
@@ -95,10 +95,10 @@
       "last_price": 196.44,
       "open_price": 195.45,
       "delta_pct": 0.507,
-      "last_checked": "2026-07-13T20:39:36.704366Z",
+      "last_checked": "2026-07-13T23:37:58.075968Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.311,
+      "trend_value": -0.062,
       "last_trend_signal": "none"
     },
     "ESGE.PA": {
@@ -106,10 +106,10 @@
       "last_price": 42.465,
       "open_price": 42.375,
       "delta_pct": 0.212,
-      "last_checked": "2026-07-13T20:39:38.694355Z",
+      "last_checked": "2026-07-13T23:38:00.009317Z",
       "baseline_date": "2026-07-13",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.079,
+      "trend_value": -0.053,
       "last_trend_signal": "none"
     }
   }
