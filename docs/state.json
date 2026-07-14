@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-07-14T20:41:24.264178Z",
+  "last_updated": "2026-07-14T23:36:11.909584Z",
   "stocks": {
     "RACE.MI": {
       "name": "Ferrari",
       "last_price": 324.5,
       "open_price": 326.0,
       "delta_pct": -0.46,
-      "last_checked": "2026-07-14T20:41:20.588865Z",
+      "last_checked": "2026-07-14T23:36:06.381959Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.207,
+      "trend_value": -0.03,
       "last_trend_signal": "none"
     },
     "CW8.PA": {
@@ -17,10 +17,10 @@
       "last_price": 685.94,
       "open_price": 684.97,
       "delta_pct": 0.142,
-      "last_checked": "2026-07-14T20:41:21.661663Z",
+      "last_checked": "2026-07-14T23:36:07.974310Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.096,
+      "trend_value": 0.082,
       "last_trend_signal": "none"
     },
     "GOOGL": {
@@ -28,7 +28,7 @@
       "last_price": 359.51,
       "open_price": 351.09,
       "delta_pct": 2.398,
-      "last_checked": "2026-07-14T20:41:21.902654Z",
+      "last_checked": "2026-07-14T23:36:08.580857Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 2.3982493137260783,
       "trend_value": -0.083,
@@ -38,9 +38,9 @@
     "AAPL": {
       "name": "Apple",
       "last_price": 314.86,
-      "open_price": 313.76,
-      "delta_pct": 0.351,
-      "last_checked": "2026-07-14T20:41:22.906664Z",
+      "open_price": 313.64,
+      "delta_pct": 0.389,
+      "last_checked": "2026-07-14T23:36:09.125845Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
       "trend_value": 0.551,
@@ -52,10 +52,10 @@
       "last_price": 41.95,
       "open_price": 41.92,
       "delta_pct": 0.072,
-      "last_checked": "2026-07-14T20:41:23.437808Z",
+      "last_checked": "2026-07-14T23:36:09.772442Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.156,
+      "trend_value": -0.076,
       "last_trend_signal": "none"
     },
     "ISP.MI": {
@@ -63,11 +63,11 @@
       "last_price": 6.346,
       "open_price": 6.28,
       "delta_pct": 1.051,
-      "last_checked": "2026-07-14T20:41:23.792063Z",
+      "last_checked": "2026-07-14T23:36:10.494767Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.512,
-      "last_trend_signal": "up",
+      "trend_value": 0.313,
+      "last_trend_signal": "none",
       "last_trend_alert": "2026-07-14T16:43:53.669946Z"
     },
     "GBS.MI": {
@@ -75,10 +75,10 @@
       "last_price": 325.82,
       "open_price": 322.72,
       "delta_pct": 0.961,
-      "last_checked": "2026-07-14T20:41:24.006263Z",
+      "last_checked": "2026-07-14T23:36:10.998776Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.187,
+      "trend_value": -0.178,
       "last_trend_signal": "none"
     },
     "RO.SW": {
@@ -86,7 +86,7 @@
       "last_price": 333.8,
       "open_price": 334.4,
       "delta_pct": -0.179,
-      "last_checked": "2026-07-14T20:41:21.022453Z",
+      "last_checked": "2026-07-14T23:36:06.935424Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
       "trend_value": -0.304,
@@ -97,10 +97,10 @@
       "last_price": 197.09,
       "open_price": 195.0,
       "delta_pct": 1.072,
-      "last_checked": "2026-07-14T20:41:21.284012Z",
+      "last_checked": "2026-07-14T23:36:07.506256Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.338,
+      "trend_value": -0.207,
       "last_trend_signal": "none"
     },
     "ESGE.PA": {
@@ -108,10 +108,10 @@
       "last_price": 42.375,
       "open_price": 42.1,
       "delta_pct": 0.653,
-      "last_checked": "2026-07-14T20:41:24.222406Z",
+      "last_checked": "2026-07-14T23:36:11.809394Z",
       "baseline_date": "2026-07-14",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.093,
+      "trend_value": -0.053,
       "last_trend_signal": "none"
     }
   }
