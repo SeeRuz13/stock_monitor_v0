@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-07-16T20:14:10.385101Z",
+  "last_updated": "2026-07-16T23:15:48.994419Z",
   "stocks": {
     "RACE.MI": {
       "name": "Ferrari",
       "last_price": 334.05,
       "open_price": 328.15,
       "delta_pct": 1.798,
-      "last_checked": "2026-07-16T20:14:05.527863Z",
+      "last_checked": "2026-07-16T23:15:45.981778Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.126,
+      "trend_value": -0.066,
       "last_trend_signal": "none"
     },
     "CW8.PA": {
@@ -17,10 +17,10 @@
       "last_price": 687.15,
       "open_price": 685.91,
       "delta_pct": 0.181,
-      "last_checked": "2026-07-16T20:14:06.714643Z",
+      "last_checked": "2026-07-16T23:15:46.992715Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.083,
+      "trend_value": 0.065,
       "last_trend_signal": "none"
     },
     "GOOGL": {
@@ -28,7 +28,7 @@
       "last_price": 354.46,
       "open_price": 373.195,
       "delta_pct": -5.02,
-      "last_checked": "2026-07-16T20:14:06.952138Z",
+      "last_checked": "2026-07-16T23:15:47.211406Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": -5.020167875092793,
       "trend_value": -0.013,
@@ -41,7 +41,7 @@
       "last_price": 333.26,
       "open_price": 328.005,
       "delta_pct": 1.602,
-      "last_checked": "2026-07-16T20:14:07.984021Z",
+      "last_checked": "2026-07-16T23:15:47.467282Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 3.110636935551624,
       "trend_value": 1.071,
@@ -54,10 +54,10 @@
       "last_price": 42.08,
       "open_price": 41.14,
       "delta_pct": 2.285,
-      "last_checked": "2026-07-16T20:14:08.489938Z",
+      "last_checked": "2026-07-16T23:15:47.809783Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 2.284886862790697,
-      "trend_value": -0.175,
+      "trend_value": -0.244,
       "last_trend_signal": "none",
       "last_threshold_alert": "2026-07-16T16:52:03.315379Z"
     },
@@ -66,10 +66,10 @@
       "last_price": 6.392,
       "open_price": 6.371,
       "delta_pct": 0.33,
-      "last_checked": "2026-07-16T20:14:09.138147Z",
+      "last_checked": "2026-07-16T23:15:48.193692Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.481,
+      "trend_value": 0.308,
       "last_trend_signal": "none",
       "last_trend_alert": "2026-07-14T16:43:53.669946Z"
     },
@@ -78,10 +78,10 @@
       "last_price": 320.23,
       "open_price": 320.72,
       "delta_pct": -0.153,
-      "last_checked": "2026-07-16T20:14:09.624045Z",
+      "last_checked": "2026-07-16T23:15:48.558248Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.312,
+      "trend_value": -0.147,
       "last_trend_signal": "none"
     },
     "RO.SW": {
@@ -89,10 +89,10 @@
       "last_price": 336.8,
       "open_price": 334.6,
       "delta_pct": 0.657,
-      "last_checked": "2026-07-16T20:14:05.930955Z",
+      "last_checked": "2026-07-16T23:15:46.295831Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.191,
+      "trend_value": -0.19,
       "last_trend_signal": "none"
     },
     "APEX.MI": {
@@ -100,10 +100,10 @@
       "last_price": 194.47,
       "open_price": 195.72,
       "delta_pct": -0.639,
-      "last_checked": "2026-07-16T20:14:06.305955Z",
+      "last_checked": "2026-07-16T23:15:46.702170Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.416,
+      "trend_value": -0.211,
       "last_trend_signal": "none"
     },
     "ESGE.PA": {
@@ -111,10 +111,10 @@
       "last_price": 42.485,
       "open_price": 42.405,
       "delta_pct": 0.189,
-      "last_checked": "2026-07-16T20:14:10.283255Z",
+      "last_checked": "2026-07-16T23:15:48.898366Z",
       "baseline_date": "2026-07-16",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.043,
+      "trend_value": -0.047,
       "last_trend_signal": "none"
     }
   }
