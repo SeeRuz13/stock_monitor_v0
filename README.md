@@ -44,24 +44,7 @@ Nel repo: **Settings → Secrets and variables → Actions → New repository se
 Dopo qualche minuto la dashboard sara' visibile su `https://TUO_USER.github.io/stock-monitor/`.
 Salvatela come collegamento nella home del telefono per accedervi come un'app.
 
-### 5. Completa i due titoli con ISIN da verificare
-
-In `watchlist.json` due voci sono disabilitate (`"enabled": false`) perche' l'ISIN fornito
-non corrisponde in modo univoco a un fondo:
-
-- **Amundi MSCI Asia** (ISIN `LU190068161` — mancante di una cifra)
-- **Amundi MSCI EU** (ISIN `LU1949199711` — non trovato; il piu' simile e' `LU1940199711`,
-  Amundi MSCI Europe ESG Selection)
-
-Verifica l'ISIN esatto sul tuo estratto conto titoli Intesa, cercalo su
-[justetf.com](https://www.justetf.com) o [borsaitaliana.it](https://www.borsaitaliana.it) per
-trovare il ticker Yahoo Finance corretto (es. `XXXX.MI` o `XXXX.PA`), poi aggiorna la voce:
-
-```json
-{ "name": "Amundi MSCI Asia", "ticker": "TICKER_CORRETTO", "isin": "ISIN_CORRETTO", "enabled": true }
-```
-
-### 6. Primo run
+### 5. Primo run
 
 Tab **Actions → Stock monitor → Run workflow**. Apri il log per verificare che non ci siano
 errori, poi controlla che `docs/state.json` sia stato aggiornato e che la dashboard mostri i dati.
@@ -79,25 +62,32 @@ matita per modificare → commit). Ogni voce:
 
 - `threshold_pct` e' opzionale: se omesso usa `default_threshold_pct` (2%) definito in cima al file.
 - Per rimuovere un titolo dal monitoraggio senza cancellarlo: `"enabled": false`.
+- Per aggiungere un nuovo titolo partendo dall'ISIN: cercalo su
+  [justetf.com](https://www.justetf.com) o [borsaitaliana.it](https://www.borsaitaliana.it) per
+  trovare il ticker Yahoo Finance corretto (es. `XXXX.MI` per Milano, `XXXX.PA` per Parigi).
 
 ## Cambiare l'algoritmo di trend
 
-`trend_algorithm.py` contiene l'unico punto da modificare. Al momento implementa una derivata
-filtrata semplice:
+`trend_algorithm.py` contiene l'unico punto da modificare. Al momento implementa **MACD
+filtrato da ADX**, due indicatori tecnici standard:
 
-1. media mobile esponenziale sul prezzo di chiusura (riduce il rumore)
-2. variazione percentuale giorno su giorno della serie smussata (la "derivata")
-3. smussatura anche della derivata, per stabilita'
-4. se supera `rise_threshold_pct_per_day` → segnale "up"; se scende sotto
-   `fall_threshold_pct_per_day` (negativo) → segnale "down"
+1. **MACD** (Moving Average Convergence Divergence): `EMA12 - EMA26` = linea MACD,
+   `EMA9(MACD)` = signal. MACD sopra signal → direzione rialzista, sotto → ribassista.
+2. **ADX** (Average Directional Index, Wilder, 14 periodi): misura la forza del trend
+   (0-100), indipendente dalla direzione. Se ADX è sotto `adx_threshold` (default 25) il
+   mercato è considerato laterale/rumoroso e il segnale MACD viene scartato (`"none"`),
+   anche se ha appena incrociato — questo riduce i falsi positivi rispetto a un semplice
+   incrocio di medie.
 
-Le soglie e la finestra di smoothing sono in `config.json` → `trend_algorithm`. Storico e
-intervallo usati (`3mo`, giornaliero) sono in `config.json` → `market_data`.
+I parametri (`macd_fast`, `macd_slow`, `macd_signal`, `adx_period`, `adx_threshold`) sono in
+`config.json` → `trend_algorithm`. Storico e intervallo usati (`3mo`, giornaliero) sono in
+`config.json` → `market_data`.
 
 Per sostituire l'algoritmo: riscrivi il corpo della funzione `detect_trend(history, params)` in
-`trend_algorithm.py`, mantenendo la stessa firma — riceve un DataFrame pandas con colonna
-`Close` e il dict `params` da `config.json`, deve restituire
-`{"signal": "up"|"down"|"none", "value": <numero>}`. `monitor.py` non richiede nessuna modifica.
+`trend_algorithm.py`, mantenendo la stessa firma — riceve un DataFrame pandas con colonne
+`High`, `Low`, `Close` e il dict `params` da `config.json`, deve restituire
+`{"signal": "up"|"down"|"none", "value": <numero>}` (più eventuali chiavi extra, es. `"adx"`,
+usate solo per arricchire il messaggio di alert in `monitor.py`).
 
 ## Anti-spam degli alert
 

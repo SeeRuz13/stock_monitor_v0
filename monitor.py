@@ -147,12 +147,13 @@ def main():
 
         previous_signal = entry_state.get("last_trend_signal", "none")
         entry_state["trend_value"] = trend["value"]
+        entry_state["trend_adx"] = trend.get("adx", 0.0)
 
         if trend["signal"] != "none" and trend["signal"] != previous_signal:
             label = "rialzista" if trend["signal"] == "up" else "ribassista"
             send_telegram(
                 f"[TREND] {name} ({ticker_symbol}): rilevato trend {label} "
-                f"(derivata filtrata {trend['value']:+.2f}%/giorno)"
+                f"(MACD hist {trend['value']:+.3f}, ADX {trend.get('adx', 0):.1f})"
             )
             entry_state["last_trend_alert"] = datetime.utcnow().isoformat() + "Z"
 
