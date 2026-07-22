@@ -36,7 +36,9 @@ git push -u origin main
 Nel repo: **Settings → Secrets and variables → Actions → New repository secret**
 
 - `TELEGRAM_BOT_TOKEN` — il token di BotFather
-- `TELEGRAM_CHAT_ID` — il chat_id recuperato sopra
+- `TELEGRAM_CHAT_ID` — il chat_id recuperato sopra. Per mandare gli alert anche ad altre
+  persone (stessa watchlist per tutti), metti più chat_id separati da virgola, es.
+  `8010961959,123456789` — vedi "Condividere con altri" più sotto.
 
 ### 4. Abilita GitHub Pages
 
@@ -88,6 +90,22 @@ Per sostituire l'algoritmo: riscrivi il corpo della funzione `detect_trend(histo
 `High`, `Low`, `Close` e il dict `params` da `config.json`, deve restituire
 `{"signal": "up"|"down"|"none", "value": <numero>}` (più eventuali chiavi extra, es. `"adx"`,
 usate solo per arricchire il messaggio di alert in `monitor.py`).
+
+## Condividere con altri
+
+Gli alert vengono mandati a ogni chat_id presente nel secret `TELEGRAM_CHAT_ID` (separati da
+virgola) — stessa watchlist e soglie per tutti, non c'e' personalizzazione per persona. Per
+aggiungere qualcuno:
+
+1. L'amico cerca il bot su Telegram (username scelto al punto 2 del setup) e gli manda un
+   messaggio qualsiasi (es. "ciao") — senza questo passaggio Telegram non permette al bot di
+   scrivergli.
+2. Recupera il suo chat_id aprendo nel browser
+   `https://api.telegram.org/bot<TOKEN>/getUpdates` e cercando il suo `"chat":{"id": ...}`
+   nella risposta (compare dopo che ti ha scritto).
+3. Aggiorna il secret `TELEGRAM_CHAT_ID` su GitHub con la lista completa separata da virgola.
+
+Nessuna modifica al codice necessaria oltre a questo.
 
 ## Anti-spam degli alert
 
