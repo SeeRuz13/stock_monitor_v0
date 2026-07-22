@@ -10,6 +10,9 @@
     { "name": "Generali", "ticker": "G.MI", "enabled": true },
     { "name": "Intesa Sanpaolo", "ticker": "ISP.MI", "enabled": true },
     { "name": "Gold Bullion Securities", "ticker": "GBS.MI", "enabled": true },
-    { "name": "Amundi MSCI EU", "ticker": "ESGE.PA", "isin": "LU1940199711", "enabled": true }
+    { "name": "Amundi MSCI EU", "ticker": "ESGE.PA", "isin": "LU1940199711", "enabled": true },
+    { "name": "Amundi Core Euro Government Bond", "ticker": "EGOV.MI", "isin": "LU1437018598", "enabled": true },
+    { "name": "Amundi S&P 500", "ticker": "A500.MI", "isin": "LU1681048804", "enabled": true },
+    { "name": "Amundi MSCI Emerging Markets", "ticker": "AEEM.MI", "enabled": true }
   ]
 }
