@@ -91,6 +91,42 @@ Per sostituire l'algoritmo: riscrivi il corpo della funzione `detect_trend(histo
 `{"signal": "up"|"down"|"none", "value": <numero>}` (più eventuali chiavi extra, es. `"adx"`,
 usate solo per arricchire il messaggio di alert in `monitor.py`).
 
+## Cambiare l'algoritmo di supporti/resistenze e Fibonacci
+
+`levels_algorithm.py` implementa il terzo check, che genera alert `[LIVELLO]`. Combina due
+tecniche che condividono la stessa base — la ricerca dei **pivot** (massimi/minimi locali
+confermati) sul prezzo storico:
+
+1. **Supporti/resistenze**: i pivot vicini tra loro vengono raggruppati in "zone"; una zona
+   toccata almeno `min_touches` volte diventa un supporto (se sotto il prezzo attuale) o una
+   resistenza (se sopra) — il ruolo si aggiorna da solo ad ogni run confrontando col prezzo
+   attuale, quindi un'inversione supporto↔resistenza avviene automaticamente.
+2. **Fibonacci**: sull'ultimo swing significativo (massimo/minimo pivot più recenti entro
+   `fib_lookback_bars`, non barre grezze) calcola i 5 livelli di ritracciamento standard
+   (23.6/38.2/50/61.8/78.6%).
+
+Quando un supporto/resistenza e un livello Fibonacci coincidono (entro `cluster_tolerance_pct`),
+scatta la **confluenza** — due tecniche indipendenti che indicano lo stesso prezzo, un segnale
+più solido di uno preso da una sola delle due — e compare nel messaggio dell'alert.
+
+Il segnale scatta per "vicinanza" a un livello (`near_support`/`near_resistance`, entro
+`proximity_pct`) o per rottura (`breakout_resistance`/`breakdown_support`, chiusura precedente
+da un lato del livello e prezzo attuale dall'altro). La "vicinanza" usa un'isteresi
+(`hysteresis_factor`) per non generare alert ad ogni run se il prezzo oscilla al margine della
+soglia.
+
+Parametri in `config.json` → `levels_algorithm` (`pivot_window`, `cluster_tolerance_pct`,
+`min_touches`, `max_zones`, `proximity_pct`, `hysteresis_factor`, `fib_lookback_bars`). Usa uno
+storico più lungo (`market_data.levels_history_period`, default 6 mesi) rispetto al trend (3 mesi):
+supporti/resistenze/Fibonacci hanno bisogno di più storia per essere significativi.
+
+Per sostituire l'algoritmo: `detect_levels(history, params, current_price, previous_signal)` in
+`levels_algorithm.py` — firma diversa da `detect_trend` perché qui servono anche il prezzo live
+e il segnale precedente (per l'isteresi). Deve restituire almeno
+`{"signal": "none"|"near_support"|"near_resistance"|"breakout_resistance"|"breakdown_support", "value": <numero>}`,
+più le chiavi extra usate da `monitor.py`/dashboard (`level_price`, `level_label`,
+`nearest_support`, `nearest_resistance`, `fib_levels`, `fib_direction`).
+
 ## Condividere con altri
 
 Gli alert vengono mandati a ogni chat_id presente nel secret `TELEGRAM_CHAT_ID` (separati da
@@ -114,13 +150,17 @@ Nessuna modifica al codice necessaria oltre a questo.
   soglia da li'. La baseline si resetta a inizio di ogni giornata di borsa.
 - **Trend**: manda un alert solo quando il segnale *cambia* (es. da "none" a "up"), non ad ogni
   esecuzione mentre il trend persiste.
+- **Livelli**: come il trend (alert solo al cambio di segnale), con in più un'isteresi sulla
+  soglia di "vicinanza" a un livello, per non generare alert ad ogni run se il prezzo oscilla
+  al margine della soglia (vedi sopra).
 
 ## File
 
 ```
 watchlist.json              titoli monitorati, soglie
-config.json                 parametri storico e algoritmo trend
+config.json                 parametri storico e algoritmi (trend, livelli)
 trend_algorithm.py          algoritmo di trend detection (sostituibile)
+levels_algorithm.py         algoritmo supporti/resistenze + Fibonacci (sostituibile)
 monitor.py                  script principale, gira via GitHub Actions
 docs/index.html             dashboard mobile (GitHub Pages)
 docs/state.json             stato aggiornato ad ogni run (letto dalla dashboard)

@@ -1,7 +1,8 @@
 {
   "market_data": {
     "history_period": "3mo",
-    "history_interval": "1d"
+    "history_interval": "1d",
+    "levels_history_period": "6mo"
   },
   "trend_algorithm": {
     "macd_fast": 12,
@@ -9,5 +10,14 @@
     "macd_signal": 9,
     "adx_period": 14,
     "adx_threshold": 25
+  },
+  "levels_algorithm": {
+    "pivot_window": 5,
+    "cluster_tolerance_pct": 1.5,
+    "min_touches": 2,
+    "max_zones": 3,
+    "proximity_pct": 1.0,
+    "hysteresis_factor": 1.5,
+    "fib_lookback_bars": 60
   }
 }

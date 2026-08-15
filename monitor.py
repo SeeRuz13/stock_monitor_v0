@@ -6,6 +6,7 @@ import requests
 import yfinance as yf
 
 from trend_algorithm import detect_trend
+from levels_algorithm import detect_levels
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCHLIST_PATH = os.path.join(BASE_DIR, "watchlist.json")
@@ -95,6 +96,7 @@ def main():
 
     market_cfg = config.get("market_data", {"history_period": "3mo", "history_interval": "1d"})
     trend_params = config.get("trend_algorithm", {})
+    levels_params = config.get("levels_algorithm", {})
     default_threshold = watchlist.get("default_threshold_pct", 2.0)
     today_str = date.today().isoformat()
 
@@ -159,6 +161,46 @@ def main():
             entry_state["last_trend_alert"] = datetime.utcnow().isoformat() + "Z"
 
         entry_state["last_trend_signal"] = trend["signal"]
+
+        # --- Check 3: supporti/resistenze e Fibonacci ---
+        try:
+            levels_history = fetch_history(
+                ticker_symbol,
+                market_cfg.get("levels_history_period", "6mo"),
+                market_cfg.get("history_interval", "1d"),
+            )
+            previous_level_signal = entry_state.get("last_level_signal", "none")
+            levels = detect_levels(levels_history, levels_params, last_price, previous_level_signal)
+        except Exception as exc:
+            print(f"[{name}] errore nel calcolo livelli: {exc}")
+            previous_level_signal = entry_state.get("last_level_signal", "none")
+            levels = {
+                "signal": "none", "value": 0.0, "level_price": None, "level_type": None,
+                "level_label": "", "touches": None, "confluence": False,
+                "nearest_support": None, "nearest_resistance": None,
+                "fib_levels": None, "fib_direction": None,
+            }
+
+        entry_state["nearest_support"] = levels["nearest_support"]
+        entry_state["nearest_resistance"] = levels["nearest_resistance"]
+        entry_state["fib_levels"] = levels["fib_levels"]
+        entry_state["fib_direction"] = levels["fib_direction"]
+        entry_state["level_signal_value"] = levels["value"]
+
+        if levels["signal"] != "none" and levels["signal"] != previous_level_signal:
+            verb = {
+                "near_support": "vicino al supporto",
+                "near_resistance": "vicino alla resistenza",
+                "breakout_resistance": "ha rotto la resistenza",
+                "breakdown_support": "ha rotto il supporto",
+            }[levels["signal"]]
+            send_telegram(
+                f"[LIVELLO] {name} ({ticker_symbol}): prezzo {last_price:.2f} {verb} "
+                f"{levels['level_price']:.2f} ({levels['value']:+.2f}%) — {levels['level_label']}"
+            )
+            entry_state["last_level_alert"] = datetime.utcnow().isoformat() + "Z"
+
+        entry_state["last_level_signal"] = levels["signal"]
 
     state["last_updated"] = datetime.utcnow().isoformat() + "Z"
     save_json(STATE_PATH, state)

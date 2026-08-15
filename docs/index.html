@@ -44,6 +44,18 @@
   }
   .trend-up { background: rgba(27,138,75,0.15); color: var(--green); }
   .trend-down { background: rgba(192,57,43,0.15); color: var(--red); }
+  .sr-line { color: var(--gray); font-size: 0.72rem; margin-top: 2px; }
+  .level-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 1px 6px;
+    border-radius: 6px;
+    margin-top: 4px;
+    margin-left: 4px;
+  }
+  .level-support { background: rgba(27,138,75,0.15); color: var(--green); }
+  .level-resistance { background: rgba(192,57,43,0.15); color: var(--red); }
+  .level-breakout { background: rgba(41,128,185,0.15); color: #2980b9; }
   #empty { color: var(--gray); }
 </style>
 </head>
@@ -82,12 +94,32 @@
         } else if (s.last_trend_signal === "down") {
           trendTag = '<span class="trend-tag trend-down">trend ribassista</span>';
         }
+
+        let srLine = "";
+        if (s.nearest_support || s.nearest_resistance) {
+          const sup = s.nearest_support ? s.nearest_support.price.toFixed(2) : "-";
+          const res = s.nearest_resistance ? s.nearest_resistance.price.toFixed(2) : "-";
+          srLine = `<div class="sr-line">S ${sup} · R ${res}</div>`;
+        }
+
+        let levelTag = "";
+        if (s.last_level_signal === "near_support") {
+          levelTag = '<span class="level-tag level-support">vicino a supporto</span>';
+        } else if (s.last_level_signal === "near_resistance") {
+          levelTag = '<span class="level-tag level-resistance">vicino a resistenza</span>';
+        } else if (s.last_level_signal === "breakout_resistance") {
+          levelTag = '<span class="level-tag level-breakout">rottura resistenza</span>';
+        } else if (s.last_level_signal === "breakdown_support") {
+          levelTag = '<span class="level-tag level-breakout">rottura supporto</span>';
+        }
+
         return `
           <div class="card">
             <div>
               <div class="name">${s.name || ticker}</div>
               <div class="ticker">${ticker}</div>
-              ${trendTag}
+              ${srLine}
+              ${trendTag}${levelTag}
             </div>
             <div class="price">
               <div>${(s.last_price ?? "-")}</div>
