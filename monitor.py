@@ -68,6 +68,34 @@ def fetch_history(ticker_symbol: str, period: str, interval: str):
     return t.history(period=period, interval=interval)
 
 
+def signal_agreement(trend_signal: str, levels: dict) -> list:
+    """
+    Elenca i segnali indipendenti attualmente in linea sulla stessa direzione.
+    Puramente descrittivo (fatti verificabili sullo stato attuale), non una
+    previsione: 'near_support'/'near_resistance' non contano come conferma
+    direzionale (il prezzo potrebbe rimbalzare o rompere), solo le rotture
+    confermate (breakout/breakdown) e il trend contano come "voti" direzionali;
+    la confluenza pivot+Fibonacci si aggiunge come ulteriore elemento a parte.
+    """
+    votes = []
+    direction = None
+
+    if trend_signal in ("up", "down"):
+        direction = trend_signal
+        votes.append("trend rialzista" if trend_signal == "up" else "trend ribassista")
+
+    levels_signal = levels.get("signal")
+    if levels_signal == "breakout_resistance" and direction in (None, "up"):
+        votes.append("rottura resistenza")
+    elif levels_signal == "breakdown_support" and direction in (None, "down"):
+        votes.append("rottura supporto")
+
+    if levels.get("confluence") and levels_signal != "none":
+        votes.append("confluenza Fibonacci")
+
+    return votes
+
+
 def check_threshold(entry_state, delta_pct, threshold_pct, today_str):
     """Ritorna (alert: bool) e aggiorna entry_state in place."""
     baseline_date = entry_state.get("baseline_date")
@@ -187,6 +215,10 @@ def main():
         entry_state["fib_direction"] = levels["fib_direction"]
         entry_state["level_signal_value"] = levels["value"]
 
+        votes = signal_agreement(trend["signal"], levels)
+        entry_state["signal_agreement_count"] = len(votes)
+        entry_state["signal_agreement_context"] = votes
+
         if levels["signal"] != "none" and levels["signal"] != previous_level_signal:
             verb = {
                 "near_support": "vicino al supporto",
@@ -194,10 +226,13 @@ def main():
                 "breakout_resistance": "ha rotto la resistenza",
                 "breakdown_support": "ha rotto il supporto",
             }[levels["signal"]]
-            send_telegram(
+            message = (
                 f"[LIVELLO] {name} ({ticker_symbol}): prezzo {last_price:.2f} {verb} "
                 f"{levels['level_price']:.2f} ({levels['value']:+.2f}%) — {levels['level_label']}"
             )
+            if votes:
+                message += f"\nContesto: {len(votes)} segnali indipendenti in linea — {', '.join(votes)}"
+            send_telegram(message)
             entry_state["last_level_alert"] = datetime.utcnow().isoformat() + "Z"
 
         entry_state["last_level_signal"] = levels["signal"]
