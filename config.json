@@ -18,6 +18,8 @@
     "max_zones": 3,
     "proximity_pct": 1.0,
     "hysteresis_factor": 1.5,
-    "fib_lookback_bars": 60
+    "fib_lookback_bars": 60,
+    "bollinger_window": 20,
+    "bollinger_std": 2.0
   }
 }

@@ -91,11 +91,11 @@ Per sostituire l'algoritmo: riscrivi il corpo della funzione `detect_trend(histo
 `{"signal": "up"|"down"|"none", "value": <numero>}` (più eventuali chiavi extra, es. `"adx"`,
 usate solo per arricchire il messaggio di alert in `monitor.py`).
 
-## Cambiare l'algoritmo di supporti/resistenze e Fibonacci
+## Cambiare l'algoritmo di supporti/resistenze, Fibonacci e Bollinger
 
-`levels_algorithm.py` implementa il terzo check, che genera alert `[LIVELLO]`. Combina due
-tecniche che condividono la stessa base — la ricerca dei **pivot** (massimi/minimi locali
-confermati) sul prezzo storico:
+`levels_algorithm.py` implementa il terzo check, che genera alert `[LIVELLO]`. Combina tre
+tecniche; le prime due condividono la stessa base — la ricerca dei **pivot** (massimi/minimi
+locali confermati) sul prezzo storico:
 
 1. **Supporti/resistenze**: i pivot vicini tra loro vengono raggruppati in "zone"; una zona
    toccata almeno `min_touches` volte diventa un supporto (se sotto il prezzo attuale) o una
@@ -104,10 +104,16 @@ confermati) sul prezzo storico:
 2. **Fibonacci**: sull'ultimo swing significativo (massimo/minimo pivot più recenti entro
    `fib_lookback_bars`, non barre grezze) calcola i 5 livelli di ritracciamento standard
    (23.6/38.2/50/61.8/78.6%).
+3. **Bollinger Bands** (`bollinger_window` giorni, `bollinger_std` deviazioni standard): non
+   generano un segnale a parte, confermano (o no) una rottura già rilevata dai pivot/Fibonacci.
+   Se una rottura (`breakout_resistance`/`breakdown_support`) coincide con un'uscita dalla banda
+   corrispondente, `volatility_confirmation` diventa `true` — indica che il movimento ha
+   un'espansione di volatilità dietro, non solo un lento superamento della soglia.
 
 Quando un supporto/resistenza e un livello Fibonacci coincidono (entro `cluster_tolerance_pct`),
 scatta la **confluenza** — due tecniche indipendenti che indicano lo stesso prezzo, un segnale
-più solido di uno preso da una sola delle due — e compare nel messaggio dell'alert.
+più solido di uno preso da una sola delle due — e compare nel messaggio dell'alert insieme
+all'eventuale conferma di volatilità.
 
 Il segnale scatta per "vicinanza" a un livello (`near_support`/`near_resistance`, entro
 `proximity_pct`) o per rottura (`breakout_resistance`/`breakdown_support`, chiusura precedente
@@ -116,9 +122,15 @@ da un lato del livello e prezzo attuale dall'altro). La "vicinanza" usa un'ister
 soglia.
 
 Parametri in `config.json` → `levels_algorithm` (`pivot_window`, `cluster_tolerance_pct`,
-`min_touches`, `max_zones`, `proximity_pct`, `hysteresis_factor`, `fib_lookback_bars`). Usa uno
-storico più lungo (`market_data.levels_history_period`, default 6 mesi) rispetto al trend (3 mesi):
-supporti/resistenze/Fibonacci hanno bisogno di più storia per essere significativi.
+`min_touches`, `max_zones`, `proximity_pct`, `hysteresis_factor`, `fib_lookback_bars`,
+`bollinger_window`, `bollinger_std`). Usa uno storico più lungo
+(`market_data.levels_history_period`, default 6 mesi) rispetto al trend (3 mesi): supporti/
+resistenze/Fibonacci hanno bisogno di più storia per essere significativi.
+
+Il messaggio `[LIVELLO]` include anche un riepilogo di **quanti segnali indipendenti concordano**
+in questo momento (trend, rottura confermata, espansione di volatilità, confluenza Fibonacci) —
+è un conteggio di fatti verificabili sullo stato attuale, non una previsione su come andrà il
+titolo (vedi `signal_agreement()` in `monitor.py`).
 
 Per sostituire l'algoritmo: `detect_levels(history, params, current_price, previous_signal)` in
 `levels_algorithm.py` — firma diversa da `detect_trend` perché qui servono anche il prezzo live

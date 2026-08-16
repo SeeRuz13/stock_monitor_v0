@@ -29,15 +29,32 @@ Output: dict con chiavi:
     nearest_resistance:   {"price": ..., "touches": ...} | None
     fib_levels:           dict ratio -> prezzo, o None
     fib_direction:        "uptrend" | "downtrend" | None
+    volatility_confirmation: True se una rottura (breakout/breakdown) coincide con
+                          un'uscita dalla banda di Bollinger corrispondente -
+                          indica che il movimento ha un'espansione di volatilita'
+                          dietro, non solo un lento superamento della soglia.
+                          Sempre False per segnali "near_*" o "none" (si applica
+                          solo a rotture confermate).
+    bollinger_sma/upper/lower: valori correnti delle bande (media mobile 20gg
+                          +/- 2 deviazioni standard), o None se storico insufficiente
 
 Logica: pivot (massimi/minimi locali confermati) -> clustering in zone di
 supporto/resistenza per tocchi; stessi pivot usati per lo swing Fibonacci piu'
 recente. Segnale di "rottura" ha priorita' su "vicinanza"; isteresi sulla soglia
 di vicinanza per non generare alert ad ogni run mentre il prezzo oscilla al
-margine della soglia.
+margine della soglia. Le Bollinger Bands non generano un segnale a parte: si
+limitano a confermare (o no) una rottura gia' rilevata dai pivot/Fibonacci.
 """
 
 import pandas as pd
+
+
+def _bollinger_bands(close: pd.Series, window: int, num_std: float):
+    sma = close.rolling(window).mean()
+    std = close.rolling(window).std()
+    upper = sma + num_std * std
+    lower = sma - num_std * std
+    return sma, upper, lower
 
 
 def _find_pivots(history: pd.DataFrame, window: int):
@@ -124,6 +141,10 @@ def _empty_result():
         "nearest_resistance": None,
         "fib_levels": None,
         "fib_direction": None,
+        "volatility_confirmation": False,
+        "bollinger_sma": None,
+        "bollinger_upper": None,
+        "bollinger_lower": None,
     }
 
 
@@ -135,6 +156,8 @@ def detect_levels(history: pd.DataFrame, params: dict, current_price: float, pre
     proximity_pct = params.get("proximity_pct", 1.0)
     hysteresis_factor = params.get("hysteresis_factor", 1.5)
     fib_lookback_bars = params.get("fib_lookback_bars", 60)
+    bollinger_window = params.get("bollinger_window", 20)
+    bollinger_std = params.get("bollinger_std", 2.0)
 
     if len(history) < 2 * window + 1 or current_price is None:
         return _empty_result()
@@ -165,11 +188,19 @@ def detect_levels(history: pd.DataFrame, params: dict, current_price: float, pre
         for ratio, price in fib_levels.items():
             candidates.append({"price": price, "type": "fibonacci", "touches": None, "ratio": ratio})
 
+    bb_sma, bb_upper, bb_lower = _bollinger_bands(history["Close"], bollinger_window, bollinger_std)
+    latest_bb_sma = float(bb_sma.iloc[-1]) if pd.notna(bb_sma.iloc[-1]) else None
+    latest_bb_upper = float(bb_upper.iloc[-1]) if pd.notna(bb_upper.iloc[-1]) else None
+    latest_bb_lower = float(bb_lower.iloc[-1]) if pd.notna(bb_lower.iloc[-1]) else None
+
     result = _empty_result()
     result["nearest_support"] = nearest_support
     result["nearest_resistance"] = nearest_resistance
     result["fib_levels"] = fib_levels
     result["fib_direction"] = fib_direction
+    result["bollinger_sma"] = round(latest_bb_sma, 4) if latest_bb_sma is not None else None
+    result["bollinger_upper"] = round(latest_bb_upper, 4) if latest_bb_upper is not None else None
+    result["bollinger_lower"] = round(latest_bb_lower, 4) if latest_bb_lower is not None else None
 
     if len(history) < 2:
         return result
@@ -200,6 +231,15 @@ def detect_levels(history: pd.DataFrame, params: dict, current_price: float, pre
         cand, signal = breakout_candidates[0]
         confluence, label = label_for(cand)
         distance_pct = (current_price - cand["price"]) / cand["price"] * 100
+
+        volatility_confirmation = False
+        if signal == "breakout_resistance" and latest_bb_upper is not None:
+            volatility_confirmation = current_price > latest_bb_upper
+        elif signal == "breakdown_support" and latest_bb_lower is not None:
+            volatility_confirmation = current_price < latest_bb_lower
+        if volatility_confirmation:
+            label += " + espansione volatilita' (Bollinger)"
+
         result.update(
             {
                 "signal": signal,
@@ -209,6 +249,7 @@ def detect_levels(history: pd.DataFrame, params: dict, current_price: float, pre
                 "level_label": label,
                 "touches": cand["touches"],
                 "confluence": confluence,
+                "volatility_confirmation": volatility_confirmation,
             }
         )
         return result

@@ -85,10 +85,16 @@ def signal_agreement(trend_signal: str, levels: dict) -> list:
         votes.append("trend rialzista" if trend_signal == "up" else "trend ribassista")
 
     levels_signal = levels.get("signal")
+    breakout_counted = False
     if levels_signal == "breakout_resistance" and direction in (None, "up"):
         votes.append("rottura resistenza")
+        breakout_counted = True
     elif levels_signal == "breakdown_support" and direction in (None, "down"):
         votes.append("rottura supporto")
+        breakout_counted = True
+
+    if breakout_counted and levels.get("volatility_confirmation"):
+        votes.append("espansione di volatilità (Bollinger)")
 
     if levels.get("confluence") and levels_signal != "none":
         votes.append("confluenza Fibonacci")
@@ -207,6 +213,8 @@ def main():
                 "level_label": "", "touches": None, "confluence": False,
                 "nearest_support": None, "nearest_resistance": None,
                 "fib_levels": None, "fib_direction": None,
+                "volatility_confirmation": False,
+                "bollinger_sma": None, "bollinger_upper": None, "bollinger_lower": None,
             }
 
         entry_state["nearest_support"] = levels["nearest_support"]
@@ -214,6 +222,9 @@ def main():
         entry_state["fib_levels"] = levels["fib_levels"]
         entry_state["fib_direction"] = levels["fib_direction"]
         entry_state["level_signal_value"] = levels["value"]
+        entry_state["bollinger_sma"] = levels.get("bollinger_sma")
+        entry_state["bollinger_upper"] = levels.get("bollinger_upper")
+        entry_state["bollinger_lower"] = levels.get("bollinger_lower")
 
         votes = signal_agreement(trend["signal"], levels)
         entry_state["signal_agreement_count"] = len(votes)
