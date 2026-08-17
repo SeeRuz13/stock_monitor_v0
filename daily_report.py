@@ -108,57 +108,68 @@ def sr_label(s: dict) -> str:
 
 
 def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: str):
+    """
+    Formato verticale a "card", una per titolo, pensato per essere aperto e
+    scorso su telefono (nessuna tabella larga da zoomare in orizzontale).
+    """
     tickers = sorted(state.get("stocks", {}).keys(), key=lambda t: state["stocks"][t].get("name", t))
-    all_dates = sorted({d["date"] for t in tickers for d in log.get(t, {}).get("days", [])})
-    shown_dates = all_dates[-max_days:]
 
-    pdf = FPDF(orientation="L", unit="mm", format="A3")
-    pdf.set_auto_page_break(auto=True, margin=10)
+    pdf = FPDF(orientation="P", unit="mm", format="A4")
+    pdf.set_auto_page_break(auto=True, margin=14)
+    pdf.set_left_margin(12)
+    pdf.set_right_margin(12)
     pdf.add_page()
+    content_width = pdf.w - pdf.l_margin - pdf.r_margin
 
-    pdf.set_font("Helvetica", "B", 14)
-    pdf.cell(0, 10, f"Stock Monitor - Report giornaliero {today_str}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.set_font("Helvetica", "", 8)
-    pdf.cell(
-        0, 6,
-        f"Chiusure storiche: ultimi {len(shown_dates)} giorni monitorati (dati completi in daily_log.json)",
-        new_x=XPos.LMARGIN, new_y=YPos.NEXT,
-    )
-    pdf.ln(2)
+    pdf.set_font("Helvetica", "B", 15)
+    pdf.multi_cell(content_width, 8, f"Stock Monitor - Report {today_str}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.set_font("Helvetica", "", 9)
+    pdf.set_text_color(110, 110, 110)
+    pdf.multi_cell(content_width, 5, "Chiusure giornaliere e badge attuali, un titolo per blocco.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.set_text_color(0, 0, 0)
+    pdf.ln(3)
 
-    headers = ["Titolo", "Prezzo", "D oggi %", "S / R", "Badge", "Segnali"] + shown_dates
-    col_widths = [46, 16, 14, 26, 55, 12] + [16] * len(shown_dates)
-
-    pdf.set_font("Helvetica", "B", 7)
-    pdf.set_fill_color(225, 225, 220)
-    for h, w in zip(headers, col_widths):
-        pdf.cell(w, 7, h, border=1, fill=True, align="C")
-    pdf.ln()
-
-    pdf.set_font("Helvetica", "", 7)
     for t in tickers:
         s = state["stocks"][t]
-        name = (s.get("name") or t)[:30]
+        name = s.get("name") or t
         price = s.get("last_price")
         delta = s.get("delta_pct")
+        days = sorted(log.get(t, {}).get("days", []), key=lambda d: d["date"])[-max_days:]
 
-        row = [
-            name,
-            f"{price:.2f}" if price is not None else "-",
-            f"{delta:+.2f}" if delta is not None else "-",
-            sr_label(s),
-            badge_label(s)[:38],
-            str(s.get("signal_agreement_count", 0)),
-        ]
-        days_by_date = {d["date"]: d for d in log.get(t, {}).get("days", [])}
-        for dt in shown_dates:
-            d = days_by_date.get(dt)
-            close = d.get("close") if d else None
-            row.append(f"{close:.2f}" if close is not None else "-")
+        pdf.set_font("Helvetica", "B", 12)
+        pdf.multi_cell(content_width, 6.5, f"{name}  ({t})", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
-        for val, w in zip(row, col_widths):
-            pdf.cell(w, 6, str(val), border=1)
-        pdf.ln()
+        pdf.set_font("Helvetica", "", 10)
+        price_line = f"Prezzo: {price:.2f}" if price is not None else "Prezzo: -"
+        if delta is not None:
+            price_line += f"   Delta oggi: {delta:+.2f}%"
+        pdf.multi_cell(content_width, 5.5, price_line, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.multi_cell(content_width, 5.5, f"S / R: {sr_label(s)}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+        badge = badge_label(s)
+        pdf.multi_cell(content_width, 5.5, f"Badge: {badge}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+        count = s.get("signal_agreement_count", 0)
+        context = s.get("signal_agreement_context") or []
+        agreement_line = f"Segnali concordanti: {count}"
+        if context:
+            agreement_line += f" - {', '.join(context)}"
+        pdf.multi_cell(content_width, 5.5, agreement_line, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+        pdf.set_font("Helvetica", "", 9)
+        pdf.set_text_color(90, 90, 90)
+        if days:
+            history_txt = ", ".join(f"{d['date'][5:]}: {d['close']:.2f}" for d in days if d.get("close") is not None)
+            pdf.multi_cell(content_width, 5, f"Storico: {history_txt}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        else:
+            pdf.multi_cell(content_width, 5, "Storico: nessun dato ancora accumulato", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.set_text_color(0, 0, 0)
+
+        pdf.ln(1.5)
+        y = pdf.get_y()
+        pdf.set_draw_color(210, 210, 210)
+        pdf.line(pdf.l_margin, y, pdf.w - pdf.r_margin, y)
+        pdf.ln(4)
 
     pdf.output(out_path)
 
