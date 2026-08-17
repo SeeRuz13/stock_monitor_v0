@@ -21,5 +21,9 @@
     "fib_lookback_bars": 60,
     "bollinger_window": 20,
     "bollinger_std": 2.0
+  },
+  "daily_report": {
+    "enabled": true,
+    "max_days_shown": 10
   }
 }

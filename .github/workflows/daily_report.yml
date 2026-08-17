@@ -1,0 +1,41 @@
+name: Daily report
+
+on:
+  schedule:
+    # una volta al giorno, lun-ven, alle 21:15 UTC - dopo l'ultimo run di
+    # monitor.yml (21:00) e dopo la chiusura di tutti i mercati coperti
+    # (Milano, Zurigo, Parigi, USA)
+    - cron: "15 21 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run daily report
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python daily_report.py
+
+      - name: Commit updated daily log
+        run: |
+          git config user.name "stock-monitor-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/daily_log.json
+          git diff --cached --quiet || git commit -m "Aggiorna log giornaliero"
+          git push

@@ -139,6 +139,29 @@ e il segnale precedente (per l'isteresi). Deve restituire almeno
 più le chiavi extra usate da `monitor.py`/dashboard (`level_price`, `level_label`,
 `nearest_support`, `nearest_resistance`, `fib_levels`, `fib_direction`).
 
+## Report giornaliero PDF (validazione delle formule nel tempo)
+
+`daily_report.py` gira **una volta al giorno** (cron separato, `.github/workflows/daily_report.yml`,
+21:15 UTC nei giorni di borsa — un quarto d'ora dopo l'ultimo run regolare) e fa due cose:
+
+1. Aggiunge una riga a `docs/daily_log.json` per ogni titolo: data, prezzo di chiusura, badge
+   trend/livello, segnali concordanti di quel giorno. È un file che **cresce nel tempo** (mai
+   sovrascritto, un giorno alla volta) — pensato per poter verificare col tempo se i badge del
+   sistema hanno anticipato davvero i movimenti successivi, non solo per consultazione immediata.
+2. Genera un PDF con la tabella (titolo, prezzo, delta oggi, S/R, badge, segnali concordanti, più
+   una colonna per ciascuno degli ultimi `max_days_shown` giorni accumulati) e lo manda come
+   allegato via Telegram (stesso bot degli alert, `sendDocument`).
+
+Il PDF mostra solo gli ultimi `max_days_shown` giorni (default 10) per restare leggibile — lo
+storico completo resta comunque tutto in `docs/daily_log.json`, anche quando cresce oltre quella
+finestra.
+
+**Per fermarlo**: `config.json` → `daily_report` → `"enabled": false` (lo script esce subito senza
+fare nulla), oppure disabilita il workflow da GitHub: **Actions → Daily report → ⋯ → Disable
+workflow**.
+
+Parametri in `config.json` → `daily_report` (`enabled`, `max_days_shown`).
+
 ## Condividere con altri
 
 Gli alert vengono mandati a ogni chat_id presente nel secret `TELEGRAM_CHAT_ID` (separati da
@@ -170,11 +193,14 @@ Nessuna modifica al codice necessaria oltre a questo.
 
 ```
 watchlist.json              titoli monitorati, soglie
-config.json                 parametri storico e algoritmi (trend, livelli)
+config.json                 parametri storico e algoritmi (trend, livelli, report)
 trend_algorithm.py          algoritmo di trend detection (sostituibile)
 levels_algorithm.py         algoritmo supporti/resistenze + Fibonacci (sostituibile)
-monitor.py                  script principale, gira via GitHub Actions
+monitor.py                  script principale, gira via GitHub Actions ogni 15 min
+daily_report.py             accumulo storico + PDF giornaliero via Telegram
 docs/index.html             dashboard mobile (GitHub Pages)
 docs/state.json             stato aggiornato ad ogni run (letto dalla dashboard)
-.github/workflows/monitor.yml   cron GitHub Actions
+docs/daily_log.json         storico giornaliero cumulativo (letto da daily_report.py)
+.github/workflows/monitor.yml        cron GitHub Actions ogni 15 min
+.github/workflows/daily_report.yml   cron GitHub Actions una volta al giorno
 ```
