@@ -18,6 +18,10 @@ from datetime import date
 import requests
 from fpdf import FPDF, XPos, YPos
 
+GREEN = (30, 130, 70)
+RED = (180, 50, 50)
+BLACK = (0, 0, 0)
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCHLIST_PATH = os.path.join(BASE_DIR, "watchlist.json")
 CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
@@ -167,11 +171,17 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
         pdf.multi_cell(left_w, 6.5, f"{name}  ({t})", new_x=XPos.LEFT, new_y=YPos.NEXT)
 
         pdf.set_font("Helvetica", "", 10)
-        price_line = f"Prezzo: {price:.2f}" if price is not None else "Prezzo: -"
-        if delta is not None:
-            price_line += f"  Delta oggi: {delta:+.2f}%"
         pdf.set_x(left_x)
-        pdf.multi_cell(left_w, 5.5, price_line, new_x=XPos.LEFT, new_y=YPos.NEXT)
+        price_txt = f"Prezzo: {price:.2f}" if price is not None else "Prezzo: -"
+        pdf.set_text_color(*BLACK)
+        w_price = pdf.get_string_width(price_txt) + 2
+        pdf.cell(w_price, 5.5, price_txt)
+        if delta is not None:
+            pdf.set_text_color(*(GREEN if delta >= 0 else RED))
+            pdf.cell(left_w - w_price, 5.5, f"  Delta oggi: {delta:+.2f}%", new_x=XPos.LEFT, new_y=YPos.NEXT)
+            pdf.set_text_color(*BLACK)
+        else:
+            pdf.ln(5.5)
         pdf.set_x(left_x)
         pdf.multi_cell(left_w, 5.5, f"S / R: {sr_label(s)}", new_x=XPos.LEFT, new_y=YPos.NEXT)
         pdf.set_x(left_x)
@@ -180,22 +190,43 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
         pdf.multi_cell(left_w, 5.5, agreement_line, new_x=XPos.LEFT, new_y=YPos.NEXT)
         left_bottom_y = pdf.get_y()
 
-        # --- colonna destra: prezzi storici ---
+        # --- colonna destra: prezzi storici in tabella, celle colorate su su/giu' ---
         pdf.set_xy(right_x, start_y)
         pdf.set_font("Helvetica", "B", 10)
         pdf.multi_cell(right_w, 5.5, "Storico", new_x=XPos.LEFT, new_y=YPos.NEXT)
-        pdf.set_font("Helvetica", "", 9)
-        pdf.set_text_color(90, 90, 90)
+
+        date_col_w = right_w * 0.55
+        price_col_w = right_w - date_col_w
+
+        pdf.set_font("Helvetica", "B", 8)
+        pdf.set_fill_color(228, 228, 222)
+        pdf.set_text_color(*BLACK)
+        pdf.set_x(right_x)
+        pdf.cell(date_col_w, 5.5, "Data", border=1, fill=True, align="C")
+        pdf.cell(price_col_w, 5.5, "Prezzo", border=1, fill=True, align="C", new_x=XPos.LEFT, new_y=YPos.NEXT)
+
+        pdf.set_font("Helvetica", "", 8)
         if days:
+            prev_close = None
             for d in days:
-                pdf.set_x(right_x)
                 close = d.get("close")
-                close_txt = f"{close:.2f}" if close is not None else "-"
-                pdf.multi_cell(right_w, 5, f"{d['date']}: {close_txt}", new_x=XPos.LEFT, new_y=YPos.NEXT)
+                pdf.set_x(right_x)
+                pdf.set_text_color(*BLACK)
+                pdf.cell(date_col_w, 5, d["date"], border=1, align="C")
+                if close is not None:
+                    color = BLACK if prev_close is None else (GREEN if close >= prev_close else RED)
+                    pdf.set_text_color(*color)
+                    pdf.cell(price_col_w, 5, f"{close:.2f}", border=1, align="C", new_x=XPos.LEFT, new_y=YPos.NEXT)
+                    prev_close = close
+                else:
+                    pdf.set_text_color(*BLACK)
+                    pdf.cell(price_col_w, 5, "-", border=1, align="C", new_x=XPos.LEFT, new_y=YPos.NEXT)
         else:
             pdf.set_x(right_x)
-            pdf.multi_cell(right_w, 5, "nessun dato ancora", new_x=XPos.LEFT, new_y=YPos.NEXT)
-        pdf.set_text_color(0, 0, 0)
+            pdf.set_text_color(*BLACK)
+            pdf.cell(date_col_w, 5, "-", border=1, align="C")
+            pdf.cell(price_col_w, 5, "-", border=1, align="C", new_x=XPos.LEFT, new_y=YPos.NEXT)
+        pdf.set_text_color(*BLACK)
         right_bottom_y = pdf.get_y()
 
         next_y = max(left_bottom_y, right_bottom_y) + 1.5
