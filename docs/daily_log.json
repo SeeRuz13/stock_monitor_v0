@@ -1,1 +1,179 @@
-{}
+{
+  "RACE.MI": {
+    "name": "Ferrari",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 361.65,
+        "trend_signal": "up",
+        "level_signal": "none",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend rialzista"
+        ]
+      }
+    ]
+  },
+  "CW8.PA": {
+    "name": "Amundi MSCI World",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 700.14,
+        "trend_signal": "none",
+        "level_signal": "none",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "GOOGL": {
+    "name": "Alphabet",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 344.0,
+        "trend_signal": "none",
+        "level_signal": "near_support",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "AAPL": {
+    "name": "Apple",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 305.59,
+        "trend_signal": "none",
+        "level_signal": "none",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "G.MI": {
+    "name": "Generali",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 43.71,
+        "trend_signal": "down",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend ribassista"
+        ]
+      }
+    ]
+  },
+  "ISP.MI": {
+    "name": "Intesa Sanpaolo",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 6.885,
+        "trend_signal": "up",
+        "level_signal": "none",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend rialzista"
+        ]
+      }
+    ]
+  },
+  "GBS.MI": {
+    "name": "Gold Bullion Securities",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 348.79,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "RO.SW": {
+    "name": "Roche",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 362.8,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "APEX.MI": {
+    "name": "Amundi MSCI Asia",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 203.07,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "ESGE.PA": {
+    "name": "Amundi MSCI EU",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 42.675,
+        "trend_signal": "none",
+        "level_signal": "near_support",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "EGOV.MI": {
+    "name": "Amundi Core Euro Government Bond",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 49.155,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "confluenza Fibonacci"
+        ]
+      }
+    ]
+  },
+  "A500.MI": {
+    "name": "Amundi S&P 500",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 134.07,
+        "trend_signal": "none",
+        "level_signal": "near_support",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  },
+  "AEEM.MI": {
+    "name": "Amundi MSCI Emerging Markets",
+    "days": [
+      {
+        "date": "2026-08-17",
+        "close": 7.763,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      }
+    ]
+  }
+}
