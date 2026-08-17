@@ -16,7 +16,7 @@ import os
 from datetime import date
 
 import requests
-from fpdf import FPDF
+from fpdf import FPDF, XPos, YPos
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCHLIST_PATH = os.path.join(BASE_DIR, "watchlist.json")
@@ -117,9 +117,13 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
     pdf.add_page()
 
     pdf.set_font("Helvetica", "B", 14)
-    pdf.cell(0, 10, f"Stock Monitor - Report giornaliero {today_str}", ln=1)
+    pdf.cell(0, 10, f"Stock Monitor - Report giornaliero {today_str}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_font("Helvetica", "", 8)
-    pdf.cell(0, 6, f"Chiusure storiche: ultimi {len(shown_dates)} giorni monitorati (dati completi in daily_log.json)", ln=1)
+    pdf.cell(
+        0, 6,
+        f"Chiusure storiche: ultimi {len(shown_dates)} giorni monitorati (dati completi in daily_log.json)",
+        new_x=XPos.LMARGIN, new_y=YPos.NEXT,
+    )
     pdf.ln(2)
 
     headers = ["Titolo", "Prezzo", "D oggi %", "S / R", "Badge", "Segnali"] + shown_dates
