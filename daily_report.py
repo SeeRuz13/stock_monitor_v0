@@ -129,6 +129,13 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
     pdf.set_text_color(0, 0, 0)
     pdf.ln(3)
 
+    left_w = content_width * 0.60
+    gap = content_width * 0.04
+    right_w = content_width * 0.36
+    left_x = pdf.l_margin
+    right_x = left_x + left_w + gap
+    page_break_y = pdf.h - pdf.b_margin
+
     for t in tickers:
         s = state["stocks"][t]
         name = s.get("name") or t
@@ -136,40 +143,66 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
         delta = s.get("delta_pct")
         days = sorted(log.get(t, {}).get("days", []), key=lambda d: d["date"])[-max_days:]
 
-        pdf.set_font("Helvetica", "B", 12)
-        pdf.multi_cell(content_width, 6.5, f"{name}  ({t})", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-
-        pdf.set_font("Helvetica", "", 10)
-        price_line = f"Prezzo: {price:.2f}" if price is not None else "Prezzo: -"
-        if delta is not None:
-            price_line += f"   Delta oggi: {delta:+.2f}%"
-        pdf.multi_cell(content_width, 5.5, price_line, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.multi_cell(content_width, 5.5, f"S / R: {sr_label(s)}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-
+        # stima altezza necessaria per decidere se serve un salto pagina prima di iniziare la card
         badge = badge_label(s)
-        pdf.multi_cell(content_width, 5.5, f"Badge: {badge}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-
         count = s.get("signal_agreement_count", 0)
         context = s.get("signal_agreement_context") or []
         agreement_line = f"Segnali concordanti: {count}"
         if context:
             agreement_line += f" - {', '.join(context)}"
-        pdf.multi_cell(content_width, 5.5, agreement_line, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
+        est_left_lines = 1 + 1 + 1 + (2 if len(badge) > 45 else 1) + (2 if len(agreement_line) > 45 else 1)
+        est_left_h = 6.5 + est_left_lines * 5.5
+        est_right_h = 6 + max(1, len(days)) * 5
+        card_h = max(est_left_h, est_right_h) + 6
+
+        if pdf.get_y() + card_h > page_break_y:
+            pdf.add_page()
+
+        start_y = pdf.get_y()
+
+        # --- colonna sinistra: tutte le info ---
+        pdf.set_xy(left_x, start_y)
+        pdf.set_font("Helvetica", "B", 12)
+        pdf.multi_cell(left_w, 6.5, f"{name}  ({t})", new_x=XPos.LEFT, new_y=YPos.NEXT)
+
+        pdf.set_font("Helvetica", "", 10)
+        price_line = f"Prezzo: {price:.2f}" if price is not None else "Prezzo: -"
+        if delta is not None:
+            price_line += f"  Delta oggi: {delta:+.2f}%"
+        pdf.set_x(left_x)
+        pdf.multi_cell(left_w, 5.5, price_line, new_x=XPos.LEFT, new_y=YPos.NEXT)
+        pdf.set_x(left_x)
+        pdf.multi_cell(left_w, 5.5, f"S / R: {sr_label(s)}", new_x=XPos.LEFT, new_y=YPos.NEXT)
+        pdf.set_x(left_x)
+        pdf.multi_cell(left_w, 5.5, f"Badge: {badge}", new_x=XPos.LEFT, new_y=YPos.NEXT)
+        pdf.set_x(left_x)
+        pdf.multi_cell(left_w, 5.5, agreement_line, new_x=XPos.LEFT, new_y=YPos.NEXT)
+        left_bottom_y = pdf.get_y()
+
+        # --- colonna destra: prezzi storici ---
+        pdf.set_xy(right_x, start_y)
+        pdf.set_font("Helvetica", "B", 10)
+        pdf.multi_cell(right_w, 5.5, "Storico", new_x=XPos.LEFT, new_y=YPos.NEXT)
         pdf.set_font("Helvetica", "", 9)
         pdf.set_text_color(90, 90, 90)
         if days:
-            history_txt = ", ".join(f"{d['date'][5:]}: {d['close']:.2f}" for d in days if d.get("close") is not None)
-            pdf.multi_cell(content_width, 5, f"Storico: {history_txt}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            for d in days:
+                pdf.set_x(right_x)
+                close = d.get("close")
+                close_txt = f"{close:.2f}" if close is not None else "-"
+                pdf.multi_cell(right_w, 5, f"{d['date']}: {close_txt}", new_x=XPos.LEFT, new_y=YPos.NEXT)
         else:
-            pdf.multi_cell(content_width, 5, "Storico: nessun dato ancora accumulato", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            pdf.set_x(right_x)
+            pdf.multi_cell(right_w, 5, "nessun dato ancora", new_x=XPos.LEFT, new_y=YPos.NEXT)
         pdf.set_text_color(0, 0, 0)
+        right_bottom_y = pdf.get_y()
 
-        pdf.ln(1.5)
-        y = pdf.get_y()
+        next_y = max(left_bottom_y, right_bottom_y) + 1.5
+        pdf.set_xy(left_x, next_y)
         pdf.set_draw_color(210, 210, 210)
-        pdf.line(pdf.l_margin, y, pdf.w - pdf.r_margin, y)
-        pdf.ln(4)
+        pdf.line(pdf.l_margin, next_y, pdf.w - pdf.r_margin, next_y)
+        pdf.set_xy(left_x, next_y + 4)
 
     pdf.output(out_path)
 

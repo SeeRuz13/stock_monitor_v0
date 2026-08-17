@@ -3,6 +3,14 @@
     "name": "Ferrari",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 356.8,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 361.65,
         "trend_signal": "up",
@@ -18,6 +26,14 @@
     "name": "Amundi MSCI World",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 700.98,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 700.14,
         "trend_signal": "none",
@@ -30,6 +46,14 @@
   "GOOGL": {
     "name": "Alphabet",
     "days": [
+      {
+        "date": "2026-08-14",
+        "close": 345.9,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
       {
         "date": "2026-08-17",
         "close": 344.0,
@@ -44,6 +68,14 @@
     "name": "Apple",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 305.93,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 305.59,
         "trend_signal": "none",
@@ -56,6 +88,14 @@
   "G.MI": {
     "name": "Generali",
     "days": [
+      {
+        "date": "2026-08-14",
+        "close": 44.06,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
       {
         "date": "2026-08-17",
         "close": 43.71,
@@ -72,6 +112,14 @@
     "name": "Intesa Sanpaolo",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 6.917,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 6.885,
         "trend_signal": "up",
@@ -87,6 +135,14 @@
     "name": "Gold Bullion Securities",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 345.66,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 348.79,
         "trend_signal": "none",
@@ -99,6 +155,14 @@
   "RO.SW": {
     "name": "Roche",
     "days": [
+      {
+        "date": "2026-08-14",
+        "close": 361.8,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
       {
         "date": "2026-08-17",
         "close": 362.8,
@@ -113,6 +177,14 @@
     "name": "Amundi MSCI Asia",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 198.55,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 203.07,
         "trend_signal": "none",
@@ -126,6 +198,14 @@
     "name": "Amundi MSCI EU",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 42.74,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 42.675,
         "trend_signal": "none",
@@ -138,6 +218,14 @@
   "EGOV.MI": {
     "name": "Amundi Core Euro Government Bond",
     "days": [
+      {
+        "date": "2026-08-14",
+        "close": 49.205,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
       {
         "date": "2026-08-17",
         "close": 49.155,
@@ -154,6 +242,14 @@
     "name": "Amundi S&P 500",
     "days": [
       {
+        "date": "2026-08-14",
+        "close": 134.26,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
+      {
         "date": "2026-08-17",
         "close": 134.07,
         "trend_signal": "none",
@@ -166,6 +262,14 @@
   "AEEM.MI": {
     "name": "Amundi MSCI Emerging Markets",
     "days": [
+      {
+        "date": "2026-08-14",
+        "close": 7.623,
+        "trend_signal": null,
+        "level_signal": null,
+        "signal_agreement_count": null,
+        "signal_agreement_context": null
+      },
       {
         "date": "2026-08-17",
         "close": 7.763,
