@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-08-25T15:00:08.242820Z",
+  "last_updated": "2026-08-25T15:41:06.982244Z",
   "stocks": {
     "RACE.MI": {
       "name": "Ferrari",
-      "last_price": 362.1,
+      "last_price": 362.15,
       "open_price": 362.5,
-      "delta_pct": -0.11,
-      "last_checked": "2026-08-25T15:00:01.229216Z",
+      "delta_pct": -0.097,
+      "last_checked": "2026-08-25T15:40:59.912599Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": -0.11034314385775862,
-      "trend_value": 0.398,
+      "trend_value": 0.401,
       "last_trend_signal": "up",
       "trend_adx": 40.2,
       "last_threshold_alert": "2026-08-25T15:00:01.639853Z",
@@ -33,19 +33,19 @@
       "signal_agreement_context": [
         "trend rialzista"
       ],
-      "bollinger_sma": 353.73,
-      "bollinger_upper": 370.7655,
-      "bollinger_lower": 336.6945
+      "bollinger_sma": 353.7375,
+      "bollinger_upper": 370.7886,
+      "bollinger_lower": 336.6864
     },
     "CW8.PA": {
       "name": "Amundi MSCI World",
-      "last_price": 687.53,
+      "last_price": 687.98,
       "open_price": 689.07,
-      "delta_pct": -0.223,
-      "last_checked": "2026-08-25T15:00:03.421548Z",
+      "delta_pct": -0.158,
+      "last_checked": "2026-08-25T15:41:01.544961Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": -1.66,
+      "trend_value": -1.631,
       "last_trend_signal": "none",
       "trend_adx": 18.4,
       "nearest_support": {
@@ -61,26 +61,26 @@
         "0.786": 665.653
       },
       "fib_direction": "uptrend",
-      "level_signal_value": 0.084,
+      "level_signal_value": 0.15,
       "last_level_signal": "near_support",
       "signal_agreement_count": 1,
       "signal_agreement_context": [
         "confluenza Fibonacci"
       ],
-      "bollinger_sma": 691.759,
-      "bollinger_upper": 710.7453,
-      "bollinger_lower": 672.7727,
+      "bollinger_sma": 691.7815,
+      "bollinger_upper": 710.7478,
+      "bollinger_lower": 672.8152,
       "last_level_alert": "2026-08-25T07:33:22.531463Z"
     },
     "GOOGL": {
       "name": "Alphabet",
-      "last_price": 346.14,
+      "last_price": 346.955,
       "open_price": 349.375,
-      "delta_pct": -0.926,
-      "last_checked": "2026-08-25T15:00:03.825811Z",
+      "delta_pct": -0.693,
+      "last_checked": "2026-08-25T15:41:02.059172Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.043,
+      "trend_value": 0.009,
       "last_trend_signal": "none",
       "last_threshold_alert": "2026-08-24T16:03:24.480564Z",
       "last_trend_alert": "2026-07-16T16:52:01.778849Z",
@@ -101,30 +101,30 @@
         "0.786": 329.7901
       },
       "fib_direction": "uptrend",
-      "level_signal_value": -0.74,
+      "level_signal_value": -0.506,
       "last_level_alert": "2026-08-24T20:28:07.396355Z",
       "last_level_signal": "near_resistance",
       "signal_agreement_count": 1,
       "signal_agreement_context": [
         "confluenza Fibonacci"
       ],
-      "bollinger_sma": 350.0945,
-      "bollinger_upper": 372.7033,
-      "bollinger_lower": 327.4857
+      "bollinger_sma": 350.1342,
+      "bollinger_upper": 372.7167,
+      "bollinger_lower": 327.5518
     },
     "AAPL": {
       "name": "Apple",
-      "last_price": 309.11,
+      "last_price": 309.515,
       "open_price": 310.935,
-      "delta_pct": -0.587,
-      "last_checked": "2026-08-25T15:00:04.282150Z",
+      "delta_pct": -0.457,
+      "last_checked": "2026-08-25T15:41:02.587953Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.122,
+      "trend_value": -0.095,
       "last_trend_alert": "2026-07-31T18:48:24.799595Z",
       "last_trend_signal": "none",
       "last_threshold_alert": "2026-08-20T14:18:51.578257Z",
-      "trend_adx": 16.8,
+      "trend_adx": 16.9,
       "nearest_support": {
         "price": 300.8236,
         "touches": 3
@@ -141,24 +141,24 @@
         "0.786": 288.6565
       },
       "fib_direction": "uptrend",
-      "level_signal_value": 0.07,
+      "level_signal_value": 0.201,
       "last_level_alert": "2026-08-21T19:34:09.215739Z",
       "last_level_signal": "near_support",
       "signal_agreement_count": 0,
       "signal_agreement_context": [],
-      "bollinger_sma": 311.3525,
-      "bollinger_upper": 329.3489,
-      "bollinger_lower": 293.3561
+      "bollinger_sma": 311.374,
+      "bollinger_upper": 329.3602,
+      "bollinger_lower": 293.3878
     },
     "G.MI": {
       "name": "Generali",
-      "last_price": 43.78,
+      "last_price": 43.62,
       "open_price": 43.5,
-      "delta_pct": 0.644,
-      "last_checked": "2026-08-25T15:00:04.812420Z",
+      "delta_pct": 0.276,
+      "last_checked": "2026-08-25T15:41:03.225121Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.193,
+      "trend_value": -0.203,
       "last_trend_signal": "down",
       "last_threshold_alert": "2026-07-16T16:52:03.315379Z",
       "trend_adx": 26.4,
@@ -179,23 +179,23 @@
         "0.786": 41.9351
       },
       "fib_direction": "uptrend",
-      "level_signal_value": 0.052,
-      "last_level_alert": "2026-08-25T15:00:05.353972Z",
-      "last_level_signal": "near_support",
+      "level_signal_value": -0.314,
+      "last_level_alert": "2026-08-25T15:41:03.939496Z",
+      "last_level_signal": "near_resistance",
       "signal_agreement_count": 1,
       "signal_agreement_context": [
         "trend ribassista"
       ],
-      "bollinger_sma": 43.9535,
-      "bollinger_upper": 45.1421,
-      "bollinger_lower": 42.7649
+      "bollinger_sma": 43.9455,
+      "bollinger_upper": 45.1412,
+      "bollinger_lower": 42.7498
     },
     "ISP.MI": {
       "name": "Intesa Sanpaolo",
-      "last_price": 6.846,
+      "last_price": 6.849,
       "open_price": 6.858,
-      "delta_pct": -0.175,
-      "last_checked": "2026-08-25T15:00:05.749769Z",
+      "delta_pct": -0.131,
+      "last_checked": "2026-08-25T15:41:04.305040Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
       "trend_value": -0.024,
@@ -222,19 +222,19 @@
       "signal_agreement_context": [
         "trend ribassista"
       ],
-      "bollinger_sma": 6.7592,
-      "bollinger_upper": 7.0479,
+      "bollinger_sma": 6.7593,
+      "bollinger_upper": 7.0482,
       "bollinger_lower": 6.4704
     },
     "GBS.MI": {
       "name": "Gold Bullion Securities",
-      "last_price": 362.83,
+      "last_price": 362.8,
       "open_price": 363.29,
-      "delta_pct": -0.127,
-      "last_checked": "2026-08-25T15:00:06.225993Z",
+      "delta_pct": -0.135,
+      "last_checked": "2026-08-25T15:41:04.798053Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": 2.299,
+      "trend_value": 2.297,
       "last_trend_signal": "up",
       "trend_adx": 27.6,
       "last_trend_alert": "2026-08-21T07:32:57.135726Z",
@@ -262,21 +262,21 @@
       "signal_agreement_context": [
         "trend rialzista"
       ],
-      "bollinger_sma": 340.1435,
-      "bollinger_upper": 367.1255,
-      "bollinger_lower": 313.1615
+      "bollinger_sma": 340.142,
+      "bollinger_upper": 367.1186,
+      "bollinger_lower": 313.1653
     },
     "RO.SW": {
       "name": "Roche",
-      "last_price": 380.0,
+      "last_price": 380.8,
       "open_price": 377.2,
-      "delta_pct": 0.742,
-      "last_checked": "2026-08-25T15:00:02.201350Z",
+      "delta_pct": 0.954,
+      "last_checked": "2026-08-25T15:41:00.495436Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": 0.191,
+      "trend_value": 0.242,
       "last_trend_signal": "none",
-      "trend_adx": 20.4,
+      "trend_adx": 20.5,
       "last_threshold_alert": "2026-08-14T14:00:19.205003Z",
       "last_trend_alert": "2026-08-13T08:09:03.910174Z",
       "nearest_support": {
@@ -292,21 +292,21 @@
         "0.786": 327.0812
       },
       "fib_direction": "uptrend",
-      "level_signal_value": 0.582,
+      "level_signal_value": 0.794,
       "last_level_alert": "2026-08-25T15:00:02.821758Z",
       "last_level_signal": "near_support",
       "signal_agreement_count": 0,
       "signal_agreement_context": [],
-      "bollinger_sma": 369.34,
-      "bollinger_upper": 382.8935,
-      "bollinger_lower": 355.7865
+      "bollinger_sma": 369.38,
+      "bollinger_upper": 383.07,
+      "bollinger_lower": 355.69
     },
     "APEX.MI": {
       "name": "Amundi MSCI Asia",
       "last_price": 197.76,
       "open_price": 197.16,
       "delta_pct": 0.304,
-      "last_checked": "2026-08-25T15:00:03.029821Z",
+      "last_checked": "2026-08-25T15:41:01.013402Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
       "trend_value": 0.42,
@@ -341,7 +341,7 @@
       "last_price": 42.8,
       "open_price": 42.77,
       "delta_pct": 0.07,
-      "last_checked": "2026-08-25T15:00:06.570620Z",
+      "last_checked": "2026-08-25T15:41:05.289726Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
       "trend_value": -0.031,
@@ -374,14 +374,14 @@
     },
     "EGOV.MI": {
       "name": "Amundi Core Euro Government Bond",
-      "last_price": 49.205,
+      "last_price": 49.215,
       "open_price": 49.03,
-      "delta_pct": 0.357,
-      "last_checked": "2026-08-25T15:00:06.933900Z",
+      "delta_pct": 0.377,
+      "last_checked": "2026-08-25T15:41:05.844510Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.015,
-      "trend_adx": 26.9,
+      "trend_value": -0.014,
+      "trend_adx": 26.8,
       "last_trend_alert": "2026-08-20T21:49:33.007597Z",
       "last_trend_signal": "down",
       "nearest_support": null,
@@ -397,26 +397,26 @@
         "0.786": 49.9303
       },
       "fib_direction": "downtrend",
-      "level_signal_value": -0.222,
+      "level_signal_value": -0.201,
       "last_level_alert": "2026-08-15T17:45:44.523242Z",
       "last_level_signal": "near_resistance",
       "signal_agreement_count": 1,
       "signal_agreement_context": [
         "trend ribassista"
       ],
-      "bollinger_sma": 49.282,
-      "bollinger_upper": 49.6326,
-      "bollinger_lower": 48.9314
+      "bollinger_sma": 49.2825,
+      "bollinger_upper": 49.6327,
+      "bollinger_lower": 48.9323
     },
     "A500.MI": {
       "name": "Amundi S&P 500",
-      "last_price": 131.28,
+      "last_price": 131.25,
       "open_price": 131.56,
-      "delta_pct": -0.213,
-      "last_checked": "2026-08-25T15:00:07.325335Z",
+      "delta_pct": -0.236,
+      "last_checked": "2026-08-25T15:41:06.300319Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
-      "trend_value": -0.341,
+      "trend_value": -0.343,
       "trend_adx": 19.2,
       "last_trend_signal": "none",
       "nearest_support": {
@@ -435,23 +435,23 @@
         "0.786": 127.9002
       },
       "fib_direction": "uptrend",
-      "level_signal_value": 0.046,
+      "level_signal_value": 0.023,
       "last_level_signal": "near_support",
       "signal_agreement_count": 1,
       "signal_agreement_context": [
         "confluenza Fibonacci"
       ],
-      "bollinger_sma": 132.415,
-      "bollinger_upper": 136.4401,
-      "bollinger_lower": 128.3899,
+      "bollinger_sma": 132.4135,
+      "bollinger_upper": 136.4404,
+      "bollinger_lower": 128.3866,
       "last_level_alert": "2026-08-25T15:00:07.818222Z"
     },
     "AEEM.MI": {
       "name": "Amundi MSCI Emerging Markets",
-      "last_price": 7.601,
+      "last_price": 7.608,
       "open_price": 7.587,
-      "delta_pct": 0.185,
-      "last_checked": "2026-08-25T15:00:08.041585Z",
+      "delta_pct": 0.277,
+      "last_checked": "2026-08-25T15:41:06.809332Z",
       "baseline_date": "2026-08-25",
       "baseline_delta_pct": 0.0,
       "trend_value": 0.016,
@@ -474,16 +474,16 @@
         "0.786": 8.0121
       },
       "fib_direction": "downtrend",
-      "level_signal_value": -0.223,
+      "level_signal_value": -0.131,
       "last_level_alert": "2026-08-25T13:24:44.528149Z",
       "last_level_signal": "near_resistance",
       "signal_agreement_count": 1,
       "signal_agreement_context": [
         "confluenza Fibonacci"
       ],
-      "bollinger_sma": 7.5009,
-      "bollinger_upper": 7.8158,
-      "bollinger_lower": 7.186
+      "bollinger_sma": 7.5012,
+      "bollinger_upper": 7.8166,
+      "bollinger_lower": 7.1859
     }
   }
 }
