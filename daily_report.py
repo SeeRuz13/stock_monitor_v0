@@ -18,6 +18,8 @@ from datetime import date
 import requests
 from fpdf import FPDF, XPos, YPos
 
+from portfolio import load_encrypted_json
+
 GREEN = (30, 130, 70)
 RED = (180, 50, 50)
 BLACK = (0, 0, 0)
@@ -27,6 +29,8 @@ WATCHLIST_PATH = os.path.join(BASE_DIR, "watchlist.json")
 CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
 STATE_PATH = os.path.join(BASE_DIR, "docs", "state.json")
 LOG_PATH = os.path.join(BASE_DIR, "docs", "daily_log.json")
+PORTFOLIO_PATH = os.path.join(BASE_DIR, "portfolio.json")
+PORTFOLIO_KEY = os.environ.get("PORTFOLIO_ENCRYPTION_KEY")
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_IDS = [c.strip() for c in os.environ.get("TELEGRAM_CHAT_ID", "").split(",") if c.strip()]
@@ -111,11 +115,12 @@ def sr_label(s: dict) -> str:
     return f"{sup_s} / {res_s}"
 
 
-def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: str):
+def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: str, held_tickers: set = None):
     """
     Formato verticale a "card", una per titolo, pensato per essere aperto e
     scorso su telefono (nessuna tabella larga da zoomare in orizzontale).
     """
+    held_tickers = held_tickers or set()
     tickers = sorted(state.get("stocks", {}).keys(), key=lambda t: state["stocks"][t].get("name", t))
 
     pdf = FPDF(orientation="P", unit="mm", format="A4")
@@ -143,6 +148,9 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
     for t in tickers:
         s = state["stocks"][t]
         name = s.get("name") or t
+        is_held = t in held_tickers
+        # niente emoji: il font core Helvetica di fpdf2 supporta solo Latin-1
+        title = f"[PORTAFOGLIO] {name}" if is_held else name
         price = s.get("last_price")
         delta = s.get("delta_pct")
         days = sorted(log.get(t, {}).get("days", []), key=lambda d: d["date"])[-max_days:]
@@ -168,7 +176,7 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
         # --- colonna sinistra: tutte le info ---
         pdf.set_xy(left_x, start_y)
         pdf.set_font("Helvetica", "B", 12)
-        pdf.multi_cell(left_w, 6.5, f"{name}  ({t})", new_x=XPos.LEFT, new_y=YPos.NEXT)
+        pdf.multi_cell(left_w, 6.5, f"{title}  ({t})", new_x=XPos.LEFT, new_y=YPos.NEXT)
 
         pdf.set_font("Helvetica", "", 10)
         pdf.set_x(left_x)
@@ -256,8 +264,11 @@ def main():
     log = update_daily_log(state, log, today_str)
     save_json(LOG_PATH, log)
 
+    portfolio = load_encrypted_json(PORTFOLIO_PATH, {"held_tickers": []}, PORTFOLIO_KEY)
+    held_tickers = set(portfolio.get("held_tickers", []))
+
     pdf_path = os.path.join(BASE_DIR, f"report_{today_str}.pdf")
-    build_pdf(state, log, report_cfg.get("max_days_shown", 10), pdf_path, today_str)
+    build_pdf(state, log, report_cfg.get("max_days_shown", 10), pdf_path, today_str, held_tickers=held_tickers)
 
     send_telegram_document(pdf_path, f"Report giornaliero Stock Monitor - {today_str}")
 

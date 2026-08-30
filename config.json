@@ -25,5 +25,11 @@
   "daily_report": {
     "enabled": true,
     "max_days_shown": 10
+  },
+  "portfolio": {
+    "enabled": true,
+    "held_threshold_pct": 1.0,
+    "buy_keywords": ["comprato", "acquistato", "compro", "acquisto"],
+    "sell_keywords": ["venduto", "vendo", "vendita"]
   }
 }

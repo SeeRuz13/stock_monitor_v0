@@ -7,14 +7,22 @@ import yfinance as yf
 
 from trend_algorithm import detect_trend
 from levels_algorithm import detect_levels
+from portfolio import (
+    get_telegram_updates,
+    process_updates,
+    load_encrypted_json,
+    save_encrypted_json,
+)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCHLIST_PATH = os.path.join(BASE_DIR, "watchlist.json")
 CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
 STATE_PATH = os.path.join(BASE_DIR, "docs", "state.json")
+PORTFOLIO_PATH = os.path.join(BASE_DIR, "portfolio.json")
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_IDS = [c.strip() for c in os.environ.get("TELEGRAM_CHAT_ID", "").split(",") if c.strip()]
+PORTFOLIO_KEY = os.environ.get("PORTFOLIO_ENCRYPTION_KEY")
 
 
 def load_json(path, default):
@@ -29,19 +37,33 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+def _post_telegram_message(chat_id: str, message: str):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+    resp = requests.post(
+        url,
+        json={"chat_id": chat_id, "text": message, "parse_mode": "HTML"},
+        timeout=15,
+    )
+    if not resp.ok:
+        print(f"Errore invio Telegram a {chat_id}:", resp.status_code, resp.text)
+
+
 def send_telegram(message: str):
+    """Broadcast a tutte le chat (titolare + eventuali amici in sola lettura)."""
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_IDS:
         print("Telegram non configurato, salto invio. Messaggio:", message)
         return
-    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     for chat_id in TELEGRAM_CHAT_IDS:
-        resp = requests.post(
-            url,
-            json={"chat_id": chat_id, "text": message, "parse_mode": "HTML"},
-            timeout=15,
-        )
-        if not resp.ok:
-            print(f"Errore invio Telegram a {chat_id}:", resp.status_code, resp.text)
+        _post_telegram_message(chat_id, message)
+
+
+def send_telegram_to(chat_id: str, message: str):
+    """Solo al destinatario indicato - usato per le conferme comprato/venduto,
+    mai in broadcast agli amici."""
+    if not TELEGRAM_TOKEN:
+        print("Telegram non configurato, salto invio. Messaggio:", message)
+        return
+    _post_telegram_message(chat_id, message)
 
 
 def fetch_quote(ticker_symbol: str):
@@ -128,6 +150,39 @@ def main():
     known_tickers = {s["ticker"] for s in watchlist.get("stocks", []) if s.get("ticker")}
     state["stocks"] = {k: v for k, v in state["stocks"].items() if k in known_tickers}
 
+    portfolio_cfg = config.get("portfolio", {
+        "enabled": True,
+        "held_threshold_pct": 1.0,
+        "buy_keywords": ["comprato", "acquistato", "compro", "acquisto"],
+        "sell_keywords": ["venduto", "vendo", "vendita"],
+    })
+
+    # --- Step 0: elabora comandi Telegram in ingresso (comprato/venduto) ---
+    portfolio_state = load_encrypted_json(PORTFOLIO_PATH, {"held_tickers": [], "last_update_id": 0}, PORTFOLIO_KEY)
+    if portfolio_cfg.get("enabled", True) and TELEGRAM_TOKEN and TELEGRAM_CHAT_IDS and PORTFOLIO_KEY:
+        try:
+            owner_chat_id = TELEGRAM_CHAT_IDS[0]
+            updates = get_telegram_updates(TELEGRAM_TOKEN, portfolio_state.get("last_update_id", 0))
+            held_set, replies, new_offset = process_updates(
+                updates,
+                watchlist.get("stocks", []),
+                set(portfolio_state.get("held_tickers", [])),
+                owner_chat_id,
+                portfolio_cfg.get("buy_keywords", []),
+                portfolio_cfg.get("sell_keywords", []),
+            )
+            portfolio_state["held_tickers"] = sorted(held_set)
+            if new_offset is not None:
+                portfolio_state["last_update_id"] = new_offset
+            for chat_id, reply_text in replies:
+                send_telegram_to(chat_id, reply_text)
+        except Exception as exc:
+            print(f"Errore nell'elaborazione dei comandi Telegram: {exc}")
+        finally:
+            save_encrypted_json(PORTFOLIO_PATH, portfolio_state, PORTFOLIO_KEY)
+
+    held_tickers = set(portfolio_state.get("held_tickers", []))
+
     market_cfg = config.get("market_data", {"history_period": "3mo", "history_interval": "1d"})
     trend_params = config.get("trend_algorithm", {})
     levels_params = config.get("levels_algorithm", {})
@@ -140,7 +195,12 @@ def main():
 
         name = stock["name"]
         ticker_symbol = stock["ticker"]
-        threshold_pct = stock.get("threshold_pct", default_threshold)
+        is_held = ticker_symbol in held_tickers
+        held_tag = "\U0001F4CC " if is_held else ""
+        if is_held:
+            threshold_pct = stock.get("held_threshold_pct", portfolio_cfg.get("held_threshold_pct", default_threshold))
+        else:
+            threshold_pct = stock.get("threshold_pct", default_threshold)
 
         entry_state = state["stocks"].setdefault(ticker_symbol, {})
 
@@ -165,7 +225,7 @@ def main():
         if check_threshold(entry_state, delta_pct, threshold_pct, today_str):
             direction = "in salita" if delta_pct >= 0 else "in discesa"
             send_telegram(
-                f"[SOGLIA] {name} ({ticker_symbol}) {direction}: {delta_pct:+.2f}% oggi "
+                f"[SOGLIA] {held_tag}{name} ({ticker_symbol}) {direction}: {delta_pct:+.2f}% oggi "
                 f"(apertura {open_price:.2f}, ora {last_price:.2f})"
             )
             entry_state["last_threshold_alert"] = datetime.utcnow().isoformat() + "Z"
@@ -189,7 +249,7 @@ def main():
         if trend["signal"] != "none" and trend["signal"] != previous_signal:
             label = "rialzista" if trend["signal"] == "up" else "ribassista"
             send_telegram(
-                f"[TREND] {name} ({ticker_symbol}): rilevato trend {label} "
+                f"[TREND] {held_tag}{name} ({ticker_symbol}): rilevato trend {label} "
                 f"(MACD hist {trend['value']:+.3f}, ADX {trend.get('adx', 0):.1f})"
             )
             entry_state["last_trend_alert"] = datetime.utcnow().isoformat() + "Z"
@@ -238,7 +298,7 @@ def main():
                 "breakdown_support": "ha rotto il supporto",
             }[levels["signal"]]
             message = (
-                f"[LIVELLO] {name} ({ticker_symbol}): prezzo {last_price:.2f} {verb} "
+                f"[LIVELLO] {held_tag}{name} ({ticker_symbol}): prezzo {last_price:.2f} {verb} "
                 f"{levels['level_price']:.2f} ({levels['value']:+.2f}%) — {levels['level_label']}"
             )
             if votes:

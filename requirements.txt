@@ -2,3 +2,4 @@ yfinance>=0.2.40
 pandas>=2.0.0
 requests>=2.31.0
 fpdf2>=2.7.0
+cryptography>=42.0.0

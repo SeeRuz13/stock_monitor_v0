@@ -162,6 +162,44 @@ workflow**.
 
 Parametri in `config.json` → `daily_report` (`enabled`, `max_days_shown`).
 
+## Portafoglio via comandi Telegram
+
+Puoi scrivere al bot per segnare quali titoli possiedi davvero in questo momento (non serve
+modificare `watchlist.json` a mano). Il comando viene letto entro 15 minuti (al prossimo run
+regolare di `monitor.py` — nessun server sempre acceso, quindi non è istantaneo).
+
+**Comandi**: nome titolo, ticker o ISIN + una parola tra `comprato`/`acquistato`/`compro`/
+`acquisto` (per aggiungere) o `venduto`/`vendo`/`vendita` (per rimuovere), in qualsiasi ordine —
+es. `comprato Ferrari` o `Ferrari comprato` funzionano uguale. Il bot risponde con una conferma,
+o ti chiede di essere più specifico se il nome è ambiguo (es. "Amundi MSCI" da solo corrisponde a
+4 fondi diversi — serve il nome completo o il ticker).
+
+**Solo tu puoi dare questi comandi**: il bot accetta comandi solo dalla chat che hai usato per il
+primo setup (`TELEGRAM_CHAT_ID`, il primo valore se ne hai messi più di uno per condividere gli
+alert con altri) — un amico che scrive "comprato X" viene ignorato silenziosamente, il tuo
+portafoglio resta un fatto privato tra te e il bot.
+
+**Titoli "in portafoglio" sono trattati diversamente**:
+- soglia di alert più stretta di quella generale (`config.json` → `portfolio` →
+  `held_threshold_pct`, default 1.0% invece del 2% generale) — override per singolo titolo con
+  `held_threshold_pct` nella voce di `watchlist.json`, stesso meccanismo di `threshold_pct`
+- marcati con `[PORTAFOGLIO]` nei messaggi `[SOGLIA]`/`[TREND]`/`[LIVELLO]` e nel PDF giornaliero
+
+**Privacy**: `portfolio.json` (quali titoli possiedi davvero) è **cifrato** prima di essere
+committato — a differenza di prezzi/segnali tecnici (già pubblici in `docs/state.json` per la
+dashboard), la tua posizione reale è un'informazione più sensibile, e il repo resta pubblico
+(necessario per GitHub Pages gratuito). Cifratura simmetrica (libreria `cryptography`, Fernet),
+chiave nel secret `PORTFOLIO_ENCRYPTION_KEY` — senza quel secret nessuno può leggere il contenuto
+del file, nemmeno aprendolo direttamente su github.com. Per generarne una nuova (es. se sospetti
+che la chiave sia stata esposta):
+```
+python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+poi aggiorna il secret su GitHub — attenzione, un file già cifrato con la vecchia chiave non sarà
+più leggibile con una chiave nuova (verrebbe ricreato vuoto al primo run).
+
+**Per disattivare**: `config.json` → `portfolio` → `"enabled": false`.
+
 ## Condividere con altri
 
 Gli alert vengono mandati a ogni chat_id presente nel secret `TELEGRAM_CHAT_ID` (separati da
@@ -193,9 +231,11 @@ Nessuna modifica al codice necessaria oltre a questo.
 
 ```
 watchlist.json              titoli monitorati, soglie
-config.json                 parametri storico e algoritmi (trend, livelli, report)
+config.json                 parametri storico e algoritmi (trend, livelli, report, portafoglio)
 trend_algorithm.py          algoritmo di trend detection (sostituibile)
 levels_algorithm.py         algoritmo supporti/resistenze + Fibonacci (sostituibile)
+portfolio.py                comandi Telegram comprato/venduto + cifratura portfolio.json
+portfolio.json               titoli posseduti, cifrato (mai leggibile senza il secret)
 monitor.py                  script principale, gira via GitHub Actions ogni 15 min
 daily_report.py             accumulo storico + PDF giornaliero via Telegram
 docs/index.html             dashboard mobile (GitHub Pages)
