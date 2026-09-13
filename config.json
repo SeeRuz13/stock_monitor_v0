@@ -31,5 +31,10 @@
     "held_threshold_pct": 1.0,
     "buy_keywords": ["comprato", "acquistato", "compro", "acquisto"],
     "sell_keywords": ["venduto", "vendo", "vendita"]
+  },
+  "market_scan": {
+    "enabled": true,
+    "count": 100,
+    "top_n": 10
   }
 }

@@ -115,7 +115,118 @@ def sr_label(s: dict) -> str:
     return f"{sup_s} / {res_s}"
 
 
-def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: str, held_tickers: set = None):
+def add_market_scan_section(pdf: FPDF, scan_results: list, scan_universe_size: int):
+    """
+    Sezione separata dalla watchlist personale: i migliori N titoli tra i piu'
+    scambiati sul mercato per "chiarezza" del segnale (segnali concordanti +
+    ADX come spareggio). Nessuno storico multi-giorno qui (non sono titoli
+    seguiti nel tempo come la watchlist) - una tabella compatta, un titolo
+    per riga.
+    """
+    pdf.add_page()
+    content_width = pdf.w - pdf.l_margin - pdf.r_margin
+
+    pdf.set_font("Helvetica", "B", 15)
+    pdf.multi_cell(content_width, 8, f"Top {len(scan_results)} su {scan_universe_size} titoli piu' scambiati", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.set_font("Helvetica", "", 9)
+    pdf.set_text_color(110, 110, 110)
+    pdf.multi_cell(
+        content_width, 5,
+        "Non fanno parte della tua watchlist personale: nessun alert Telegram, solo qui nel report. "
+        "Classificati per numero di segnali indipendenti concordanti (spareggio: ADX).",
+        new_x=XPos.LMARGIN, new_y=YPos.NEXT,
+    )
+    pdf.set_text_color(*BLACK)
+    pdf.ln(3)
+
+    if not scan_results:
+        pdf.set_font("Helvetica", "", 10)
+        pdf.multi_cell(content_width, 5.5, "Nessun titolo con segnali concordanti oggi tra quelli scansionati.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        return
+
+    col_w = {"name": 46, "price": 18, "delta": 16, "badge": 50, "signals": content_width - 46 - 18 - 16 - 50}
+    line_h = 4.5
+
+    def draw_header():
+        pdf.set_font("Helvetica", "B", 8)
+        pdf.set_fill_color(228, 228, 222)
+        pdf.set_x(pdf.l_margin)
+        pdf.cell(col_w["name"], 6, "Titolo", border=1, fill=True, align="C")
+        pdf.cell(col_w["price"], 6, "Prezzo", border=1, fill=True, align="C")
+        pdf.cell(col_w["delta"], 6, "Delta %", border=1, fill=True, align="C")
+        pdf.cell(col_w["badge"], 6, "Badge", border=1, fill=True, align="C")
+        pdf.cell(col_w["signals"], 6, "Segnali", border=1, fill=True, align="C", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+    draw_header()
+
+    pdf.set_font("Helvetica", "", 8)
+    level_labels = {
+        "near_support": "vicino a supporto",
+        "near_resistance": "vicino a resistenza",
+        "breakout_resistance": "rottura resistenza",
+        "breakdown_support": "rottura supporto",
+    }
+    for r in scan_results:
+        badge_parts = []
+        if r["trend_signal"] == "up":
+            badge_parts.append("trend rialzista")
+        elif r["trend_signal"] == "down":
+            badge_parts.append("trend ribassista")
+        if r["level_signal"] in level_labels:
+            badge_parts.append(level_labels[r["level_signal"]])
+        badge_txt = " + ".join(badge_parts) if badge_parts else "-"
+        name_txt = f"{r['name']} ({r['symbol']})"
+        signals_txt = f"{r['signal_agreement_count']} - {', '.join(r['signal_agreement_context'])}"
+
+        # altezza di riga dinamica: quante righe servono al testo piu' lungo
+        # tra i campi che possono andare a capo (nome/badge/segnali)
+        name_lines = pdf.multi_cell(col_w["name"], line_h, name_txt, dry_run=True, output="LINES")
+        badge_lines = pdf.multi_cell(col_w["badge"], line_h, badge_txt, dry_run=True, output="LINES")
+        signals_lines = pdf.multi_cell(col_w["signals"], line_h, signals_txt, dry_run=True, output="LINES")
+        row_h = max(len(name_lines), len(badge_lines), len(signals_lines), 1) * line_h
+
+        if pdf.get_y() + row_h > pdf.h - pdf.b_margin:
+            pdf.add_page()
+            draw_header()
+            pdf.set_font("Helvetica", "", 8)
+
+        row_y = pdf.get_y()
+        x = pdf.l_margin
+
+        # bordo di ogni cella disegnato all'altezza uniforme della riga,
+        # il testo (che puo' avere meno righe) viene scritto sopra senza bordo
+        for w in (col_w["name"], col_w["price"], col_w["delta"], col_w["badge"], col_w["signals"]):
+            pdf.rect(x, row_y, w, row_h)
+            x += w
+
+        x = pdf.l_margin
+        pdf.set_text_color(*BLACK)
+        pdf.set_xy(x, row_y)
+        pdf.multi_cell(col_w["name"], line_h, name_txt)
+        x += col_w["name"]
+
+        pdf.set_xy(x, row_y)
+        pdf.multi_cell(col_w["price"], line_h, f"{r['last_price']:.2f}", align="R")
+        x += col_w["price"]
+
+        pdf.set_text_color(*(GREEN if r["delta_pct"] >= 0 else RED))
+        pdf.set_xy(x, row_y)
+        pdf.multi_cell(col_w["delta"], line_h, f"{r['delta_pct']:+.2f}", align="R")
+        pdf.set_text_color(*BLACK)
+        x += col_w["delta"]
+
+        pdf.set_xy(x, row_y)
+        pdf.multi_cell(col_w["badge"], line_h, badge_txt)
+        x += col_w["badge"]
+
+        pdf.set_xy(x, row_y)
+        pdf.multi_cell(col_w["signals"], line_h, signals_txt)
+
+        pdf.set_xy(pdf.l_margin, row_y + row_h)
+
+
+def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: str, held_tickers: set = None,
+              scan_results: list = None, scan_universe_size: int = 0):
     """
     Formato verticale a "card", una per titolo, pensato per essere aperto e
     scorso su telefono (nessuna tabella larga da zoomare in orizzontale).
@@ -243,6 +354,9 @@ def build_pdf(state: dict, log: dict, max_days: int, out_path: str, today_str: s
         pdf.line(pdf.l_margin, next_y, pdf.w - pdf.r_margin, next_y)
         pdf.set_xy(left_x, next_y + 4)
 
+    if scan_results is not None:
+        add_market_scan_section(pdf, scan_results, scan_universe_size)
+
     pdf.output(out_path)
 
 
@@ -267,8 +381,27 @@ def main():
     portfolio = load_encrypted_json(PORTFOLIO_PATH, {"held_tickers": []}, PORTFOLIO_KEY)
     held_tickers = set(portfolio.get("held_tickers", []))
 
+    scan_cfg = config.get("market_scan", {"enabled": True, "count": 100, "top_n": 10})
+    scan_results, scan_universe_size = None, 0
+    if scan_cfg.get("enabled", True):
+        try:
+            from market_scan import fetch_most_active_tickers, scan_market
+
+            market_cfg = config.get("market_data", {"history_period": "3mo", "history_interval": "1d", "levels_history_period": "6mo"})
+            trend_params = config.get("trend_algorithm", {})
+            levels_params = config.get("levels_algorithm", {})
+            most_active = fetch_most_active_tickers(scan_cfg.get("count", 100))
+            scan_universe_size = len(most_active)
+            scan_results = scan_market(most_active, market_cfg, trend_params, levels_params, scan_cfg.get("top_n", 10))
+        except Exception as exc:
+            print(f"Errore nella scansione di mercato: {exc}")
+            scan_results, scan_universe_size = [], 0
+
     pdf_path = os.path.join(BASE_DIR, f"report_{today_str}.pdf")
-    build_pdf(state, log, report_cfg.get("max_days_shown", 10), pdf_path, today_str, held_tickers=held_tickers)
+    build_pdf(
+        state, log, report_cfg.get("max_days_shown", 10), pdf_path, today_str,
+        held_tickers=held_tickers, scan_results=scan_results, scan_universe_size=scan_universe_size,
+    )
 
     send_telegram_document(pdf_path, f"Report giornaliero Stock Monitor - {today_str}")
 

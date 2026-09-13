@@ -162,6 +162,24 @@ workflow**.
 
 Parametri in `config.json` → `daily_report` (`enabled`, `max_days_shown`).
 
+## Scansione dei titoli più scambiati sul mercato
+
+Oltre alla tua watchlist personale, il report giornaliero include una sezione **"Top N su 100
+titoli più scambiati"**: `market_scan.py` prende la lista dei titoli più scambiati per volume da
+uno screener pubblico di Yahoo Finance, fa girare gli **stessi identici algoritmi** di trend e
+livelli già usati per la watchlist (nessuna nuova logica di detection), e tiene solo i migliori
+`top_n` per "chiarezza" del segnale — classificati per numero di segnali indipendenti concordanti
+(`signal_agreement_count`), spareggio sull'ADX.
+
+Nessun alert Telegram per questi titoli — compaiono **solo** nel PDF giornaliero, in una sezione
+separata dalla tua watchlist, proprio per non aggiungere rumore alle notifiche che già ricevi.
+Girano una volta al giorno (dentro `daily_report.py`, non nel ciclo ogni 15 minuti): 100 titoli
+richiedono ~300 chiamate a Yahoo Finance, troppe per farle ogni 15 minuti.
+
+Parametri in `config.json` → `market_scan` (`enabled`, `count` — quanti titoli scansionare,
+default 100, `top_n` — quanti mostrarne nel report, default 10). Per disattivare:
+`"enabled": false`.
+
 ## Portafoglio via comandi Telegram
 
 Puoi scrivere al bot per segnare quali titoli possiedi davvero in questo momento (non serve
@@ -236,6 +254,7 @@ trend_algorithm.py          algoritmo di trend detection (sostituibile)
 levels_algorithm.py         algoritmo supporti/resistenze + Fibonacci (sostituibile)
 portfolio.py                comandi Telegram comprato/venduto + cifratura portfolio.json
 portfolio.json               titoli posseduti, cifrato (mai leggibile senza il secret)
+market_scan.py               scansione dei 100 titoli piu' scambiati, top N per chiarezza
 monitor.py                  script principale, gira via GitHub Actions ogni 15 min
 daily_report.py             accumulo storico + PDF giornaliero via Telegram
 docs/index.html             dashboard mobile (GitHub Pages)
