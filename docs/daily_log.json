@@ -324,6 +324,14 @@
         "level_signal": "near_resistance",
         "signal_agreement_count": 0,
         "signal_agreement_context": []
+      },
+      {
+        "date": "2026-10-07",
+        "close": 345.25,
+        "trend_signal": "none",
+        "level_signal": "near_support",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
       }
     ]
   },
@@ -637,6 +645,14 @@
         "signal_agreement_context": [
           "confluenza Fibonacci"
         ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 717.11,
+        "trend_signal": "none",
+        "level_signal": "none",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
       }
     ]
   },
@@ -934,6 +950,16 @@
         "signal_agreement_context": [
           "confluenza Fibonacci"
         ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 347.68,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "confluenza Fibonacci"
+        ]
       }
     ]
   },
@@ -1221,6 +1247,14 @@
       {
         "date": "2026-10-06",
         "close": 332.89,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      },
+      {
+        "date": "2026-10-07",
+        "close": 333.63,
         "trend_signal": "none",
         "level_signal": "near_resistance",
         "signal_agreement_count": 0,
@@ -1543,6 +1577,16 @@
         "signal_agreement_context": [
           "trend ribassista"
         ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 42.2,
+        "trend_signal": "down",
+        "level_signal": "near_support",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend ribassista"
+        ]
       }
     ]
   },
@@ -1852,6 +1896,16 @@
       {
         "date": "2026-10-06",
         "close": 6.426,
+        "trend_signal": "down",
+        "level_signal": "none",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend ribassista"
+        ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 6.507,
         "trend_signal": "down",
         "level_signal": "none",
         "signal_agreement_count": 1,
@@ -2181,6 +2235,14 @@
         "signal_agreement_context": [
           "confluenza Fibonacci"
         ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 337.22,
+        "trend_signal": "none",
+        "level_signal": "near_support",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
       }
     ]
   },
@@ -2464,6 +2526,14 @@
       {
         "date": "2026-10-06",
         "close": 358.0,
+        "trend_signal": "none",
+        "level_signal": "near_support",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      },
+      {
+        "date": "2026-10-07",
+        "close": 359.2,
         "trend_signal": "none",
         "level_signal": "near_support",
         "signal_agreement_count": 0,
@@ -2759,6 +2829,14 @@
         "close": 212.85,
         "trend_signal": "none",
         "level_signal": "none",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      },
+      {
+        "date": "2026-10-07",
+        "close": 208.4,
+        "trend_signal": "none",
+        "level_signal": "near_resistance",
         "signal_agreement_count": 0,
         "signal_agreement_context": []
       }
@@ -3075,6 +3153,16 @@
         "close": 41.185,
         "trend_signal": "down",
         "level_signal": "near_resistance",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend ribassista"
+        ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 41.47,
+        "trend_signal": "down",
+        "level_signal": "near_support",
         "signal_agreement_count": 1,
         "signal_agreement_context": [
           "trend ribassista"
@@ -3428,6 +3516,16 @@
         "signal_agreement_context": [
           "trend ribassista"
         ]
+      },
+      {
+        "date": "2026-10-07",
+        "close": 48.12,
+        "trend_signal": "up",
+        "level_signal": "near_resistance",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend rialzista"
+        ]
       }
     ]
   },
@@ -3733,6 +3831,16 @@
         "level_signal": "none",
         "signal_agreement_count": 0,
         "signal_agreement_context": []
+      },
+      {
+        "date": "2026-10-07",
+        "close": 139.26,
+        "trend_signal": "up",
+        "level_signal": "none",
+        "signal_agreement_count": 1,
+        "signal_agreement_context": [
+          "trend rialzista"
+        ]
       }
     ]
   },
@@ -4022,6 +4130,14 @@
         "close": 8.146,
         "trend_signal": "none",
         "level_signal": "none",
+        "signal_agreement_count": 0,
+        "signal_agreement_context": []
+      },
+      {
+        "date": "2026-10-07",
+        "close": 8.089,
+        "trend_signal": "none",
+        "level_signal": "near_support",
         "signal_agreement_count": 0,
         "signal_agreement_context": []
       }
