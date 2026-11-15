@@ -48,7 +48,7 @@
     {"ticker": "INGA.AS", "name": "ING", "market": "EU"},
     {"ticker": "NOVO-B.CO", "name": "Novo Nordisk", "market": "EU"},
     {"ticker": "NESN.SW", "name": "Nestle", "market": "EU"},
-    {"ticker": "ROG.SW", "name": "Roche", "market": "EU"},
+    {"ticker": "RO.SW", "name": "Roche", "market": "EU"},
     {"ticker": "NOVN.SW", "name": "Novartis", "market": "EU"},
     {"ticker": "UBSG.SW", "name": "UBS", "market": "EU"},
     {"ticker": "AAPL", "name": "Apple", "market": "US"},
