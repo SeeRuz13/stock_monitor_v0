@@ -1,0 +1,47 @@
+name: Daily run
+
+on:
+  schedule:
+    # lun-ven alle 21:30 UTC: dopo la chiusura di Milano, Europa e USA
+    - cron: "30 21 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: state-writers
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Daily run
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PORTFOLIO_ENCRYPTION_KEY: ${{ secrets.PORTFOLIO_ENCRYPTION_KEY }}
+          PAC_BUDGET: ${{ vars.PAC_BUDGET }}
+          PAC_MONTHLY_BASE: ${{ vars.PAC_MONTHLY_BASE }}
+          SWING_CAPITAL: ${{ vars.SWING_CAPITAL }}
+        run: python daily_run.py
+
+      - name: Commit state
+        if: always()
+        run: |
+          git config user.name "stock-monitor-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/state.json docs/swing_log.json
+          if [ -f private_state.json ]; then git add private_state.json; fi
+          git diff --cached --quiet || git commit -m "Aggiorna stato giornaliero"
+          git pull --rebase && git push

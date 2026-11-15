@@ -1,40 +1,59 @@
 {
-  "market_data": {
-    "history_period": "3mo",
-    "history_interval": "1d",
-    "levels_history_period": "6mo"
-  },
-  "trend_algorithm": {
-    "macd_fast": 12,
-    "macd_slow": 26,
-    "macd_signal": 9,
-    "adx_period": 14,
-    "adx_threshold": 25
-  },
-  "levels_algorithm": {
-    "pivot_window": 5,
-    "cluster_tolerance_pct": 1.5,
-    "min_touches": 2,
-    "max_zones": 3,
-    "proximity_pct": 1.0,
-    "hysteresis_factor": 1.5,
-    "fib_lookback_bars": 60,
-    "bollinger_window": 20,
-    "bollinger_std": 2.0
-  },
-  "daily_report": {
+  "_nota": "Gli importi in euro (budget PAC, importo base, capitale trading) NON stanno qui perche' il repo e' pubblico: si impostano come Variables su GitHub (PAC_BUDGET, PAC_MONTHLY_BASE, SWING_CAPITAL). I valori *_default sotto valgono solo se le Variables mancano.",
+
+  "pac": {
     "enabled": true,
-    "max_days_shown": 10
+    "budget_default": 40000,
+    "monthly_base_default": 3000,
+    "max_buys_per_month": 2,
+    "min_order_eur": 200,
+    "reference_ticker": "CW8.PA",
+    "high_window": 252,
+    "sma_window": 200,
+    "drawdown_bands": [[5, 1.25], [10, 1.5], [20, 2.0]],
+    "expensive_above_sma_pct": 15,
+    "expensive_multiplier": 0.75,
+    "backtest_horizon_months": 48,
+    "assets": [
+      { "key": "world", "name": "Amundi MSCI World", "isin": "LU1681043599", "ticker": "CW8.PA", "weight": 50 },
+      { "key": "em", "name": "Amundi MSCI Emerging Markets", "isin": "LU1681045370", "ticker": "AEEM.PA", "weight": 10 },
+      { "key": "bond", "name": "Amundi Euro Government Bond", "isin": "LU1437018598", "ticker": "EGOV.MI", "weight": 30 },
+      { "key": "gold", "name": "Gold Bullion Securities", "isin": "GB00B00FHZ82", "ticker": "GBS.MI", "weight": 10 }
+    ]
   },
-  "portfolio": {
+
+  "swing": {
     "enabled": true,
-    "held_threshold_pct": 1.0,
-    "buy_keywords": ["comprato", "acquistato", "compro", "acquisto"],
-    "sell_keywords": ["venduto", "vendo", "vendita"]
-  },
-  "market_scan": {
-    "enabled": true,
-    "count": 100,
-    "top_n": 10
+    "capital_default": 10000,
+    "risk_pct": 1.0,
+    "max_open": 3,
+    "max_new_per_month": 3,
+    "cost_pct_per_side": 0.1,
+    "non_eur_extra_cost_pct_per_side": 0.1,
+    "require_positive_backtest": true,
+    "min_trades_ticker": 8,
+    "live_history_period": "2y",
+    "backtest_history_period": "10y",
+    "trend_sma": 200,
+    "atr_period": 14,
+    "setups": {
+      "pullback": {
+        "enabled": true,
+        "rsi_period": 2,
+        "rsi_max": 10,
+        "exit_sma": 5,
+        "stop_atr": 2.5,
+        "target_atr": null,
+        "max_days": 10
+      },
+      "breakout": {
+        "enabled": true,
+        "lookback": 20,
+        "volume_mult": 1.5,
+        "stop_atr": 2.0,
+        "target_atr": 4.0,
+        "max_days": 15
+      }
+    }
   }
 }

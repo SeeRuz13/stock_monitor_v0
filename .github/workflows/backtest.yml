@@ -1,0 +1,44 @@
+name: Backtest
+
+on:
+  schedule:
+    # ogni domenica alle 10:00 UTC
+    - cron: "0 10 * * 0"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: state-writers
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Offline tests
+        run: python tests/test_core.py
+
+      - name: Backtest
+        env:
+          PAC_BUDGET: ${{ vars.PAC_BUDGET }}
+          PAC_MONTHLY_BASE: ${{ vars.PAC_MONTHLY_BASE }}
+        run: python backtest.py
+
+      - name: Commit results
+        run: |
+          git config user.name "stock-monitor-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/backtest.json
+          git diff --cached --quiet || git commit -m "Aggiorna backtest"
+          git pull --rebase && git push

@@ -3,132 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stock Monitor</title>
+<title>Stock Monitor – PAC e compravendite</title>
 <style>
-  :root {
-    color-scheme: light dark;
-    --green: #1b8a4b;
-    --red: #c0392b;
-    --gray: #888;
-  }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    margin: 0;
-    padding: 16px;
-    max-width: 480px;
-    margin-inline: auto;
-  }
-  h1 { font-size: 1.3rem; margin-bottom: 4px; }
-  #updated { color: var(--gray); font-size: 0.85rem; margin-bottom: 16px; }
-  .card {
-    border: 1px solid rgba(128,128,128,0.3);
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .name { font-weight: 600; }
-  .ticker { color: var(--gray); font-size: 0.8rem; }
-  .price { text-align: right; }
-  .delta { font-weight: 600; }
-  .up { color: var(--green); }
-  .down { color: var(--red); }
-  .trend-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    padding: 1px 6px;
-    border-radius: 6px;
-    margin-top: 4px;
-  }
-  .trend-up { background: rgba(27,138,75,0.15); color: var(--green); }
-  .trend-down { background: rgba(192,57,43,0.15); color: var(--red); }
-  .sr-line { color: var(--gray); font-size: 0.72rem; margin-top: 2px; }
-  .level-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    padding: 1px 6px;
-    border-radius: 6px;
-    margin-top: 4px;
-    margin-left: 4px;
-  }
-  .level-support { background: rgba(27,138,75,0.15); color: var(--green); }
-  .level-resistance { background: rgba(192,57,43,0.15); color: var(--red); }
-  .level-breakout { background: rgba(41,128,185,0.15); color: #2980b9; }
-  #empty { color: var(--gray); }
+  :root { color-scheme: light dark; --green: #1b8a4b; --red: #c0392b; --gray: #888; --line: rgba(128,128,128,0.3); }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0 auto; padding: 16px; max-width: 560px; }
+  h1 { font-size: 1.3rem; margin: 0 0 4px; }
+  h2 { font-size: 1.05rem; margin: 24px 0 8px; }
+  .muted { color: var(--gray); font-size: 0.82rem; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; }
+  .row { display: flex; justify-content: space-between; gap: 8px; }
+  .big { font-size: 1.6rem; font-weight: 700; }
+  .pos { color: var(--green); } .neg { color: var(--red); }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 1px 6px; border-radius: 6px; background: rgba(128,128,128,0.15); }
+  .tag.ok { background: rgba(27,138,75,0.15); color: var(--green); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th, td { text-align: right; padding: 4px 4px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  .dim { opacity: 0.55; }
 </style>
 </head>
 <body>
   <h1>Stock Monitor</h1>
-  <div id="updated">Caricamento...</div>
-  <div id="list"></div>
+  <div id="updated" class="muted">Caricamento...</div>
 
-  <script>
-    fetch("./state.json?_=" + Date.now())
-      .then(r => r.json())
-      .then(render)
-      .catch(() => {
-        document.getElementById("updated").textContent = "Errore nel caricamento di state.json";
-      });
+  <h2>PAC – stato del mercato</h2>
+  <div id="pac"></div>
 
-    function render(state) {
-      const updatedEl = document.getElementById("updated");
-      updatedEl.textContent = state.last_updated
-        ? "Ultimo aggiornamento: " + new Date(state.last_updated).toLocaleString("it-IT")
-        : "Nessun aggiornamento ancora eseguito";
+  <h2>Setup di oggi</h2>
+  <div id="setups"></div>
 
-      const list = document.getElementById("list");
-      const stocks = Object.entries(state.stocks || {});
-      if (stocks.length === 0) {
-        list.innerHTML = '<div id="empty">Nessun dato disponibile.</div>';
-        return;
-      }
+  <h2>Simulazione compravendite (su carta)</h2>
+  <div id="paper"></div>
 
-      list.innerHTML = stocks.map(([ticker, s]) => {
-        const deltaClass = s.delta_pct >= 0 ? "up" : "down";
-        const deltaSign = s.delta_pct >= 0 ? "+" : "";
-        let trendTag = "";
-        if (s.last_trend_signal === "up") {
-          trendTag = '<span class="trend-tag trend-up">trend rialzista</span>';
-        } else if (s.last_trend_signal === "down") {
-          trendTag = '<span class="trend-tag trend-down">trend ribassista</span>';
-        }
+  <h2>Backtest</h2>
+  <div id="backtest"></div>
 
-        let srLine = "";
-        if (s.nearest_support || s.nearest_resistance) {
-          const sup = s.nearest_support ? s.nearest_support.price.toFixed(2) : "-";
-          const res = s.nearest_resistance ? s.nearest_resistance.price.toFixed(2) : "-";
-          srLine = `<div class="sr-line">S ${sup} · R ${res}</div>`;
-        }
+  <p class="muted">Strumento di supporto alle decisioni, non consulenza finanziaria. I risultati passati non garantiscono quelli futuri; tasse (26%) escluse.</p>
 
-        let levelTag = "";
-        if (s.last_level_signal === "near_support") {
-          levelTag = '<span class="level-tag level-support">vicino a supporto</span>';
-        } else if (s.last_level_signal === "near_resistance") {
-          levelTag = '<span class="level-tag level-resistance">vicino a resistenza</span>';
-        } else if (s.last_level_signal === "breakout_resistance") {
-          levelTag = '<span class="level-tag level-breakout">rottura resistenza</span>';
-        } else if (s.last_level_signal === "breakdown_support") {
-          levelTag = '<span class="level-tag level-breakout">rottura supporto</span>';
-        }
+<script>
+const LABEL = { pullback: "ritracciamento", breakout: "rottura massimi 20gg" };
+const pct = (x, d = 1) => x == null ? "–" : (x > 0 ? "+" : "") + x.toFixed(d) + "%";
+const cls = x => x > 0 ? "pos" : (x < 0 ? "neg" : "");
+const num = (x, d = 2) => x == null ? "–" : x.toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
+const get = url => fetch(url + "?_=" + Date.now()).then(r => r.ok ? r.json() : null).catch(() => null);
 
-        return `
-          <div class="card">
-            <div>
-              <div class="name">${s.name || ticker}</div>
-              <div class="ticker">${ticker}</div>
-              ${srLine}
-              ${trendTag} ${levelTag}
-            </div>
-            <div class="price">
-              <div>${(s.last_price ?? "-")}</div>
-              <div class="delta ${deltaClass}">${deltaSign}${(s.delta_pct ?? 0).toFixed(2)}%</div>
-            </div>
-          </div>
-        `;
-      }).join("");
+Promise.all([get("./state.json"), get("./backtest.json")]).then(([s, b]) => {
+  s = s || {}; b = b || {};
+  document.getElementById("updated").textContent = s.updated
+    ? "Aggiornato: " + new Date(s.updated).toLocaleString("it-IT") + (b.updated ? " · backtest: " + new Date(b.updated).toLocaleDateString("it-IT") : "")
+    : "In attesa del primo run giornaliero.";
+  renderPac(s.pac_market);
+  renderSetups(s.setups_today || []);
+  renderPaper(s.paper);
+  renderBacktest(b);
+});
+
+function renderPac(m) {
+  const el = document.getElementById("pac");
+  if (!m) { el.innerHTML = '<div class="muted">Nessun dato.</div>'; return; }
+  el.innerHTML = `<div class="card row">
+    <div><div class="muted">Moltiplicatore del mese (${m.reference})</div><div class="big">×${num(m.multiplier)}</div></div>
+    <div style="text-align:right">
+      <div>Dai massimi 1 anno: <b class="${cls(m.drawdown_pct)}">${pct(m.drawdown_pct)}</b></div>
+      <div>Vs media 200gg: <b class="${cls(m.above_sma_pct)}">${pct(m.above_sma_pct)}</b></div>
+    </div></div>
+    <div class="muted">Importi e posizioni del PAC arrivano solo su Telegram (non sono pubblici).</div>`;
+}
+
+function renderSetups(list) {
+  const el = document.getElementById("setups");
+  if (!list.length) { el.innerHTML = '<div class="muted">Nessun setup oggi.</div>'; return; }
+  el.innerHTML = list.map(x => {
+    const st = x.stats || {};
+    const exit = x.exit_on_sma ? "uscita sopra media 5gg" : "obiettivo " + num(x.target);
+    return `<div class="card ${x.eligible ? "" : "dim"}">
+      <div class="row"><b>${x.name}</b><span class="tag ${x.eligible ? "ok" : ""}">${x.eligible ? "verificato" : "storico negativo/insufficiente"}</span></div>
+      <div class="muted">${x.ticker} · ${LABEL[x.setup]}</div>
+      <div>Entrata ~${num(x.entry_ref)} · stop ${num(x.stop)} · ${exit}</div>
+      ${st.trades ? `<div class="muted">Storico: ${st.trades} op., ${num(st.win_rate, 0)}% vincenti, media ${pct(st.expectancy_pct, 2)}</div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+function renderPaper(p) {
+  const el = document.getElementById("paper");
+  if (!p) { el.innerHTML = '<div class="muted">Nessun dato.</div>'; return; }
+  const st = p.stats || {};
+  let html = st.trades
+    ? `<div class="card row"><div><div class="muted">Operazioni chiuse</div><div class="big">${st.trades}</div></div>
+       <div style="text-align:right"><div>Vincenti: <b>${num(st.win_rate, 0)}%</b></div>
+       <div>Media: <b class="${cls(st.expectancy_pct)}">${pct(st.expectancy_pct, 2)}</b></div>
+       <div class="muted">gain medio ${pct(st.avg_win_pct, 2)} · loss medio ${pct(st.avg_loss_pct, 2)}</div></div></div>`
+    : '<div class="muted">Ancora nessuna operazione chiusa.</div>';
+  const rows = (p.open || []).map(t => `<tr><td>${t.name}<br><span class="muted">${LABEL[t.setup]}</span></td>
+      <td>${t.entry_date || "domani"}</td><td>${num(t.entry ?? t.entry_ref)}</td><td>${num(t.stop)}</td>
+      <td class="${cls(t.return_pct)}">${t.status === "open" ? pct(t.return_pct, 2) : "–"}</td></tr>`).join("");
+  if (rows) html += `<h3 class="muted">Aperte</h3><table><tr><th>Titolo</th><th>Entrata</th><th>Prezzo</th><th>Stop</th><th>Ora</th></tr>${rows}</table>`;
+  const closed = (p.recent_closed || []).map(t => `<tr><td>${t.name}</td><td>${t.exit_date}</td>
+      <td class="muted">${t.exit_reason}</td><td class="${cls(t.return_pct)}">${pct(t.return_pct, 2)}</td></tr>`).join("");
+  if (closed) html += `<h3 class="muted">Ultime chiuse</h3><table><tr><th>Titolo</th><th>Uscita</th><th>Motivo</th><th>Risultato</th></tr>${closed}</table>`;
+  el.innerHTML = html;
+}
+
+function renderBacktest(b) {
+  const el = document.getElementById("backtest");
+  if (!b.swing && !b.pac) { el.innerHTML = '<div class="muted">Backtest non ancora eseguito.</div>'; return; }
+  let html = "";
+  if (b.swing) {
+    const row = (name, st) => `<tr><td>${name}</td><td>${st.trades}</td><td>${num(st.win_rate, 0)}%</td>
+      <td class="${cls(st.expectancy_pct)}">${pct(st.expectancy_pct, 2)}</td><td>${st.profit_factor ?? "–"}</td><td>${num(st.avg_days, 1)}</td></tr>`;
+    const head = '<tr><th></th><th>Op.</th><th>Vinc.</th><th>Media</th><th>PF</th><th>Giorni</th></tr>';
+    for (const [setup, st] of Object.entries(b.swing.setups || {})) {
+      const markets = Object.entries((b.swing.setups_by_market || {})[setup] || {}).map(([m, s]) => row("&nbsp;&nbsp;" + m, s)).join("");
+      const tickers = Object.entries(b.swing.tickers || {})
+        .map(([t, v]) => ({ t, name: v.name, s: v.setups[setup] || {} }))
+        .filter(x => x.s.trades >= 8)
+        .sort((a, c) => c.s.expectancy_r - a.s.expectancy_r);
+      const best = tickers.slice(0, 5).map(x => row(x.name, x.s)).join("");
+      const positive = tickers.filter(x => x.s.expectancy_r > 0).length;
+      html += `<div class="card"><b>${LABEL[setup]}</b>
+        <table>${head}${row("Totale", st)}${markets}</table>
+        <div class="muted" style="margin-top:6px">Positivo su ${positive} titoli su ${tickers.length}. Migliori:</div>
+        <table>${head}${best}</table></div>`;
     }
-  </script>
+  }
+  const p = b.pac;
+  if (p && p.windows) {
+    html += `<div class="card"><b>PAC su ${p.reference_ticker}</b> – ${p.windows} finestre di ${p.horizon_months} mesi (partenze ${p.first_start} → ${p.last_start})
+      <table><tr><th>Ogni 100 € investiti</th><th>Media finale</th><th>Peggiore</th></tr>
+      <tr><td>Tutto subito</td><td>${num(p.avg_final.lump_sum)}</td><td>${num(p.worst_final.lump_sum)}</td></tr>
+      <tr><td>PAC semplice</td><td>${num(p.avg_final.plain)}</td><td>${num(p.worst_final.plain)}</td></tr>
+      <tr><td>PAC modulato</td><td>${num(p.avg_final.modulated)}</td><td>${num(p.worst_final.modulated)}</td></tr></table>
+      <div class="muted">Modulato meglio del semplice nel ${num(p.modulated_beats_plain_pct, 0)}% delle finestre; tutto subito meglio del PAC semplice nel ${num(p.lump_sum_beats_plain_pct, 0)}%.</div></div>`;
+  }
+  el.innerHTML = html;
+}
+</script>
 </body>
 </html>

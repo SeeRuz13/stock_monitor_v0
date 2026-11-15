@@ -1,265 +1,185 @@
-# Stock Monitor
+# Stock Monitor – PAC e compravendite rapide
 
-Monitora una watchlist di titoli/ETF: alert Telegram quando un titolo si muove oltre una soglia
-percentuale rispetto all'apertura giornaliera, o quando l'algoritmo di trend rileva un'inversione.
-Gira interamente su GitHub Actions (nessun PC/server da tenere acceso), con una dashboard
-mobile-friendly su GitHub Pages per consultare lo stato quando vuoi.
+Ti aiuta a decidere **quando e quanto comprare**, con due strategie separate:
 
-## Setup (una tantum, ~15 minuti)
+1. **PAC modulato** (medio periodo, 3-5 anni): ogni mese ti dice quanto investire e su quali
+   ETF. Compra di più quando il mercato è sceso, meno quando è "caro".
+2. **Compravendite rapide** (2-15 giorni, solo acquisti): ogni sera cerca dei setup su ~80
+   titoli liquidi (Italia, Europa, USA) e ti manda un piano completo: entrata, stop, obiettivo,
+   quantità.
 
-### 1. Crea il repository
+Ogni regola è **verificata sullo storico di 10 anni** (backtest settimanale): un setup che su un
+titolo ha perso soldi in passato non ti viene proposto su quel titolo. Le operazioni proposte
+vengono poi seguite **su carta** in automatico, così vedi se funzionano anche dal vivo prima
+di metterci soldi veri.
 
-Il repo deve essere **pubblico** (necessario per GitHub Pages gratuito). Non contiene dati
-bancari/personali: solo la tua watchlist e gli ultimi prezzi/delta%.
+Tutto gira su GitHub Actions (nessun PC acceso), con messaggi Telegram e una dashboard su
+GitHub Pages.
+
+> Strumento di supporto alle decisioni, non consulenza finanziaria. Il passato non garantisce
+> il futuro.
+
+---
+
+## 1. PAC modulato
+
+**Cosa fa**: il primo giorno di borsa di ogni mese ricevi un messaggio tipo:
 
 ```
-cd stock-monitor
-git init
-git add .
-git commit -m "setup"
-git remote add origin https://github.com/TUO_USER/stock-monitor.git
-git branch -M main
-git push -u origin main
+📅 PAC dicembre 2026
+Mercato (MSCI World): -7,2% dai massimi a 1 anno → ×1,25
+Questo mese investi 3.750 €:
+• 2.340 € su Amundi MSCI World (ISIN LU1681043599)
+• 1.410 € su Amundi Euro Government Bond (ISIN LU1437018598)
+Investito finora: 6.000 € su 40.000 € (15%)
+Quando hai comprato rispondi «pac fatto» (oppure «pac saltato»).
 ```
 
-### 2. Crea il bot Telegram
+**Moltiplicatore** (in base all'MSCI World):
 
-1. Apri Telegram, cerca **@BotFather**, invia `/newbot` e segui le istruzioni (scegli nome e username).
-2. BotFather ti da un **token** tipo `123456789:AAExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` — copialo.
-3. Cerca il tuo bot appena creato e mandagli un messaggio qualsiasi (es. "ciao"), altrimenti non puo' scriverti.
-4. Recupera il tuo **chat_id**: apri nel browser
-   `https://api.telegram.org/bot<IL_TUO_TOKEN>/getUpdates`
-   e cerca il campo `"chat":{"id": ...}` nella risposta JSON.
+| Situazione del mercato | Importo |
+|---|---|
+| normale (meno del 5% sotto i massimi a 1 anno) | 1× |
+| 5-10% sotto i massimi | 1,25× |
+| 10-20% sotto i massimi | 1,5× |
+| oltre 20% sotto i massimi | 2× |
+| più del 15% sopra la media a 200 giorni ("caro") | 0,75× |
 
-### 3. Aggiungi i secrets su GitHub
+**Portafoglio obiettivo** (adatto a un orizzonte di 3-5 anni):
 
-Nel repo: **Settings → Secrets and variables → Actions → New repository secret**
+| ETF | ISIN | Peso |
+|---|---|---|
+| Amundi MSCI World | LU1681043599 | 50% |
+| Amundi MSCI Emerging Markets | LU1681045370 | 10% |
+| Amundi Euro Government Bond | LU1437018598 | 30% |
+| Gold Bullion Securities | GB00B00FHZ82 | 10% |
 
-- `TELEGRAM_BOT_TOKEN` — il token di BotFather
-- `TELEGRAM_CHAT_ID` — il chat_id recuperato sopra. Per mandare gli alert anche ad altre
-  persone (stessa watchlist per tutti), metti più chat_id separati da virgola, es.
-  `8010961959,123456789` — vedi "Condividere con altri" più sotto.
+Ogni mese si comprano **solo 1-2 ETF**, quelli più sotto il loro peso obiettivo. Così il
+portafoglio si ribilancia da solo senza mai vendere, e si usano poche operazioni (vincolo
+delle 10 operazioni gratuite al mese su Revolut).
 
-### 4. Abilita GitHub Pages
+**Comandi Telegram** (solo dal tuo account):
+- `pac fatto`: hai comprato quanto suggerito, il sistema lo registra
+- `pac saltato`: questo mese non hai comprato
+- `stato`: riepilogo del PAC (investito, valore attuale, pesi)
 
-**Settings → Pages** → Source: "Deploy from a branch" → Branch: `main`, cartella `/docs` → Save.
-Dopo qualche minuto la dashboard sara' visibile su `https://TUO_USER.github.io/stock-monitor/`.
-Salvatela come collegamento nella home del telefono per accedervi come un'app.
+Importi e posizioni del PAC sono **privati**: stanno in `private_state.json` (cifrato) e
+nei messaggi Telegram, mai nella dashboard pubblica.
 
-### 5. Primo run
+## 2. Compravendite rapide
 
-Tab **Actions → Stock monitor → Run workflow**. Apri il log per verificare che non ci siano
-errori, poi controlla che `docs/state.json` sia stato aggiornato e che la dashboard mostri i dati.
+**Solo acquisti**, solo su titoli sopra la media a 200 giorni (tendenza di fondo positiva).
+Due setup:
 
-Da qui in poi gira da solo ogni 15 minuti nei giorni di borsa (lun-ven, 7:00-21:00 UTC).
+- **Ritracciamento nel trend**: titolo in salita che ha avuto 2-3 giorni di calo (RSI a 2
+  giorni sotto 10). Si compra il rimbalzo e si esce alla prima chiusura sopra la media a 5
+  giorni. Stop a 2,5 ATR, massimo 10 sedute.
+- **Rottura dei massimi**: chiusura sopra il massimo delle ultime 20 sedute con volumi 1,5
+  volte sopra la media. Stop a 2 ATR, obiettivo a 4 ATR (rapporto 2:1), massimo 15 sedute.
 
-## Gestire la watchlist
+(L'ATR è l'escursione media giornaliera del titolo: stop e obiettivi si adattano alla
+volatilità di ciascuno.)
 
-Modifica `watchlist.json` direttamente da GitHub (anche da smartphone, app GitHub → apri file →
-matita per modificare → commit). Ogni voce:
+**Messaggio tipo**:
 
-```json
-{ "name": "Nome leggibile", "ticker": "TICKER.MI", "threshold_pct": 2.0, "enabled": true }
+```
+🟢 Intesa Sanpaolo (ISP.MI) – ritracciamento nel trend
+Compra all'apertura di domani (~4,12 €)
+Stop: 3,95 € (-4,1%) – inseriscilo subito come ordine stop
+Uscita: alla prima chiusura sopra la media a 5 giorni (oggi ~4,25 €), o dopo 10 sedute
+Quantità: 600 → 2.472 €, rischio max 100 €
+Storico su questo titolo: 41 operazioni, 63% vincenti, media +0,62% a operazione
 ```
 
-- `threshold_pct` e' opzionale: se omesso usa `default_threshold_pct` (2%) definito in cima al file.
-- Per rimuovere un titolo dal monitoraggio senza cancellarlo: `"enabled": false`.
-- Per aggiungere un nuovo titolo partendo dall'ISIN: cercalo su
-  [justetf.com](https://www.justetf.com) o [borsaitaliana.it](https://www.borsaitaliana.it) per
-  trovare il ticker Yahoo Finance corretto (es. `XXXX.MI` per Milano, `XXXX.PA` per Parigi).
+**Gestione del rischio**:
+- ogni operazione rischia al massimo l'**1% del capitale** di trading (quantità calcolata in
+  automatico), e nessuna posizione supera 1/3 del capitale;
+- massimo **3 posizioni aperte** e **3 nuove operazioni al mese** (ogni compravendita usa
+  2 delle 10 operazioni gratuite; con 2 acquisti PAC si arriva a 8 su 10);
+- costi stimati nel backtest: 0,1% per lato più 0,1% sui titoli non in euro (cambio).
 
-## Cambiare l'algoritmo di trend
+**Simulazione su carta**: ogni proposta viene seguita in automatico in `docs/swing_log.json`
+(entrata all'apertura del giorno dopo, stop/obiettivo/tempo come da piano). Ricevi un
+messaggio quando un'operazione si chiude e un riepilogo ogni venerdì. Consiglio: **2-3 mesi
+solo su carta** prima di usare soldi veri.
 
-`trend_algorithm.py` contiene l'unico punto da modificare. Al momento implementa **MACD
-filtrato da ADX**, due indicatori tecnici standard:
+**Universo**: `universe.json`, circa 80 titoli molto scambiati (FTSE MIB, grandi europee,
+grandi USA). Puoi aggiungere o togliere titoli liberamente; controlla che siano acquistabili
+sul tuo broker.
 
-1. **MACD** (Moving Average Convergence Divergence): `EMA12 - EMA26` = linea MACD,
-   `EMA9(MACD)` = signal. MACD sopra signal → direzione rialzista, sotto → ribassista.
-2. **ADX** (Average Directional Index, Wilder, 14 periodi): misura la forza del trend
-   (0-100), indipendente dalla direzione. Se ADX è sotto `adx_threshold` (default 25) il
-   mercato è considerato laterale/rumoroso e il segnale MACD viene scartato (`"none"`),
-   anche se ha appena incrociato — questo riduce i falsi positivi rispetto a un semplice
-   incrocio di medie.
+## Backtest
 
-I parametri (`macd_fast`, `macd_slow`, `macd_signal`, `adx_period`, `adx_threshold`) sono in
-`config.json` → `trend_algorithm`. Storico e intervallo usati (`3mo`, giornaliero) sono in
-`config.json` → `market_data`.
+`backtest.py` gira ogni domenica (e a mano da **Actions → Backtest → Run workflow**):
 
-Per sostituire l'algoritmo: riscrivi il corpo della funzione `detect_trend(history, params)` in
-`trend_algorithm.py`, mantenendo la stessa firma — riceve un DataFrame pandas con colonne
-`High`, `Low`, `Close` e il dict `params` da `config.json`, deve restituire
-`{"signal": "up"|"down"|"none", "value": <numero>}` (più eventuali chiavi extra, es. `"adx"`,
-usate solo per arricchire il messaggio di alert in `monitor.py`).
+- per ogni titolo e setup: numero di operazioni, % vincenti, guadagno e perdita medi,
+  risultato medio a operazione, profit factor, durata media. Anche per mercato e per anno;
+- per il PAC: su tutte le finestre di 4 anni dello storico dell'MSCI World, confronto tra
+  "tutto subito", PAC semplice e PAC modulato.
 
-## Cambiare l'algoritmo di supporti/resistenze, Fibonacci e Bollinger
+I risultati finiscono in `docs/backtest.json` e nella dashboard.
 
-`levels_algorithm.py` implementa il terzo check, che genera alert `[LIVELLO]`. Combina tre
-tecniche; le prime due condividono la stessa base — la ricerca dei **pivot** (massimi/minimi
-locali confermati) sul prezzo storico:
+**Limiti onesti**: l'universo contiene le aziende grandi *oggi* (quelle fallite o uscite dagli
+indici non ci sono, e questo migliora un po' i risultati passati); le tasse (26%) non sono
+incluse; ingresso e uscita sono simulati su prezzi giornalieri.
 
-1. **Supporti/resistenze**: i pivot vicini tra loro vengono raggruppati in "zone"; una zona
-   toccata almeno `min_touches` volte diventa un supporto (se sotto il prezzo attuale) o una
-   resistenza (se sopra) — il ruolo si aggiorna da solo ad ogni run confrontando col prezzo
-   attuale, quindi un'inversione supporto↔resistenza avviene automaticamente.
-2. **Fibonacci**: sull'ultimo swing significativo (massimo/minimo pivot più recenti entro
-   `fib_lookback_bars`, non barre grezze) calcola i 5 livelli di ritracciamento standard
-   (23.6/38.2/50/61.8/78.6%).
-3. **Bollinger Bands** (`bollinger_window` giorni, `bollinger_std` deviazioni standard): non
-   generano un segnale a parte, confermano (o no) una rottura già rilevata dai pivot/Fibonacci.
-   Se una rottura (`breakout_resistance`/`breakdown_support`) coincide con un'uscita dalla banda
-   corrispondente, `volatility_confirmation` diventa `true` — indica che il movimento ha
-   un'espansione di volatilità dietro, non solo un lento superamento della soglia.
+---
 
-Quando un supporto/resistenza e un livello Fibonacci coincidono (entro `cluster_tolerance_pct`),
-scatta la **confluenza** — due tecniche indipendenti che indicano lo stesso prezzo, un segnale
-più solido di uno preso da una sola delle due — e compare nel messaggio dell'alert insieme
-all'eventuale conferma di volatilità.
+## Setup
 
-Il segnale scatta per "vicinanza" a un livello (`near_support`/`near_resistance`, entro
-`proximity_pct`) o per rottura (`breakout_resistance`/`breakdown_support`, chiusura precedente
-da un lato del livello e prezzo attuale dall'altro). La "vicinanza" usa un'isteresi
-(`hysteresis_factor`) per non generare alert ad ogni run se il prezzo oscilla al margine della
-soglia.
+### Secrets (Settings → Secrets and variables → Actions → Secrets)
 
-Parametri in `config.json` → `levels_algorithm` (`pivot_window`, `cluster_tolerance_pct`,
-`min_touches`, `max_zones`, `proximity_pct`, `hysteresis_factor`, `fib_lookback_bars`,
-`bollinger_window`, `bollinger_std`). Usa uno storico più lungo
-(`market_data.levels_history_period`, default 6 mesi) rispetto al trend (3 mesi): supporti/
-resistenze/Fibonacci hanno bisogno di più storia per essere significativi.
+- `TELEGRAM_BOT_TOKEN`: token del bot (da @BotFather)
+- `TELEGRAM_CHAT_ID`: il tuo chat_id. I messaggi vanno solo al primo della lista, perché
+  contengono importi personali.
+- `PORTFOLIO_ENCRYPTION_KEY`: chiave di cifratura dello stato privato. Per generarla:
+  ```
+  python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+  ```
 
-Il messaggio `[LIVELLO]` include anche un riepilogo di **quanti segnali indipendenti concordano**
-in questo momento (trend, rottura confermata, espansione di volatilità, confluenza Fibonacci) —
-è un conteggio di fatti verificabili sullo stato attuale, non una previsione su come andrà il
-titolo (vedi `signal_agreement()` in `monitor.py`).
+### Variables (stessa pagina, scheda **Variables**: non sono visibili pubblicamente)
 
-Per sostituire l'algoritmo: `detect_levels(history, params, current_price, previous_signal)` in
-`levels_algorithm.py` — firma diversa da `detect_trend` perché qui servono anche il prezzo live
-e il segnale precedente (per l'isteresi). Deve restituire almeno
-`{"signal": "none"|"near_support"|"near_resistance"|"breakout_resistance"|"breakdown_support", "value": <numero>}`,
-più le chiavi extra usate da `monitor.py`/dashboard (`level_price`, `level_label`,
-`nearest_support`, `nearest_resistance`, `fib_levels`, `fib_direction`).
+| Nome | Significato | Default |
+|---|---|---|
+| `PAC_BUDGET` | totale da investire col PAC | 40000 |
+| `PAC_MONTHLY_BASE` | importo base mensile | 3000 |
+| `SWING_CAPITAL` | capitale per le compravendite rapide | 10000 |
 
-## Report giornaliero PDF (validazione delle formule nel tempo)
+Gli importi non stanno in `config.json` perché il repo è pubblico.
 
-`daily_report.py` gira **una volta al giorno** (cron separato, `.github/workflows/daily_report.yml`,
-21:15 UTC nei giorni di borsa — un quarto d'ora dopo l'ultimo run regolare) e fa due cose:
+### Primo avvio
 
-1. Aggiunge una riga a `docs/daily_log.json` per ogni titolo: data, prezzo di chiusura, badge
-   trend/livello, segnali concordanti di quel giorno. È un file che **cresce nel tempo** (mai
-   sovrascritto, un giorno alla volta) — pensato per poter verificare col tempo se i badge del
-   sistema hanno anticipato davvero i movimenti successivi, non solo per consultazione immediata.
-2. Genera un PDF con la tabella (titolo, prezzo, delta oggi, S/R, badge, segnali concordanti, più
-   una colonna per ciascuno degli ultimi `max_days_shown` giorni accumulati) e lo manda come
-   allegato via Telegram (stesso bot degli alert, `sendDocument`).
+1. **Actions → Backtest → Run workflow** (qualche minuto): senza backtest non arrivano proposte.
+2. **Actions → Daily run → Run workflow**: arriva il primo messaggio PAC e gli eventuali setup.
+3. Da lì in poi gira da solo: ogni sera lun-ven alle 21:30 UTC, backtest ogni domenica.
 
-Il PDF mostra solo gli ultimi `max_days_shown` giorni (default 10) per restare leggibile — lo
-storico completo resta comunque tutto in `docs/daily_log.json`, anche quando cresce oltre quella
-finestra.
+Dashboard: **Settings → Pages** → branch `main`, cartella `/docs`.
 
-**Per fermarlo**: `config.json` → `daily_report` → `"enabled": false` (lo script esce subito senza
-fare nulla), oppure disabilita il workflow da GitHub: **Actions → Daily report → ⋯ → Disable
-workflow**.
+### Test offline
 
-Parametri in `config.json` → `daily_report` (`enabled`, `max_days_shown`).
-
-## Scansione dei titoli più scambiati sul mercato
-
-Oltre alla tua watchlist personale, il report giornaliero include una sezione **"Top N su 100
-titoli più scambiati"**: `market_scan.py` prende la lista dei titoli più scambiati per volume da
-uno screener pubblico di Yahoo Finance, fa girare gli **stessi identici algoritmi** di trend e
-livelli già usati per la watchlist (nessuna nuova logica di detection), e tiene solo i migliori
-`top_n` per "chiarezza" del segnale — classificati per numero di segnali indipendenti concordanti
-(`signal_agreement_count`), spareggio sull'ADX.
-
-Nessun alert Telegram per questi titoli — compaiono **solo** nel PDF giornaliero, in una sezione
-separata dalla tua watchlist, proprio per non aggiungere rumore alle notifiche che già ricevi.
-Girano una volta al giorno (dentro `daily_report.py`, non nel ciclo ogni 15 minuti): 100 titoli
-richiedono ~300 chiamate a Yahoo Finance, troppe per farle ogni 15 minuti.
-
-Parametri in `config.json` → `market_scan` (`enabled`, `count` — quanti titoli scansionare,
-default 100, `top_n` — quanti mostrarne nel report, default 10). Per disattivare:
-`"enabled": false`.
-
-## Portafoglio via comandi Telegram
-
-Puoi scrivere al bot per segnare quali titoli possiedi davvero in questo momento (non serve
-modificare `watchlist.json` a mano). Il comando viene letto entro 15 minuti (al prossimo run
-regolare di `monitor.py` — nessun server sempre acceso, quindi non è istantaneo).
-
-**Comandi**: nome titolo, ticker o ISIN + una parola tra `comprato`/`acquistato`/`compro`/
-`acquisto` (per aggiungere) o `venduto`/`vendo`/`vendita` (per rimuovere), in qualsiasi ordine —
-es. `comprato Ferrari` o `Ferrari comprato` funzionano uguale. Il bot risponde con una conferma,
-o ti chiede di essere più specifico se il nome è ambiguo (es. "Amundi MSCI" da solo corrisponde a
-4 fondi diversi — serve il nome completo o il ticker).
-
-**Solo tu puoi dare questi comandi**: il bot accetta comandi solo dalla chat che hai usato per il
-primo setup (`TELEGRAM_CHAT_ID`, il primo valore se ne hai messi più di uno per condividere gli
-alert con altri) — un amico che scrive "comprato X" viene ignorato silenziosamente, il tuo
-portafoglio resta un fatto privato tra te e il bot.
-
-**Titoli "in portafoglio" sono trattati diversamente**:
-- soglia di alert più stretta di quella generale (`config.json` → `portfolio` →
-  `held_threshold_pct`, default 1.0% invece del 2% generale) — override per singolo titolo con
-  `held_threshold_pct` nella voce di `watchlist.json`, stesso meccanismo di `threshold_pct`
-- marcati con `[PORTAFOGLIO]` nei messaggi `[SOGLIA]`/`[TREND]`/`[LIVELLO]` e nel PDF giornaliero
-
-**Privacy**: `portfolio.json` (quali titoli possiedi davvero) è **cifrato** prima di essere
-committato — a differenza di prezzi/segnali tecnici (già pubblici in `docs/state.json` per la
-dashboard), la tua posizione reale è un'informazione più sensibile, e il repo resta pubblico
-(necessario per GitHub Pages gratuito). Cifratura simmetrica (libreria `cryptography`, Fernet),
-chiave nel secret `PORTFOLIO_ENCRYPTION_KEY` — senza quel secret nessuno può leggere il contenuto
-del file, nemmeno aprendolo direttamente su github.com. Per generarne una nuova (es. se sospetti
-che la chiave sia stata esposta):
 ```
-python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+python tests/test_core.py
 ```
-poi aggiorna il secret su GitHub — attenzione, un file già cifrato con la vecchia chiave non sarà
-più leggibile con una chiave nuova (verrebbe ricreato vuoto al primo run).
 
-**Per disattivare**: `config.json` → `portfolio` → `"enabled": false`.
+## Parametri
 
-## Condividere con altri
-
-Gli alert vengono mandati a ogni chat_id presente nel secret `TELEGRAM_CHAT_ID` (separati da
-virgola) — stessa watchlist e soglie per tutti, non c'e' personalizzazione per persona. Per
-aggiungere qualcuno:
-
-1. L'amico cerca il bot su Telegram (username scelto al punto 2 del setup) e gli manda un
-   messaggio qualsiasi (es. "ciao") — senza questo passaggio Telegram non permette al bot di
-   scrivergli.
-2. Recupera il suo chat_id aprendo nel browser
-   `https://api.telegram.org/bot<TOKEN>/getUpdates` e cercando il suo `"chat":{"id": ...}`
-   nella risposta (compare dopo che ti ha scritto).
-3. Aggiorna il secret `TELEGRAM_CHAT_ID` su GitHub con la lista completa separata da virgola.
-
-Nessuna modifica al codice necessaria oltre a questo.
-
-## Anti-spam degli alert
-
-- **Soglia assoluta**: al primo superamento della soglia manda l'alert e sposta il riferimento
-  (baseline) al prezzo corrente — il prossimo alert scatta solo dopo un altro movimento pari alla
-  soglia da li'. La baseline si resetta a inizio di ogni giornata di borsa.
-- **Trend**: manda un alert solo quando il segnale *cambia* (es. da "none" a "up"), non ad ogni
-  esecuzione mentre il trend persiste.
-- **Livelli**: come il trend (alert solo al cambio di segnale), con in più un'isteresi sulla
-  soglia di "vicinanza" a un livello, per non generare alert ad ogni run se il prezzo oscilla
-  al margine della soglia (vedi sopra).
+Tutto in `config.json`: pesi degli ETF, moltiplicatori, rischio per operazione, numero
+massimo di posizioni, soglie dei setup. Se cambi una soglia dei setup, rilancia il backtest.
 
 ## File
 
 ```
-watchlist.json              titoli monitorati, soglie
-config.json                 parametri storico e algoritmi (trend, livelli, report, portafoglio)
-trend_algorithm.py          algoritmo di trend detection (sostituibile)
-levels_algorithm.py         algoritmo supporti/resistenze + Fibonacci (sostituibile)
-portfolio.py                comandi Telegram comprato/venduto + cifratura portfolio.json
-portfolio.json               titoli posseduti, cifrato (mai leggibile senza il secret)
-market_scan.py               scansione dei 100 titoli piu' scambiati, top N per chiarezza
-monitor.py                  script principale, gira via GitHub Actions ogni 15 min
-daily_report.py             accumulo storico + PDF giornaliero via Telegram
-docs/index.html             dashboard mobile (GitHub Pages)
-docs/state.json             stato aggiornato ad ogni run (letto dalla dashboard)
-docs/daily_log.json         storico giornaliero cumulativo (letto da daily_report.py)
-.github/workflows/monitor.yml        cron GitHub Actions ogni 15 min
-.github/workflows/daily_report.yml   cron GitHub Actions una volta al giorno
+config.json          parametri (PAC, setup, rischio)
+universe.json        titoli scansionati per le compravendite rapide
+daily_run.py         run serale: comandi Telegram, PAC, setup, simulazione
+backtest.py          backtest settimanale (setup + PAC)
+swing_strategy.py    setup, piano di trade, simulazione, dimensionamento
+pac.py               moltiplicatore, ripartizione tra ETF, backtest PAC
+indicators.py        SMA, RSI, ATR, drawdown
+common.py            Telegram, cifratura, download dati (Yahoo Finance)
+private_state.json   stato PAC cifrato (creato al primo run)
+docs/index.html      dashboard
+docs/state.json      stato pubblico (senza importi)
+docs/swing_log.json  operazioni simulate
+docs/backtest.json   risultati del backtest
+tests/test_core.py   test offline
 ```
