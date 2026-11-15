@@ -1,1 +1,18 @@
-{"updated": null, "note": "In attesa del primo run giornaliero."}
+{
+  "updated": "2026-11-15T18:33+00:00",
+  "pac_market": {
+    "reference": "CW8.PA",
+    "drawdown_pct": -1.46,
+    "above_sma_pct": 6.53,
+    "multiplier": 1.0
+  },
+  "setups_today": [],
+  "paper": {
+    "open": [],
+    "recent_closed": [],
+    "stats": {
+      "trades": 0
+    }
+  },
+  "universe_size": 80
+}
