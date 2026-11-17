@@ -1,12 +1,63 @@
 {
-  "updated": "2026-11-15T18:33+00:00",
+  "updated": "2026-11-17T04:04+00:00",
   "pac_market": {
     "reference": "CW8.PA",
     "drawdown_pct": -1.46,
     "above_sma_pct": 6.53,
     "multiplier": 1.0
   },
-  "setups_today": [],
+  "setups_today": [
+    {
+      "ticker": "PLTR",
+      "name": "Palantir",
+      "eligible": false,
+      "score": 0.14,
+      "stats": {
+        "trades": 36,
+        "win_rate": 63.9,
+        "avg_win_pct": 6.89,
+        "avg_loss_pct": -6.26,
+        "expectancy_pct": 2.138,
+        "expectancy_r": 0.14,
+        "profit_factor": 1.95,
+        "avg_days": 3.8
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-16",
+      "entry_ref": 160.39,
+      "stop": 138.2229,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 8.8668,
+      "indicative_target": 168.236
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "eligible": false,
+      "score": -0.059,
+      "stats": {
+        "trades": 75,
+        "win_rate": 58.7,
+        "avg_win_pct": 1.92,
+        "avg_loss_pct": -3.23,
+        "expectancy_pct": -0.212,
+        "expectancy_r": -0.059,
+        "profit_factor": 0.84,
+        "avg_days": 3.0
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-16",
+      "entry_ref": 257.75,
+      "stop": 234.885,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 9.146,
+      "indicative_target": 265.778
+    }
+  ],
   "paper": {
     "open": [],
     "recent_closed": [],
