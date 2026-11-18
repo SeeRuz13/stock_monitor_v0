@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-17T04:04+00:00",
+  "updated": "2026-11-18T03:00+00:00",
   "pac_market": {
     "reference": "CW8.PA",
-    "drawdown_pct": -1.46,
-    "above_sma_pct": 6.53,
+    "drawdown_pct": -1.8,
+    "above_sma_pct": 6.09,
     "multiplier": 1.0
   },
   "setups_today": [
@@ -23,39 +23,114 @@
         "avg_days": 3.8
       },
       "setup": "pullback",
-      "signal_date": "2026-11-16",
-      "entry_ref": 160.39,
-      "stop": 138.2229,
+      "signal_date": "2026-11-17",
+      "entry_ref": 156.56,
+      "stop": 134.4263,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 8.8668,
-      "indicative_target": 168.236
+      "atr": 8.8535,
+      "indicative_target": 165.784
     },
     {
-      "ticker": "AMZN",
-      "name": "Amazon",
+      "ticker": "MSFT",
+      "name": "Microsoft",
       "eligible": false,
-      "score": -0.059,
+      "score": 0.062,
+      "stats": {
+        "trades": 66,
+        "win_rate": 66.7,
+        "avg_win_pct": 1.47,
+        "avg_loss_pct": -2.39,
+        "expectancy_pct": 0.184,
+        "expectancy_r": 0.062,
+        "profit_factor": 1.23,
+        "avg_days": 3.2
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-17",
+      "entry_ref": 506.24,
+      "stop": 467.7564,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 15.3934,
+      "indicative_target": 518.448
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMorgan",
+      "eligible": false,
+      "score": -0.033,
       "stats": {
         "trades": 75,
-        "win_rate": 58.7,
-        "avg_win_pct": 1.92,
-        "avg_loss_pct": -3.23,
-        "expectancy_pct": -0.212,
-        "expectancy_r": -0.059,
-        "profit_factor": 0.84,
-        "avg_days": 3.0
+        "win_rate": 54.7,
+        "avg_win_pct": 1.52,
+        "avg_loss_pct": -2.42,
+        "expectancy_pct": -0.269,
+        "expectancy_r": -0.033,
+        "profit_factor": 0.76,
+        "avg_days": 3.6
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-17",
+      "entry_ref": 329.96,
+      "stop": 311.3153,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 7.4579,
+      "indicative_target": 340.114
+    },
+    {
+      "ticker": "BAS.DE",
+      "name": "BASF",
+      "eligible": false,
+      "score": -0.091,
+      "stats": {
+        "trades": 52,
+        "win_rate": 61.5,
+        "avg_win_pct": 1.65,
+        "avg_loss_pct": -3.3,
+        "expectancy_pct": -0.254,
+        "expectancy_r": -0.091,
+        "profit_factor": 0.8,
+        "avg_days": 3.6
       },
       "setup": "pullback",
       "signal_date": "2026-11-16",
-      "entry_ref": 257.75,
-      "stop": 234.885,
+      "entry_ref": 53.74,
+      "stop": 51.1072,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 9.146,
-      "indicative_target": 265.778
+      "atr": 1.0531,
+      "indicative_target": 54.296
+    },
+    {
+      "ticker": "UBSG.SW",
+      "name": "UBS",
+      "eligible": false,
+      "score": -0.151,
+      "stats": {
+        "trades": 66,
+        "win_rate": 63.6,
+        "avg_win_pct": 1.21,
+        "avg_loss_pct": -3.77,
+        "expectancy_pct": -0.602,
+        "expectancy_r": -0.151,
+        "profit_factor": 0.56,
+        "avg_days": 3.2
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-17",
+      "entry_ref": 39.06,
+      "stop": 36.6269,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 0.9732,
+      "indicative_target": 40.37
     }
   ],
   "paper": {
