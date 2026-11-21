@@ -1,62 +1,12 @@
 {
-  "updated": "2026-11-20T02:28+00:00",
+  "updated": "2026-11-21T02:40+00:00",
   "pac_market": {
     "reference": "CW8.PA",
-    "drawdown_pct": -3.92,
-    "above_sma_pct": 3.67,
+    "drawdown_pct": -4.25,
+    "above_sma_pct": 3.26,
     "multiplier": 1.0
   },
   "setups_today": [
-    {
-      "ticker": "PLTR",
-      "name": "Palantir",
-      "eligible": false,
-      "score": 0.14,
-      "stats": {
-        "trades": 36,
-        "win_rate": 63.9,
-        "avg_win_pct": 6.89,
-        "avg_loss_pct": -6.26,
-        "expectancy_pct": 2.138,
-        "expectancy_r": 0.14,
-        "profit_factor": 1.95,
-        "avg_days": 3.8
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 156.67,
-      "stop": 135.2351,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 8.574,
-      "indicative_target": 162.638
-    },
-    {
-      "ticker": "AIR.PA",
-      "name": "Airbus",
-      "eligible": false,
-      "score": 0.125,
-      "stats": {
-        "trades": 79,
-        "win_rate": 70.9,
-        "avg_win_pct": 1.91,
-        "avg_loss_pct": -2.65,
-        "expectancy_pct": 0.583,
-        "expectancy_r": 0.125,
-        "profit_factor": 1.76,
-        "avg_days": 3.3
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 197.78,
-      "stop": 184.5343,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 5.2983,
-      "indicative_target": 203.586
-    },
     {
       "ticker": "V",
       "name": "Visa",
@@ -73,14 +23,14 @@
         "avg_days": 3.1
       },
       "setup": "pullback",
-      "signal_date": "2026-11-19",
-      "entry_ref": 402.25,
-      "stop": 379.6528,
+      "signal_date": "2026-11-20",
+      "entry_ref": 401.87,
+      "stop": 379.5386,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 9.0389,
-      "indicative_target": 417.292
+      "atr": 8.9325,
+      "indicative_target": 412.514
     },
     {
       "ticker": "ADS.DE",
@@ -98,14 +48,14 @@
         "avg_days": 3.3
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 173.8,
-      "stop": 162.6414,
+      "signal_date": "2026-11-19",
+      "entry_ref": 172.2,
+      "stop": 161.1599,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 4.4634,
-      "indicative_target": 175.83
+      "atr": 4.416,
+      "indicative_target": 174.88
     },
     {
       "ticker": "MSFT",
@@ -123,39 +73,39 @@
         "avg_days": 3.2
       },
       "setup": "pullback",
-      "signal_date": "2026-11-19",
-      "entry_ref": 498.3,
-      "stop": 458.5737,
+      "signal_date": "2026-11-20",
+      "entry_ref": 484.52,
+      "stop": 443.5652,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 15.8905,
-      "indicative_target": 510.147
+      "atr": 16.3819,
+      "indicative_target": 502.477
     },
     {
-      "ticker": "UCG.MI",
-      "name": "UniCredit",
+      "ticker": "SAN.PA",
+      "name": "Sanofi",
       "eligible": false,
-      "score": 0.047,
+      "score": 0.043,
       "stats": {
-        "trades": 70,
-        "win_rate": 78.6,
-        "avg_win_pct": 2.07,
-        "avg_loss_pct": -5.63,
-        "expectancy_pct": 0.418,
-        "expectancy_r": 0.047,
-        "profit_factor": 1.35,
+        "trades": 55,
+        "win_rate": 70.9,
+        "avg_win_pct": 1.36,
+        "avg_loss_pct": -2.41,
+        "expectancy_pct": 0.261,
+        "expectancy_r": 0.043,
+        "profit_factor": 1.37,
         "avg_days": 3.1
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 80.14,
-      "stop": 74.7779,
+      "signal_date": "2026-11-19",
+      "entry_ref": 83.79,
+      "stop": 79.186,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 2.1449,
-      "indicative_target": 82.67
+      "atr": 1.8416,
+      "indicative_target": 86.504
     },
     {
       "ticker": "ISP.MI",
@@ -173,39 +123,64 @@
         "avg_days": 3.1
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 6.065,
-      "stop": 5.7095,
+      "signal_date": "2026-11-19",
+      "entry_ref": 6.047,
+      "stop": 5.6967,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.1422,
-      "indicative_target": 6.2084
+      "atr": 0.1401,
+      "indicative_target": 6.1686
     },
     {
-      "ticker": "SIE.DE",
-      "name": "Siemens",
+      "ticker": "ITX.MC",
+      "name": "Inditex",
       "eligible": false,
-      "score": 0.038,
+      "score": 0.041,
       "stats": {
-        "trades": 66,
-        "win_rate": 71.2,
-        "avg_win_pct": 1.65,
-        "avg_loss_pct": -3.15,
-        "expectancy_pct": 0.266,
-        "expectancy_r": 0.038,
-        "profit_factor": 1.29,
+        "trades": 68,
+        "win_rate": 70.6,
+        "avg_win_pct": 1.49,
+        "avg_loss_pct": -3.03,
+        "expectancy_pct": 0.16,
+        "expectancy_r": 0.041,
+        "profit_factor": 1.18,
         "avg_days": 3.1
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 266.0,
-      "stop": 246.3973,
+      "signal_date": "2026-11-20",
+      "entry_ref": 57.78,
+      "stop": 54.8797,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 7.8411,
-      "indicative_target": 273.89
+      "atr": 1.1601,
+      "indicative_target": 59.088
+    },
+    {
+      "ticker": "OR.PA",
+      "name": "L'Oreal",
+      "eligible": false,
+      "score": 0.041,
+      "stats": {
+        "trades": 75,
+        "win_rate": 68.0,
+        "avg_win_pct": 1.36,
+        "avg_loss_pct": -2.29,
+        "expectancy_pct": 0.195,
+        "expectancy_r": 0.041,
+        "profit_factor": 1.27,
+        "avg_days": 3.1
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-19",
+      "entry_ref": 436.55,
+      "stop": 416.0655,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 8.1938,
+      "indicative_target": 445.46
     },
     {
       "ticker": "ENEL.MI",
@@ -223,14 +198,14 @@
         "avg_days": 3.5
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 9.561,
-      "stop": 9.1463,
+      "signal_date": "2026-11-19",
+      "entry_ref": 9.453,
+      "stop": 9.0467,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.1659,
-      "indicative_target": 9.7758
+      "atr": 0.1625,
+      "indicative_target": 9.6814
     },
     {
       "ticker": "MA",
@@ -248,39 +223,14 @@
         "avg_days": 2.7
       },
       "setup": "pullback",
-      "signal_date": "2026-11-19",
-      "entry_ref": 626.5,
-      "stop": 591.0579,
+      "signal_date": "2026-11-20",
+      "entry_ref": 625.59,
+      "stop": 590.3724,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 14.1768,
-      "indicative_target": 647.7
-    },
-    {
-      "ticker": "KO",
-      "name": "Coca-Cola",
-      "eligible": false,
-      "score": -0.01,
-      "stats": {
-        "trades": 81,
-        "win_rate": 60.5,
-        "avg_win_pct": 1.05,
-        "avg_loss_pct": -1.67,
-        "expectancy_pct": -0.026,
-        "expectancy_r": -0.01,
-        "profit_factor": 0.96,
-        "avg_days": 3.5
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-19",
-      "entry_ref": 96.09,
-      "stop": 91.6071,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 1.7932,
-      "indicative_target": 98.34
+      "atr": 14.0871,
+      "indicative_target": 640.58
     },
     {
       "ticker": "MB.MI",
@@ -298,39 +248,14 @@
         "avg_days": 3.1
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 26.48,
-      "stop": 24.9177,
+      "signal_date": "2026-11-19",
+      "entry_ref": 26.3,
+      "stop": 24.7528,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.6249,
-      "indicative_target": 27.064
-    },
-    {
-      "ticker": "FBK.MI",
-      "name": "FinecoBank",
-      "eligible": false,
-      "score": -0.028,
-      "stats": {
-        "trades": 72,
-        "win_rate": 55.6,
-        "avg_win_pct": 1.63,
-        "avg_loss_pct": -2.25,
-        "expectancy_pct": -0.096,
-        "expectancy_r": -0.028,
-        "profit_factor": 0.9,
-        "avg_days": 3.3
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 22.08,
-      "stop": 20.8248,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.5021,
-      "indicative_target": 22.72
+      "atr": 0.6189,
+      "indicative_target": 26.886
     },
     {
       "ticker": "UNI.MI",
@@ -348,39 +273,39 @@
         "avg_days": 3.1
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 25.1,
-      "stop": 23.351,
+      "signal_date": "2026-11-19",
+      "entry_ref": 24.74,
+      "stop": 23.007,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.6996,
-      "indicative_target": 25.734
+      "atr": 0.6932,
+      "indicative_target": 25.432
     },
     {
-      "ticker": "XOM",
-      "name": "Exxon Mobil",
+      "ticker": "ENI.MI",
+      "name": "Eni",
       "eligible": false,
-      "score": -0.04,
+      "score": -0.033,
       "stats": {
-        "trades": 66,
-        "win_rate": 56.1,
-        "avg_win_pct": 1.7,
-        "avg_loss_pct": -2.8,
-        "expectancy_pct": -0.276,
-        "expectancy_r": -0.04,
-        "profit_factor": 0.78,
-        "avg_days": 3.3
+        "trades": 71,
+        "win_rate": 63.4,
+        "avg_win_pct": 1.58,
+        "avg_loss_pct": -2.99,
+        "expectancy_pct": -0.094,
+        "expectancy_r": -0.033,
+        "profit_factor": 0.91,
+        "avg_days": 3.4
       },
       "setup": "pullback",
       "signal_date": "2026-11-19",
-      "entry_ref": 158.93,
-      "stop": 148.2044,
+      "entry_ref": 24.7,
+      "stop": 23.2762,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 4.2902,
-      "indicative_target": 164.622
+      "atr": 0.5695,
+      "indicative_target": 25.417
     },
     {
       "ticker": "G.MI",
@@ -398,14 +323,14 @@
         "avg_days": 3.5
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 43.54,
-      "stop": 41.6344,
+      "signal_date": "2026-11-19",
+      "entry_ref": 43.34,
+      "stop": 41.4866,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.7622,
-      "indicative_target": 44.396
+      "atr": 0.7414,
+      "indicative_target": 44.072
     },
     {
       "ticker": "CPR.MI",
@@ -423,39 +348,14 @@
         "avg_days": 3.4
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 6.61,
-      "stop": 6.2391,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.1484,
-      "indicative_target": 6.7436
-    },
-    {
-      "ticker": "WMT",
-      "name": "Walmart",
-      "eligible": false,
-      "score": -0.064,
-      "stats": {
-        "trades": 81,
-        "win_rate": 54.3,
-        "avg_win_pct": 0.92,
-        "avg_loss_pct": -1.67,
-        "expectancy_pct": -0.264,
-        "expectancy_r": -0.064,
-        "profit_factor": 0.65,
-        "avg_days": 3.2
-      },
-      "setup": "pullback",
       "signal_date": "2026-11-19",
-      "entry_ref": 126.04,
-      "stop": 119.1071,
+      "entry_ref": 6.494,
+      "stop": 6.1232,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 2.7732,
-      "indicative_target": 127.484
+      "atr": 0.1483,
+      "indicative_target": 6.6864
     },
     {
       "ticker": "BMPS.MI",
@@ -473,14 +373,39 @@
         "avg_days": 3.6
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 11.058,
-      "stop": 10.4041,
+      "signal_date": "2026-11-19",
+      "entry_ref": 11.026,
+      "stop": 10.3816,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.2616,
-      "indicative_target": 11.3076
+      "atr": 0.2577,
+      "indicative_target": 11.2432
+    },
+    {
+      "ticker": "TTE.PA",
+      "name": "TotalEnergies",
+      "eligible": false,
+      "score": -0.071,
+      "stats": {
+        "trades": 69,
+        "win_rate": 66.7,
+        "avg_win_pct": 1.48,
+        "avg_loss_pct": -2.98,
+        "expectancy_pct": -0.01,
+        "expectancy_r": -0.071,
+        "profit_factor": 0.99,
+        "avg_days": 3.3
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-19",
+      "entry_ref": 79.16,
+      "stop": 74.7406,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 1.7678,
+      "indicative_target": 81.016
     },
     {
       "ticker": "LLY",
@@ -498,14 +423,14 @@
         "avg_days": 3.7
       },
       "setup": "pullback",
-      "signal_date": "2026-11-19",
-      "entry_ref": 1351.12,
-      "stop": 1242.8151,
+      "signal_date": "2026-11-20",
+      "entry_ref": 1347.11,
+      "stop": 1241.1322,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 43.322,
-      "indicative_target": 1404.918
+      "atr": 42.3911,
+      "indicative_target": 1385.64
     },
     {
       "ticker": "SAP.DE",
@@ -523,14 +448,64 @@
         "avg_days": 3.0
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 193.92,
-      "stop": 178.7493,
+      "signal_date": "2026-11-19",
+      "entry_ref": 187.02,
+      "stop": 171.4901,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 6.0683,
-      "indicative_target": 206.964
+      "atr": 6.212,
+      "indicative_target": 201.858
+    },
+    {
+      "ticker": "ALV.DE",
+      "name": "Allianz",
+      "eligible": false,
+      "score": -0.082,
+      "stats": {
+        "trades": 76,
+        "win_rate": 63.2,
+        "avg_win_pct": 1.13,
+        "avg_loss_pct": -2.13,
+        "expectancy_pct": -0.069,
+        "expectancy_r": -0.082,
+        "profit_factor": 0.91,
+        "avg_days": 3.0
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-19",
+      "entry_ref": 457.5,
+      "stop": 438.0961,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 7.7615,
+      "indicative_target": 467.6
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "eligible": false,
+      "score": -0.09,
+      "stats": {
+        "trades": 90,
+        "win_rate": 60.0,
+        "avg_win_pct": 1.65,
+        "avg_loss_pct": -2.88,
+        "expectancy_pct": -0.16,
+        "expectancy_r": -0.09,
+        "profit_factor": 0.86,
+        "avg_days": 3.4
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-20",
+      "entry_ref": 342.56,
+      "stop": 322.1176,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 8.177,
+      "indicative_target": 349.782
     },
     {
       "ticker": "BAS.DE",
@@ -548,14 +523,14 @@
         "avg_days": 3.6
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 51.19,
-      "stop": 48.4339,
+      "signal_date": "2026-11-19",
+      "entry_ref": 50.68,
+      "stop": 47.769,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 1.1024,
-      "indicative_target": 53.178
+      "atr": 1.1644,
+      "indicative_target": 52.424
     },
     {
       "ticker": "NOVN.SW",
@@ -583,31 +558,6 @@
       "indicative_target": 132.364
     },
     {
-      "ticker": "TEN.MI",
-      "name": "Tenaris",
-      "eligible": false,
-      "score": -0.106,
-      "stats": {
-        "trades": 61,
-        "win_rate": 55.7,
-        "avg_win_pct": 2.45,
-        "avg_loss_pct": -4.0,
-        "expectancy_pct": -0.405,
-        "expectancy_r": -0.106,
-        "profit_factor": 0.77,
-        "avg_days": 3.7
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 26.33,
-      "stop": 24.3977,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.7729,
-      "indicative_target": 27.208
-    },
-    {
       "ticker": "INGA.AS",
       "name": "ING",
       "eligible": false,
@@ -623,39 +573,14 @@
         "avg_days": 3.0
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 28.37,
-      "stop": 26.5847,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.7141,
-      "indicative_target": 29.543
-    },
-    {
-      "ticker": "JNJ",
-      "name": "Johnson & Johnson",
-      "eligible": false,
-      "score": -0.114,
-      "stats": {
-        "trades": 66,
-        "win_rate": 56.1,
-        "avg_win_pct": 0.87,
-        "avg_loss_pct": -1.85,
-        "expectancy_pct": -0.326,
-        "expectancy_r": -0.114,
-        "profit_factor": 0.6,
-        "avg_days": 3.5
-      },
-      "setup": "pullback",
       "signal_date": "2026-11-19",
-      "entry_ref": 267.14,
-      "stop": 250.1236,
+      "entry_ref": 28.2,
+      "stop": 26.4298,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 6.8066,
-      "indicative_target": 277.368
+      "atr": 0.7081,
+      "indicative_target": 29.181
     },
     {
       "ticker": "NEXI.MI",
@@ -673,39 +598,14 @@
         "avg_days": 3.7
       },
       "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 4.363,
-      "stop": 4.0978,
+      "signal_date": "2026-11-19",
+      "entry_ref": 4.224,
+      "stop": 3.943,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.1061,
-      "indicative_target": 4.45
-    },
-    {
-      "ticker": "UBSG.SW",
-      "name": "UBS",
-      "eligible": false,
-      "score": -0.151,
-      "stats": {
-        "trades": 66,
-        "win_rate": 63.6,
-        "avg_win_pct": 1.21,
-        "avg_loss_pct": -3.77,
-        "expectancy_pct": -0.602,
-        "expectancy_r": -0.151,
-        "profit_factor": 0.56,
-        "avg_days": 3.2
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 38.56,
-      "stop": 36.1471,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.9651,
-      "indicative_target": 39.842
+      "atr": 0.1124,
+      "indicative_target": 4.3986
     },
     {
       "ticker": "NESN.SW",
@@ -733,45 +633,20 @@
       "indicative_target": 86.61
     },
     {
-      "ticker": "BPE.MI",
-      "name": "BPER Banca",
-      "eligible": false,
-      "score": -0.184,
-      "stats": {
-        "trades": 64,
-        "win_rate": 57.8,
-        "avg_win_pct": 1.95,
-        "avg_loss_pct": -5.12,
-        "expectancy_pct": -1.035,
-        "expectancy_r": -0.184,
-        "profit_factor": 0.52,
-        "avg_days": 3.0
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-18",
-      "entry_ref": 12.824,
-      "stop": 11.9462,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.3511,
-      "indicative_target": 13.232
-    },
-    {
       "ticker": "RO.SW",
       "name": "Roche",
       "eligible": false,
       "score": -1.0,
       "stats": {},
       "setup": "pullback",
-      "signal_date": "2026-11-19",
-      "entry_ref": 405.0,
-      "stop": 388.351,
+      "signal_date": "2026-11-20",
+      "entry_ref": 402.6,
+      "stop": 386.1403,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 6.6596,
-      "indicative_target": 409.96
+      "atr": 6.5839,
+      "indicative_target": 408.08
     }
   ],
   "paper": {
