@@ -152,6 +152,35 @@ def download_history(tickers: list, period: str) -> dict:
     return out
 
 
+def last_date(df: pd.DataFrame):
+    return df.index[-1].date()
+
+
+def refresh_stale(data: dict, tickers: list, target_date, period: str) -> list:
+    """Il download multi-ticker a volte non ha ancora l'ultima seduta per
+    alcuni titoli (visto con CW8.PA). Per i ticker indicati piu' vecchi di
+    target_date riprova con un download singolo e tiene il dato piu' recente.
+    Ritorna i ticker ancora non aggiornati."""
+    import yfinance as yf
+
+    still_stale = []
+    for t in tickers:
+        if t in data and last_date(data[t]) >= target_date:
+            continue
+        try:
+            df = yf.Ticker(t).history(period=period, interval="1d", auto_adjust=True)
+            if df.index.tz is not None:
+                df.index = df.index.tz_localize(None)
+            df = df[["Open", "High", "Low", "Close", "Volume"]].dropna(subset=["Open", "High", "Low", "Close"])
+            if len(df) and (t not in data or last_date(df) > last_date(data[t])):
+                data[t] = df
+        except Exception as exc:
+            print(f"Riscaricamento {t} fallito: {exc}")
+        if t not in data or last_date(data[t]) < target_date:
+            still_stale.append(t)
+    return still_stale
+
+
 def fx_to_eur(currency: str) -> float:
     """Quante unita' di `currency` vale 1 EUR (es. USD -> ~1.08).
     1.0 per EUR o se il cambio non e' disponibile."""
