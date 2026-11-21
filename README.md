@@ -63,6 +63,10 @@ delle 10 operazioni gratuite al mese su Revolut).
 - `pac saltato`: questo mese non hai comprato
 - `stato`: riepilogo del PAC (investito, valore attuale, pesi)
 
+I comandi vengono letti ogni 4 ore, tutti i giorni (workflow "Comandi Telegram"),
+quindi la risposta può arrivare dopo qualche ora. Conferma l'acquisto entro fine
+mese: al primo run del mese successivo un suggerimento non confermato scade.
+
 Importi e posizioni del PAC sono **privati**: stanno in `private_state.json` (cifrato) e
 nei messaggi Telegram, mai nella dashboard pubblica.
 

@@ -58,7 +58,7 @@ def process_commands(private: dict, prices: dict, pac_cfg: dict) -> list:
             continue
         text = " ".join(msg["text"].lower().split())
         if text in ("pac fatto", "pac fatto!", "fatto pac"):
-            replies.append(confirm_pac(private, done=True))
+            replies.append(confirm_pac(private, done=True, prices=prices))
         elif text in ("pac saltato", "salta pac", "pac salta"):
             replies.append(confirm_pac(private, done=False))
         elif text in ("stato", "riepilogo", "/stato"):
@@ -73,7 +73,7 @@ def pending_pac(private: dict):
     return hist[-1] if hist and hist[-1]["status"] == "pending" else None
 
 
-def confirm_pac(private: dict, done: bool) -> str:
+def confirm_pac(private: dict, done: bool, prices: dict = None) -> str:
     rec = pending_pac(private)
     if rec is None:
         return "Non c'e' nessun acquisto PAC in attesa di conferma."
@@ -82,7 +82,11 @@ def confirm_pac(private: dict, done: bool) -> str:
         rec["status"] = "skipped"
         return f"Ok, PAC di {rec['label']} segnato come saltato."
     for b in rec["buys"]:
-        pac["units"][b["key"]] = pac["units"].get(b["key"], 0.0) + b["amount"] / b["price"]
+        # prezzo piu' recente disponibile (piu' vicino a quello reale di acquisto
+        # rispetto al prezzo del giorno del suggerimento)
+        px = (prices or {}).get(b["key"]) or b["price"]
+        b["filled_price"] = px
+        pac["units"][b["key"]] = pac["units"].get(b["key"], 0.0) + b["amount"] / px
         pac["invested"][b["key"]] = pac["invested"].get(b["key"], 0.0) + b["amount"]
     rec["status"] = "done"
     total = sum(pac["invested"].values())
@@ -328,6 +332,27 @@ def run_swing(log: dict, cfg: dict, universe: list, backtest: dict, inds: dict, 
 
 # ---------------------------------------------------------------- main
 
+def commands_only():
+    """Solo comandi Telegram (pac fatto/saltato/stato): gira ogni poche ore
+    perche' Telegram conserva i messaggi per il bot solo 24 ore."""
+    config = load_config()
+    pac_cfg = config.get("pac", {})
+    if not ENCRYPTION_KEY or not TELEGRAM_TOKEN:
+        print("Telegram o chiave di cifratura mancanti: niente da fare.")
+        return
+    private = load_encrypted_json(PRIVATE_STATE_PATH, {"last_update_id": 0, "pac": {"units": {}, "invested": {}, "history": []}})
+    tickers = sorted({a["ticker"] for a in pac_cfg.get("assets", [])})
+    data = download_history(tickers, "5d") if tickers else {}
+    prices = {a["key"]: float(data[a["ticker"]]["Close"].iloc[-1]) for a in pac_cfg.get("assets", []) if a["ticker"] in data}
+    before = private.get("last_update_id", 0)
+    replies = process_commands(private, prices, pac_cfg)
+    for m in replies:
+        send_telegram(m, owner_only=True)
+    if private.get("last_update_id", 0) != before:
+        save_encrypted_json(PRIVATE_STATE_PATH, private)
+    print(f"Comandi elaborati: {len(replies)} risposte.")
+
+
 def main():
     config = load_config()
     universe = load_json(UNIVERSE_PATH, {"stocks": []})["stocks"]
@@ -377,7 +402,10 @@ def main():
     for m in owner_msgs:
         send_telegram(m, owner_only=True)
 
-    if today.weekday() == 4:  # venerdi': riepilogo settimanale delle simulazioni
+    # venerdi': riepilogo settimanale delle simulazioni (una sola volta, anche
+    # se il run del venerdi' gira di nuovo nel fine settimana)
+    if today.weekday() == 4 and log.get("last_weekly_summary") != today.isoformat():
+        log["last_weekly_summary"] = today.isoformat()
         closed = [t for t in log["trades"] if t["status"] == "closed"]
         st = summarize(closed)
         if st["trades"]:
@@ -401,4 +429,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    commands_only() if "--commands-only" in sys.argv else main()
