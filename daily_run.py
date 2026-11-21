@@ -17,7 +17,7 @@ from datetime import date, datetime, timedelta, timezone
 
 from common import (
     BACKTEST_PATH, ENCRYPTION_KEY, PRIVATE_STATE_PATH, STATE_PATH, SWING_LOG_PATH, TELEGRAM_CHAT_IDS,
-    TELEGRAM_TOKEN, UNIVERSE_PATH, download_history, env_number, fx_to_eur, get_telegram_updates,
+    TELEGRAM_TOKEN, UNIVERSE_PATH, download_history, last_date, refresh_stale, env_number, fx_to_eur, get_telegram_updates,
     load_config, load_encrypted_json, load_json, save_encrypted_json, save_json, send_telegram,
 )
 from pac import allocate, market_state, monthly_amount
@@ -118,8 +118,10 @@ def pac_summary(private: dict, prices: dict, pac_cfg: dict) -> str:
 
 # ---------------------------------------------------------------- PAC
 
-def run_pac(private: dict, pac_cfg: dict, data: dict, today: date):
-    """Ritorna (messaggio|None, info_mercato_pubblica)."""
+def run_pac(private: dict, pac_cfg: dict, data: dict, today: date, stale: list = ()):
+    """Ritorna (messaggio|None, info_mercato_pubblica).
+    `today` e' la data dell'ultima seduta nei dati (non l'orologio: il run
+    di GitHub puo' partire con ore di ritardo, anche dopo mezzanotte)."""
     ref = pac_cfg["reference_ticker"]
     if ref not in data:
         return None, None
@@ -129,6 +131,11 @@ def run_pac(private: dict, pac_cfg: dict, data: dict, today: date):
     pac = private.setdefault("pac", {"units": {}, "invested": {}, "history": []})
     month_key = today.strftime("%Y-%m")
     if any(h["month"] == month_key for h in pac["history"]):
+        return None, public
+    if stale and today.day < 5:
+        # prezzi degli ETF non aggiornati all'ultima seduta: meglio aspettare
+        # il prossimo run che calcolare il mese su dati vecchi
+        print("PAC: dati non aggiornati per", stale, "- rimando il calcolo del mese")
         return None, public
 
     notes = []
@@ -322,7 +329,6 @@ def run_swing(log: dict, cfg: dict, universe: list, backtest: dict, inds: dict, 
 # ---------------------------------------------------------------- main
 
 def main():
-    today = datetime.now(timezone.utc).date()
     config = load_config()
     universe = load_json(UNIVERSE_PATH, {"stocks": []})["stocks"]
     backtest = load_json(BACKTEST_PATH, {})
@@ -334,7 +340,18 @@ def main():
     tickers |= {t["ticker"] for t in log["trades"] if t["status"] in ("pending", "open")}
     if pac_cfg.get("enabled", True):
         tickers |= {a["ticker"] for a in pac_cfg["assets"]} | {pac_cfg["reference_ticker"]}
-    data = download_history(sorted(tickers), swing_cfg.get("live_history_period", "2y"))
+    period = swing_cfg.get("live_history_period", "2y")
+    data = download_history(sorted(tickers), period)
+    if not data:
+        print("Nessun dato scaricato, esco senza modificare lo stato.")
+        return
+    # data di riferimento = ultima seduta presente nei dati, non l'orologio
+    today = max(last_date(df) for df in data.values())
+    stale = []
+    if pac_cfg.get("enabled", True):
+        pac_tickers = sorted({a["ticker"] for a in pac_cfg["assets"]} | {pac_cfg["reference_ticker"]})
+        stale = refresh_stale(data, pac_tickers, today, period)
+    print("Seduta di riferimento:", today, "| ETF PAC non aggiornati:", stale or "nessuno")
     inds = {t: prepare(df, swing_cfg) for t, df in data.items()}
 
     pac_prices = {a["key"]: float(data[a["ticker"]]["Close"].iloc[-1]) for a in pac_cfg.get("assets", []) if a["ticker"] in data}
@@ -344,7 +361,7 @@ def main():
     pac_can_persist = bool(ENCRYPTION_KEY) or not TELEGRAM_TOKEN
     if pac_cfg.get("enabled", True):
         if pac_can_persist:
-            msg, public["pac_market"] = run_pac(private, pac_cfg, data, today)
+            msg, public["pac_market"] = run_pac(private, pac_cfg, data, today, stale)
             if msg:
                 owner_msgs.append(msg)
         else:
