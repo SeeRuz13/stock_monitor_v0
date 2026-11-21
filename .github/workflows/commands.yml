@@ -1,0 +1,44 @@
+name: Comandi Telegram
+
+on:
+  schedule:
+    # ogni 4 ore, tutti i giorni: Telegram conserva i messaggi per il bot
+    # solo 24 ore, il run serale da solo (lun-ven, spesso in ritardo) non basta
+    - cron: "23 */4 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: state-writers
+  cancel-in-progress: false
+
+jobs:
+  commands:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Comandi
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PORTFOLIO_ENCRYPTION_KEY: ${{ secrets.PORTFOLIO_ENCRYPTION_KEY }}
+          PAC_BUDGET: ${{ vars.PAC_BUDGET }}
+        run: python daily_run.py --commands-only
+
+      - name: Commit state
+        run: |
+          git config user.name "stock-monitor-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if [ -f private_state.json ]; then git add private_state.json; fi
+          git diff --cached --quiet || git commit -m "Elabora comandi Telegram"
+          git pull --rebase && git push
