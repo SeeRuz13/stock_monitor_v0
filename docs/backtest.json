@@ -1,90 +1,90 @@
 {
-  "updated": "2026-11-15T18:32+00:00",
+  "updated": "2026-11-22T17:35+00:00",
   "swing": {
     "setups": {
       "pullback": {
-        "trades": 5332,
-        "win_rate": 62.7,
+        "trades": 5368,
+        "win_rate": 62.5,
         "avg_win_pct": 1.81,
-        "avg_loss_pct": -3.3,
-        "expectancy_pct": -0.1,
-        "expectancy_r": -0.03,
-        "profit_factor": 0.92,
+        "avg_loss_pct": -3.31,
+        "expectancy_pct": -0.114,
+        "expectancy_r": -0.033,
+        "profit_factor": 0.91,
         "avg_days": 3.3
       },
       "breakout": {
-        "trades": 2142,
-        "win_rate": 48.6,
-        "avg_win_pct": 5.58,
-        "avg_loss_pct": -4.2,
-        "expectancy_pct": 0.553,
-        "expectancy_r": 0.095,
-        "profit_factor": 1.26,
+        "trades": 2176,
+        "win_rate": 48.2,
+        "avg_win_pct": 5.57,
+        "avg_loss_pct": -4.19,
+        "expectancy_pct": 0.513,
+        "expectancy_r": 0.086,
+        "profit_factor": 1.24,
         "avg_days": 10.5
       }
     },
     "setups_by_market": {
       "pullback": {
         "IT": {
-          "trades": 1635,
-          "win_rate": 62.3,
-          "avg_win_pct": 1.69,
-          "avg_loss_pct": -3.52,
-          "expectancy_pct": -0.271,
-          "expectancy_r": -0.051,
-          "profit_factor": 0.8,
+          "trades": 1624,
+          "win_rate": 62.0,
+          "avg_win_pct": 1.7,
+          "avg_loss_pct": -3.54,
+          "expectancy_pct": -0.29,
+          "expectancy_r": -0.054,
+          "profit_factor": 0.78,
           "avg_days": 3.4
         },
         "EU": {
-          "trades": 1619,
-          "win_rate": 65.8,
+          "trades": 1666,
+          "win_rate": 65.3,
           "avg_win_pct": 1.63,
-          "avg_loss_pct": -2.83,
-          "expectancy_pct": 0.104,
-          "expectancy_r": -0.008,
-          "profit_factor": 1.11,
+          "avg_loss_pct": -2.85,
+          "expectancy_pct": 0.075,
+          "expectancy_r": -0.013,
+          "profit_factor": 1.08,
           "avg_days": 3.2
         },
         "US": {
           "trades": 2078,
-          "win_rate": 60.6,
-          "avg_win_pct": 2.05,
+          "win_rate": 60.5,
+          "avg_win_pct": 2.04,
           "avg_loss_pct": -3.46,
-          "expectancy_pct": -0.123,
-          "expectancy_r": -0.031,
+          "expectancy_pct": -0.128,
+          "expectancy_r": -0.032,
           "profit_factor": 0.91,
           "avg_days": 3.3
         }
       },
       "breakout": {
         "IT": {
-          "trades": 755,
-          "win_rate": 53.0,
-          "avg_win_pct": 5.11,
-          "avg_loss_pct": -4.22,
-          "expectancy_pct": 0.724,
-          "expectancy_r": 0.166,
+          "trades": 756,
+          "win_rate": 52.8,
+          "avg_win_pct": 5.12,
+          "avg_loss_pct": -4.21,
+          "expectancy_pct": 0.717,
+          "expectancy_r": 0.164,
           "profit_factor": 1.36,
           "avg_days": 10.8
         },
         "EU": {
-          "trades": 562,
-          "win_rate": 46.1,
-          "avg_win_pct": 5.08,
-          "avg_loss_pct": -3.49,
-          "expectancy_pct": 0.461,
-          "expectancy_r": 0.094,
-          "profit_factor": 1.25,
+          "trades": 594,
+          "win_rate": 45.1,
+          "avg_win_pct": 5.05,
+          "avg_loss_pct": -3.48,
+          "expectancy_pct": 0.371,
+          "expectancy_r": 0.07,
+          "profit_factor": 1.19,
           "avg_days": 10.7
         },
         "US": {
-          "trades": 825,
-          "win_rate": 46.3,
-          "avg_win_pct": 6.4,
-          "avg_loss_pct": -4.66,
-          "expectancy_pct": 0.459,
-          "expectancy_r": 0.031,
-          "profit_factor": 1.18,
+          "trades": 826,
+          "win_rate": 46.2,
+          "avg_win_pct": 6.39,
+          "avg_loss_pct": -4.7,
+          "expectancy_pct": 0.427,
+          "expectancy_r": 0.028,
+          "profit_factor": 1.17,
           "avg_days": 10.0
         }
       }
@@ -92,206 +92,206 @@
     "setups_by_year": {
       "pullback": {
         "2017": {
-          "trades": 241,
-          "win_rate": 62.7,
-          "avg_win_pct": 1.34,
-          "avg_loss_pct": -2.1,
-          "expectancy_pct": 0.056,
-          "expectancy_r": 0.017,
-          "profit_factor": 1.07,
-          "avg_days": 3.3
+          "trades": 215,
+          "win_rate": 59.5,
+          "avg_win_pct": 1.37,
+          "avg_loss_pct": -2.11,
+          "expectancy_pct": -0.039,
+          "expectancy_r": -0.002,
+          "profit_factor": 0.95,
+          "avg_days": 3.4
         },
         "2018": {
-          "trades": 499,
-          "win_rate": 58.3,
-          "avg_win_pct": 1.75,
-          "avg_loss_pct": -3.58,
-          "expectancy_pct": -0.472,
-          "expectancy_r": -0.098,
-          "profit_factor": 0.68,
+          "trades": 507,
+          "win_rate": 58.4,
+          "avg_win_pct": 1.74,
+          "avg_loss_pct": -3.53,
+          "expectancy_pct": -0.453,
+          "expectancy_r": -0.094,
+          "profit_factor": 0.69,
           "avg_days": 3.2
         },
         "2019": {
-          "trades": 524,
-          "win_rate": 64.5,
-          "avg_win_pct": 1.5,
-          "avg_loss_pct": -2.95,
-          "expectancy_pct": -0.078,
-          "expectancy_r": -0.006,
-          "profit_factor": 0.93,
+          "trades": 531,
+          "win_rate": 64.4,
+          "avg_win_pct": 1.49,
+          "avg_loss_pct": -2.94,
+          "expectancy_pct": -0.086,
+          "expectancy_r": -0.007,
+          "profit_factor": 0.92,
           "avg_days": 3.2
         },
         "2020": {
-          "trades": 503,
+          "trades": 511,
           "win_rate": 57.3,
-          "avg_win_pct": 2.14,
-          "avg_loss_pct": -4.19,
-          "expectancy_pct": -0.566,
-          "expectancy_r": -0.12,
+          "avg_win_pct": 2.12,
+          "avg_loss_pct": -4.17,
+          "expectancy_pct": -0.565,
+          "expectancy_r": -0.121,
           "profit_factor": 0.68,
           "avg_days": 3.2
         },
         "2021": {
-          "trades": 757,
-          "win_rate": 67.4,
+          "trades": 764,
+          "win_rate": 67.3,
           "avg_win_pct": 1.69,
           "avg_loss_pct": -2.85,
-          "expectancy_pct": 0.209,
-          "expectancy_r": 0.027,
+          "expectancy_pct": 0.203,
+          "expectancy_r": 0.026,
           "profit_factor": 1.22,
           "avg_days": 3.3
         },
         "2022": {
-          "trades": 353,
-          "win_rate": 59.8,
-          "avg_win_pct": 2.03,
-          "avg_loss_pct": -4.32,
-          "expectancy_pct": -0.526,
-          "expectancy_r": -0.109,
-          "profit_factor": 0.7,
+          "trades": 358,
+          "win_rate": 59.5,
+          "avg_win_pct": 2.02,
+          "avg_loss_pct": -4.3,
+          "expectancy_pct": -0.538,
+          "expectancy_r": -0.112,
+          "profit_factor": 0.69,
           "avg_days": 3.3
         },
         "2023": {
           "trades": 678,
-          "win_rate": 67.1,
+          "win_rate": 67.3,
           "avg_win_pct": 1.88,
-          "avg_loss_pct": -3.03,
-          "expectancy_pct": 0.264,
-          "expectancy_r": 0.038,
+          "avg_loss_pct": -3.04,
+          "expectancy_pct": 0.267,
+          "expectancy_r": 0.039,
           "profit_factor": 1.27,
-          "avg_days": 3.4
+          "avg_days": 3.3
         },
         "2024": {
-          "trades": 684,
+          "trades": 691,
           "win_rate": 62.1,
-          "avg_win_pct": 1.66,
-          "avg_loss_pct": -2.89,
-          "expectancy_pct": -0.063,
-          "expectancy_r": -0.038,
-          "profit_factor": 0.94,
+          "avg_win_pct": 1.65,
+          "avg_loss_pct": -2.91,
+          "expectancy_pct": -0.076,
+          "expectancy_r": -0.04,
+          "profit_factor": 0.93,
           "avg_days": 3.5
         },
         "2025": {
-          "trades": 546,
-          "win_rate": 57.5,
+          "trades": 549,
+          "win_rate": 57.4,
           "avg_win_pct": 1.87,
-          "avg_loss_pct": -3.47,
-          "expectancy_pct": -0.401,
-          "expectancy_r": -0.086,
-          "profit_factor": 0.73,
+          "avg_loss_pct": -3.48,
+          "expectancy_pct": -0.411,
+          "expectancy_r": -0.089,
+          "profit_factor": 0.72,
           "avg_days": 3.5
         },
         "2026": {
-          "trades": 547,
-          "win_rate": 65.8,
-          "avg_win_pct": 2.13,
-          "avg_loss_pct": -3.42,
-          "expectancy_pct": 0.231,
-          "expectancy_r": 0.023,
-          "profit_factor": 1.2,
+          "trades": 564,
+          "win_rate": 65.1,
+          "avg_win_pct": 2.12,
+          "avg_loss_pct": -3.47,
+          "expectancy_pct": 0.168,
+          "expectancy_r": 0.013,
+          "profit_factor": 1.14,
           "avg_days": 3.3
         }
       },
       "breakout": {
         "2017": {
-          "trades": 102,
-          "win_rate": 52.0,
-          "avg_win_pct": 3.62,
-          "avg_loss_pct": -3.19,
-          "expectancy_pct": 0.35,
+          "trades": 99,
+          "win_rate": 52.5,
+          "avg_win_pct": 3.65,
+          "avg_loss_pct": -3.3,
+          "expectancy_pct": 0.349,
           "expectancy_r": 0.126,
-          "profit_factor": 1.23,
-          "avg_days": 11.0
+          "profit_factor": 1.22,
+          "avg_days": 10.8
         },
         "2018": {
-          "trades": 201,
-          "win_rate": 36.3,
+          "trades": 205,
+          "win_rate": 35.6,
           "avg_win_pct": 4.97,
-          "avg_loss_pct": -3.85,
-          "expectancy_pct": -0.649,
-          "expectancy_r": -0.2,
-          "profit_factor": 0.74,
+          "avg_loss_pct": -3.81,
+          "expectancy_pct": -0.686,
+          "expectancy_r": -0.214,
+          "profit_factor": 0.72,
           "avg_days": 9.8
         },
         "2019": {
-          "trades": 257,
-          "win_rate": 47.9,
-          "avg_win_pct": 4.19,
-          "avg_loss_pct": -3.56,
-          "expectancy_pct": 0.153,
-          "expectancy_r": 0.081,
-          "profit_factor": 1.08,
-          "avg_days": 11.3
+          "trades": 263,
+          "win_rate": 47.5,
+          "avg_win_pct": 4.14,
+          "avg_loss_pct": -3.5,
+          "expectancy_pct": 0.136,
+          "expectancy_r": 0.077,
+          "profit_factor": 1.07,
+          "avg_days": 11.4
         },
         "2020": {
-          "trades": 232,
-          "win_rate": 47.4,
-          "avg_win_pct": 7.08,
-          "avg_loss_pct": -4.86,
-          "expectancy_pct": 0.804,
-          "expectancy_r": 0.094,
-          "profit_factor": 1.31,
+          "trades": 235,
+          "win_rate": 46.4,
+          "avg_win_pct": 7.14,
+          "avg_loss_pct": -4.83,
+          "expectancy_pct": 0.726,
+          "expectancy_r": 0.075,
+          "profit_factor": 1.28,
           "avg_days": 9.6
         },
         "2021": {
-          "trades": 255,
+          "trades": 257,
           "win_rate": 51.8,
           "avg_win_pct": 4.83,
           "avg_loss_pct": -4.43,
-          "expectancy_pct": 0.359,
-          "expectancy_r": 0.099,
+          "expectancy_pct": 0.366,
+          "expectancy_r": 0.1,
           "profit_factor": 1.17,
           "avg_days": 10.5
         },
         "2022": {
-          "trades": 134,
-          "win_rate": 36.6,
-          "avg_win_pct": 6.2,
-          "avg_loss_pct": -4.79,
-          "expectancy_pct": -0.769,
-          "expectancy_r": -0.185,
-          "profit_factor": 0.75,
+          "trades": 136,
+          "win_rate": 36.8,
+          "avg_win_pct": 6.26,
+          "avg_loss_pct": -4.78,
+          "expectancy_pct": -0.719,
+          "expectancy_r": -0.177,
+          "profit_factor": 0.76,
           "avg_days": 10.6
         },
         "2023": {
-          "trades": 291,
-          "win_rate": 46.0,
+          "trades": 292,
+          "win_rate": 45.9,
           "avg_win_pct": 5.5,
           "avg_loss_pct": -4.05,
-          "expectancy_pct": 0.343,
-          "expectancy_r": 0.012,
-          "profit_factor": 1.16,
+          "expectancy_pct": 0.333,
+          "expectancy_r": 0.009,
+          "profit_factor": 1.15,
           "avg_days": 10.9
         },
         "2024": {
           "trades": 246,
           "win_rate": 58.5,
           "avg_win_pct": 5.58,
-          "avg_loss_pct": -3.79,
-          "expectancy_pct": 1.698,
-          "expectancy_r": 0.354,
-          "profit_factor": 2.08,
+          "avg_loss_pct": -3.82,
+          "expectancy_pct": 1.685,
+          "expectancy_r": 0.351,
+          "profit_factor": 2.06,
           "avg_days": 10.4
         },
         "2025": {
-          "trades": 242,
-          "win_rate": 53.7,
-          "avg_win_pct": 6.15,
-          "avg_loss_pct": -4.18,
-          "expectancy_pct": 1.368,
-          "expectancy_r": 0.24,
-          "profit_factor": 1.71,
-          "avg_days": 10.7
+          "trades": 249,
+          "win_rate": 53.4,
+          "avg_win_pct": 6.08,
+          "avg_loss_pct": -4.17,
+          "expectancy_pct": 1.304,
+          "expectancy_r": 0.226,
+          "profit_factor": 1.67,
+          "avg_days": 10.8
         },
         "2026": {
-          "trades": 182,
-          "win_rate": 51.1,
-          "avg_win_pct": 7.25,
-          "avg_loss_pct": -5.14,
-          "expectancy_pct": 1.189,
-          "expectancy_r": 0.22,
-          "profit_factor": 1.47,
-          "avg_days": 9.5
+          "trades": 194,
+          "win_rate": 49.5,
+          "avg_win_pct": 7.13,
+          "avg_loss_pct": -5.12,
+          "expectancy_pct": 0.941,
+          "expectancy_r": 0.18,
+          "profit_factor": 1.36,
+          "avg_days": 9.6
         }
       }
     },
@@ -327,13 +327,13 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 70,
-            "win_rate": 78.6,
-            "avg_win_pct": 2.07,
+            "trades": 69,
+            "win_rate": 78.3,
+            "avg_win_pct": 2.09,
             "avg_loss_pct": -5.63,
-            "expectancy_pct": 0.418,
-            "expectancy_r": 0.047,
-            "profit_factor": 1.35,
+            "expectancy_pct": 0.41,
+            "expectancy_r": 0.045,
+            "profit_factor": 1.34,
             "avg_days": 3.1
           },
           "breakout": {
@@ -381,9 +381,9 @@
           "pullback": {
             "trades": 73,
             "win_rate": 67.1,
-            "avg_win_pct": 1.43,
+            "avg_win_pct": 1.44,
             "avg_loss_pct": -2.93,
-            "expectancy_pct": -0.003,
+            "expectancy_pct": -0.0,
             "expectancy_r": 0.019,
             "profit_factor": 1.0,
             "avg_days": 3.5
@@ -431,23 +431,23 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 75,
-            "win_rate": 60.0,
-            "avg_win_pct": 1.26,
+            "trades": 74,
+            "win_rate": 59.5,
+            "avg_win_pct": 1.27,
             "avg_loss_pct": -2.68,
-            "expectancy_pct": -0.315,
-            "expectancy_r": -0.065,
-            "profit_factor": 0.71,
+            "expectancy_pct": -0.332,
+            "expectancy_r": -0.068,
+            "profit_factor": 0.69,
             "avg_days": 3.7
           },
           "breakout": {
             "trades": 30,
-            "win_rate": 53.3,
-            "avg_win_pct": 3.54,
-            "avg_loss_pct": -3.35,
-            "expectancy_pct": 0.323,
-            "expectancy_r": 0.09,
-            "profit_factor": 1.21,
+            "win_rate": 50.0,
+            "avg_win_pct": 3.75,
+            "avg_loss_pct": -3.29,
+            "expectancy_pct": 0.229,
+            "expectancy_r": 0.063,
+            "profit_factor": 1.14,
             "avg_days": 10.9
           }
         }
@@ -457,13 +457,13 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 81,
-            "win_rate": 61.7,
-            "avg_win_pct": 1.15,
-            "avg_loss_pct": -2.08,
-            "expectancy_pct": -0.087,
-            "expectancy_r": -0.05,
-            "profit_factor": 0.89,
+            "trades": 80,
+            "win_rate": 62.5,
+            "avg_win_pct": 1.16,
+            "avg_loss_pct": -2.13,
+            "expectancy_pct": -0.078,
+            "expectancy_r": -0.049,
+            "profit_factor": 0.9,
             "avg_days": 3.5
           },
           "breakout": {
@@ -483,14 +483,14 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 63,
-            "win_rate": 61.9,
-            "avg_win_pct": 2.46,
+            "trades": 62,
+            "win_rate": 61.3,
+            "avg_win_pct": 2.49,
             "avg_loss_pct": -5.52,
-            "expectancy_pct": -0.582,
-            "expectancy_r": -0.06,
-            "profit_factor": 0.72,
-            "avg_days": 3.3
+            "expectancy_pct": -0.614,
+            "expectancy_r": -0.064,
+            "profit_factor": 0.71,
+            "avg_days": 3.4
           },
           "breakout": {
             "trades": 36,
@@ -509,14 +509,14 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 68,
-            "win_rate": 55.9,
-            "avg_win_pct": 1.84,
-            "avg_loss_pct": -4.46,
-            "expectancy_pct": -0.939,
-            "expectancy_r": -0.15,
-            "profit_factor": 0.52,
-            "avg_days": 3.8
+            "trades": 66,
+            "win_rate": 53.0,
+            "avg_win_pct": 1.88,
+            "avg_loss_pct": -4.37,
+            "expectancy_pct": -1.056,
+            "expectancy_r": -0.167,
+            "profit_factor": 0.49,
+            "avg_days": 4.0
           },
           "breakout": {
             "trades": 32,
@@ -535,14 +535,14 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 66,
-            "win_rate": 71.2,
-            "avg_win_pct": 1.93,
+            "trades": 65,
+            "win_rate": 70.8,
+            "avg_win_pct": 1.94,
             "avg_loss_pct": -4.92,
-            "expectancy_pct": -0.044,
-            "expectancy_r": -0.036,
-            "profit_factor": 0.97,
-            "avg_days": 3.1
+            "expectancy_pct": -0.063,
+            "expectancy_r": -0.04,
+            "profit_factor": 0.96,
+            "avg_days": 3.2
           },
           "breakout": {
             "trades": 31,
@@ -665,12 +665,12 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 61,
-            "win_rate": 57.4,
-            "avg_win_pct": 1.83,
+            "trades": 60,
+            "win_rate": 56.7,
+            "avg_win_pct": 1.88,
             "avg_loss_pct": -3.19,
-            "expectancy_pct": -0.311,
-            "expectancy_r": -0.03,
+            "expectancy_pct": -0.318,
+            "expectancy_r": -0.031,
             "profit_factor": 0.77,
             "avg_days": 3.8
           },
@@ -727,14 +727,14 @@
             "avg_days": 3.4
           },
           "breakout": {
-            "trades": 21,
-            "win_rate": 38.1,
+            "trades": 22,
+            "win_rate": 36.4,
             "avg_win_pct": 2.54,
-            "avg_loss_pct": -3.28,
-            "expectancy_pct": -1.066,
-            "expectancy_r": -0.314,
-            "profit_factor": 0.48,
-            "avg_days": 10.2
+            "avg_loss_pct": -3.05,
+            "expectancy_pct": -1.019,
+            "expectancy_r": -0.301,
+            "profit_factor": 0.47,
+            "avg_days": 10.4
           }
         }
       },
@@ -743,13 +743,13 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 85,
-            "win_rate": 68.2,
-            "avg_win_pct": 1.14,
+            "trades": 84,
+            "win_rate": 67.9,
+            "avg_win_pct": 1.15,
             "avg_loss_pct": -2.04,
-            "expectancy_pct": 0.132,
-            "expectancy_r": 0.028,
-            "profit_factor": 1.2,
+            "expectancy_pct": 0.125,
+            "expectancy_r": 0.026,
+            "profit_factor": 1.19,
             "avg_days": 3.2
           },
           "breakout": {
@@ -769,13 +769,13 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 69,
-            "win_rate": 72.5,
+            "trades": 70,
+            "win_rate": 71.4,
             "avg_win_pct": 1.11,
-            "avg_loss_pct": -2.36,
-            "expectancy_pct": 0.152,
-            "expectancy_r": 0.045,
-            "profit_factor": 1.23,
+            "avg_loss_pct": -2.54,
+            "expectancy_pct": 0.065,
+            "expectancy_r": 0.03,
+            "profit_factor": 1.09,
             "avg_days": 3.3
           },
           "breakout": {
@@ -795,24 +795,24 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 47,
-            "win_rate": 59.6,
+            "trades": 46,
+            "win_rate": 58.7,
             "avg_win_pct": 1.36,
             "avg_loss_pct": -2.57,
-            "expectancy_pct": -0.225,
-            "expectancy_r": -0.059,
-            "profit_factor": 0.78,
-            "avg_days": 3.4
+            "expectancy_pct": -0.263,
+            "expectancy_r": -0.068,
+            "profit_factor": 0.75,
+            "avg_days": 3.5
           },
           "breakout": {
-            "trades": 20,
-            "win_rate": 60.0,
+            "trades": 21,
+            "win_rate": 57.1,
             "avg_win_pct": 4.49,
-            "avg_loss_pct": -3.47,
-            "expectancy_pct": 1.305,
-            "expectancy_r": 0.372,
-            "profit_factor": 1.94,
-            "avg_days": 13.4
+            "avg_loss_pct": -3.21,
+            "expectancy_pct": 1.189,
+            "expectancy_r": 0.342,
+            "profit_factor": 1.86,
+            "avg_days": 13.5
           }
         }
       },
@@ -821,13 +821,13 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 72,
-            "win_rate": 55.6,
-            "avg_win_pct": 1.63,
+            "trades": 71,
+            "win_rate": 54.9,
+            "avg_win_pct": 1.65,
             "avg_loss_pct": -2.25,
-            "expectancy_pct": -0.096,
-            "expectancy_r": -0.028,
-            "profit_factor": 0.9,
+            "expectancy_pct": -0.108,
+            "expectancy_r": -0.031,
+            "profit_factor": 0.89,
             "avg_days": 3.3
           },
           "breakout": {
@@ -847,24 +847,24 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 68,
-            "win_rate": 64.7,
-            "avg_win_pct": 1.57,
+            "trades": 67,
+            "win_rate": 64.2,
+            "avg_win_pct": 1.54,
             "avg_loss_pct": -3.01,
-            "expectancy_pct": -0.049,
-            "expectancy_r": -0.006,
-            "profit_factor": 0.95,
+            "expectancy_pct": -0.089,
+            "expectancy_r": -0.015,
+            "profit_factor": 0.92,
             "avg_days": 3.4
           },
           "breakout": {
-            "trades": 38,
-            "win_rate": 47.4,
+            "trades": 37,
+            "win_rate": 48.6,
             "avg_win_pct": 4.13,
-            "avg_loss_pct": -3.15,
-            "expectancy_pct": 0.296,
-            "expectancy_r": 0.047,
-            "profit_factor": 1.18,
-            "avg_days": 10.9
+            "avg_loss_pct": -3.25,
+            "expectancy_pct": 0.336,
+            "expectancy_r": 0.057,
+            "profit_factor": 1.2,
+            "avg_days": 10.8
           }
         }
       },
@@ -873,24 +873,24 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 21,
-            "win_rate": 61.9,
+            "trades": 22,
+            "win_rate": 59.1,
             "avg_win_pct": 1.73,
-            "avg_loss_pct": -5.38,
-            "expectancy_pct": -0.981,
-            "expectancy_r": -0.148,
-            "profit_factor": 0.52,
+            "avg_loss_pct": -5.54,
+            "expectancy_pct": -1.243,
+            "expectancy_r": -0.188,
+            "profit_factor": 0.45,
             "avg_days": 3.7
           },
           "breakout": {
-            "trades": 12,
-            "win_rate": 50.0,
+            "trades": 13,
+            "win_rate": 46.2,
             "avg_win_pct": 6.98,
-            "avg_loss_pct": -4.8,
-            "expectancy_pct": 1.091,
-            "expectancy_r": 0.114,
-            "profit_factor": 1.45,
-            "avg_days": 10.9
+            "avg_loss_pct": -4.71,
+            "expectancy_pct": 0.687,
+            "expectancy_r": 0.025,
+            "profit_factor": 1.27,
+            "avg_days": 11.1
           }
         }
       },
@@ -925,24 +925,24 @@
         "market": "IT",
         "setups": {
           "pullback": {
-            "trades": 82,
-            "win_rate": 64.6,
+            "trades": 81,
+            "win_rate": 65.4,
             "avg_win_pct": 1.89,
-            "avg_loss_pct": -3.36,
-            "expectancy_pct": 0.031,
-            "expectancy_r": -0.032,
-            "profit_factor": 1.03,
+            "avg_loss_pct": -3.43,
+            "expectancy_pct": 0.046,
+            "expectancy_r": -0.029,
+            "profit_factor": 1.04,
             "avg_days": 3.1
           },
           "breakout": {
-            "trades": 38,
-            "win_rate": 57.9,
-            "avg_win_pct": 4.69,
-            "avg_loss_pct": -3.37,
-            "expectancy_pct": 1.299,
-            "expectancy_r": 0.266,
-            "profit_factor": 1.92,
-            "avg_days": 12.0
+            "trades": 37,
+            "win_rate": 59.5,
+            "avg_win_pct": 4.72,
+            "avg_loss_pct": -3.47,
+            "expectancy_pct": 1.4,
+            "expectancy_r": 0.288,
+            "profit_factor": 1.99,
+            "avg_days": 11.9
           }
         }
       },
@@ -951,13 +951,13 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 68,
-            "win_rate": 61.8,
+            "trades": 67,
+            "win_rate": 61.2,
             "avg_win_pct": 2.27,
             "avg_loss_pct": -3.11,
-            "expectancy_pct": 0.212,
-            "expectancy_r": 0.032,
-            "profit_factor": 1.18,
+            "expectancy_pct": 0.183,
+            "expectancy_r": 0.021,
+            "profit_factor": 1.15,
             "avg_days": 3.3
           },
           "breakout": {
@@ -977,13 +977,13 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 70,
-            "win_rate": 62.9,
+            "trades": 71,
+            "win_rate": 62.0,
             "avg_win_pct": 1.46,
-            "avg_loss_pct": -2.72,
-            "expectancy_pct": -0.09,
-            "expectancy_r": -0.079,
-            "profit_factor": 0.91,
+            "avg_loss_pct": -2.91,
+            "expectancy_pct": -0.201,
+            "expectancy_r": -0.092,
+            "profit_factor": 0.82,
             "avg_days": 3.0
           },
           "breakout": {
@@ -1013,14 +1013,14 @@
             "avg_days": 3.1
           },
           "breakout": {
-            "trades": 27,
-            "win_rate": 29.6,
+            "trades": 28,
+            "win_rate": 28.6,
             "avg_win_pct": 4.83,
-            "avg_loss_pct": -3.69,
-            "expectancy_pct": -1.164,
-            "expectancy_r": -0.377,
-            "profit_factor": 0.55,
-            "avg_days": 9.5
+            "avg_loss_pct": -3.76,
+            "expectancy_pct": -1.305,
+            "expectancy_r": -0.401,
+            "profit_factor": 0.51,
+            "avg_days": 9.3
           }
         }
       },
@@ -1029,13 +1029,13 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 76,
-            "win_rate": 63.2,
-            "avg_win_pct": 1.13,
-            "avg_loss_pct": -2.13,
-            "expectancy_pct": -0.069,
-            "expectancy_r": -0.082,
-            "profit_factor": 0.91,
+            "trades": 75,
+            "win_rate": 61.3,
+            "avg_win_pct": 1.17,
+            "avg_loss_pct": -2.08,
+            "expectancy_pct": -0.09,
+            "expectancy_r": -0.086,
+            "profit_factor": 0.89,
             "avg_days": 3.0
           },
           "breakout": {
@@ -1081,11 +1081,11 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 80,
-            "win_rate": 75.0,
-            "avg_win_pct": 2.26,
+            "trades": 79,
+            "win_rate": 74.7,
+            "avg_win_pct": 2.29,
             "avg_loss_pct": -2.68,
-            "expectancy_pct": 1.022,
+            "expectancy_pct": 1.029,
             "expectancy_r": 0.13,
             "profit_factor": 2.52,
             "avg_days": 3.1
@@ -1107,24 +1107,24 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 61,
-            "win_rate": 70.5,
-            "avg_win_pct": 2.05,
+            "trades": 60,
+            "win_rate": 70.0,
+            "avg_win_pct": 2.04,
             "avg_loss_pct": -2.94,
-            "expectancy_pct": 0.577,
-            "expectancy_r": 0.077,
-            "profit_factor": 1.66,
+            "expectancy_pct": 0.548,
+            "expectancy_r": 0.069,
+            "profit_factor": 1.62,
             "avg_days": 3.3
           },
           "breakout": {
-            "trades": 20,
-            "win_rate": 50.0,
+            "trades": 21,
+            "win_rate": 47.6,
             "avg_win_pct": 4.27,
-            "avg_loss_pct": -5.03,
-            "expectancy_pct": -0.379,
-            "expectancy_r": 0.356,
-            "profit_factor": 0.85,
-            "avg_days": 10.2
+            "avg_loss_pct": -4.85,
+            "expectancy_pct": -0.506,
+            "expectancy_r": 0.288,
+            "profit_factor": 0.8,
+            "avg_days": 10.1
           }
         }
       },
@@ -1133,23 +1133,23 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 52,
-            "win_rate": 61.5,
+            "trades": 53,
+            "win_rate": 60.4,
             "avg_win_pct": 1.65,
-            "avg_loss_pct": -3.3,
-            "expectancy_pct": -0.254,
-            "expectancy_r": -0.091,
-            "profit_factor": 0.8,
+            "avg_loss_pct": -3.37,
+            "expectancy_pct": -0.337,
+            "expectancy_r": -0.109,
+            "profit_factor": 0.75,
             "avg_days": 3.6
           },
           "breakout": {
-            "trades": 26,
-            "win_rate": 19.2,
+            "trades": 27,
+            "win_rate": 18.5,
             "avg_win_pct": 4.6,
-            "avg_loss_pct": -3.84,
-            "expectancy_pct": -2.219,
-            "expectancy_r": -0.487,
-            "profit_factor": 0.28,
+            "avg_loss_pct": -3.86,
+            "expectancy_pct": -2.292,
+            "expectancy_r": -0.508,
+            "profit_factor": 0.27,
             "avg_days": 11.3
           }
         }
@@ -1263,13 +1263,13 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 55,
-            "win_rate": 70.9,
-            "avg_win_pct": 1.36,
+            "trades": 54,
+            "win_rate": 70.4,
+            "avg_win_pct": 1.38,
             "avg_loss_pct": -2.41,
-            "expectancy_pct": 0.261,
-            "expectancy_r": 0.043,
-            "profit_factor": 1.37,
+            "expectancy_pct": 0.259,
+            "expectancy_r": 0.042,
+            "profit_factor": 1.36,
             "avg_days": 3.1
           },
           "breakout": {
@@ -1289,13 +1289,13 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 79,
-            "win_rate": 70.9,
+            "trades": 78,
+            "win_rate": 70.5,
             "avg_win_pct": 1.91,
             "avg_loss_pct": -2.65,
-            "expectancy_pct": 0.583,
-            "expectancy_r": 0.125,
-            "profit_factor": 1.76,
+            "expectancy_pct": 0.568,
+            "expectancy_r": 0.123,
+            "profit_factor": 1.73,
             "avg_days": 3.3
           },
           "breakout": {
@@ -1315,12 +1315,12 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 64,
-            "win_rate": 62.5,
-            "avg_win_pct": 1.91,
+            "trades": 63,
+            "win_rate": 61.9,
+            "avg_win_pct": 1.95,
             "avg_loss_pct": -4.15,
-            "expectancy_pct": -0.364,
-            "expectancy_r": -0.093,
+            "expectancy_pct": -0.37,
+            "expectancy_r": -0.094,
             "profit_factor": 0.77,
             "avg_days": 3.2
           },
@@ -1367,13 +1367,13 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 79,
-            "win_rate": 62.0,
+            "trades": 78,
+            "win_rate": 62.8,
             "avg_win_pct": 1.19,
-            "avg_loss_pct": -2.29,
-            "expectancy_pct": -0.133,
-            "expectancy_r": -0.018,
-            "profit_factor": 0.85,
+            "avg_loss_pct": -2.34,
+            "expectancy_pct": -0.125,
+            "expectancy_r": -0.016,
+            "profit_factor": 0.86,
             "avg_days": 3.7
           },
           "breakout": {
@@ -1393,14 +1393,14 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 53,
-            "win_rate": 60.4,
-            "avg_win_pct": 2.44,
+            "trades": 52,
+            "win_rate": 59.6,
+            "avg_win_pct": 2.51,
             "avg_loss_pct": -3.97,
-            "expectancy_pct": -0.099,
-            "expectancy_r": -0.079,
-            "profit_factor": 0.94,
-            "avg_days": 3.5
+            "expectancy_pct": -0.107,
+            "expectancy_r": -0.081,
+            "profit_factor": 0.93,
+            "avg_days": 3.6
           },
           "breakout": {
             "trades": 21,
@@ -1419,24 +1419,24 @@
         "market": "EU",
         "setups": {
           "pullback": {
-            "trades": 68,
-            "win_rate": 70.6,
+            "trades": 67,
+            "win_rate": 71.6,
             "avg_win_pct": 1.49,
-            "avg_loss_pct": -3.03,
-            "expectancy_pct": 0.16,
-            "expectancy_r": 0.041,
-            "profit_factor": 1.18,
+            "avg_loss_pct": -3.0,
+            "expectancy_pct": 0.217,
+            "expectancy_r": 0.058,
+            "profit_factor": 1.26,
             "avg_days": 3.1
           },
           "breakout": {
-            "trades": 19,
-            "win_rate": 68.4,
+            "trades": 20,
+            "win_rate": 65.0,
             "avg_win_pct": 4.82,
-            "avg_loss_pct": -3.17,
-            "expectancy_pct": 2.294,
-            "expectancy_r": 0.535,
-            "profit_factor": 3.29,
-            "avg_days": 12.7
+            "avg_loss_pct": -3.11,
+            "expectancy_pct": 2.043,
+            "expectancy_r": 0.473,
+            "profit_factor": 2.88,
+            "avg_days": 12.8
           }
         }
       },
@@ -1446,12 +1446,12 @@
         "setups": {
           "pullback": {
             "trades": 81,
-            "win_rate": 59.3,
-            "avg_win_pct": 1.55,
-            "avg_loss_pct": -3.05,
-            "expectancy_pct": -0.323,
-            "expectancy_r": -0.111,
-            "profit_factor": 0.74,
+            "win_rate": 58.0,
+            "avg_win_pct": 1.58,
+            "avg_loss_pct": -3.14,
+            "expectancy_pct": -0.403,
+            "expectancy_r": -0.124,
+            "profit_factor": 0.69,
             "avg_days": 3.0
           },
           "breakout": {
@@ -1481,14 +1481,14 @@
             "avg_days": 3.3
           },
           "breakout": {
-            "trades": 25,
-            "win_rate": 40.0,
-            "avg_win_pct": 3.95,
+            "trades": 24,
+            "win_rate": 37.5,
+            "avg_win_pct": 4.12,
             "avg_loss_pct": -4.56,
-            "expectancy_pct": -1.158,
-            "expectancy_r": -0.22,
-            "profit_factor": 0.58,
-            "avg_days": 10.3
+            "expectancy_pct": -1.307,
+            "expectancy_r": -0.258,
+            "profit_factor": 0.54,
+            "avg_days": 10.1
           }
         }
       },
@@ -1515,6 +1515,32 @@
             "expectancy_r": 0.024,
             "profit_factor": 1.07,
             "avg_days": 12.4
+          }
+        }
+      },
+      "RO.SW": {
+        "name": "Roche",
+        "market": "EU",
+        "setups": {
+          "pullback": {
+            "trades": 55,
+            "win_rate": 60.0,
+            "avg_win_pct": 1.17,
+            "avg_loss_pct": -2.69,
+            "expectancy_pct": -0.373,
+            "expectancy_r": -0.077,
+            "profit_factor": 0.65,
+            "avg_days": 3.2
+          },
+          "breakout": {
+            "trades": 29,
+            "win_rate": 34.5,
+            "avg_win_pct": 3.95,
+            "avg_loss_pct": -3.19,
+            "expectancy_pct": -0.728,
+            "expectancy_r": -0.243,
+            "profit_factor": 0.65,
+            "avg_days": 11.0
           }
         }
       },
@@ -1551,11 +1577,11 @@
           "pullback": {
             "trades": 66,
             "win_rate": 63.6,
-            "avg_win_pct": 1.21,
+            "avg_win_pct": 1.22,
             "avg_loss_pct": -3.77,
-            "expectancy_pct": -0.602,
-            "expectancy_r": -0.151,
-            "profit_factor": 0.56,
+            "expectancy_pct": -0.596,
+            "expectancy_r": -0.15,
+            "profit_factor": 0.57,
             "avg_days": 3.2
           },
           "breakout": {
@@ -1611,14 +1637,14 @@
             "avg_days": 3.2
           },
           "breakout": {
-            "trades": 31,
-            "win_rate": 45.2,
+            "trades": 30,
+            "win_rate": 46.7,
             "avg_win_pct": 4.5,
-            "avg_loss_pct": -3.74,
-            "expectancy_pct": -0.019,
-            "expectancy_r": -0.052,
-            "profit_factor": 0.99,
-            "avg_days": 10.7
+            "avg_loss_pct": -3.93,
+            "expectancy_pct": 0.007,
+            "expectancy_r": -0.043,
+            "profit_factor": 1.0,
+            "avg_days": 10.6
           }
         }
       },
@@ -1653,23 +1679,23 @@
         "market": "US",
         "setups": {
           "pullback": {
-            "trades": 75,
-            "win_rate": 58.7,
-            "avg_win_pct": 1.92,
+            "trades": 76,
+            "win_rate": 59.2,
+            "avg_win_pct": 1.95,
             "avg_loss_pct": -3.23,
-            "expectancy_pct": -0.212,
-            "expectancy_r": -0.059,
-            "profit_factor": 0.84,
+            "expectancy_pct": -0.163,
+            "expectancy_r": -0.053,
+            "profit_factor": 0.88,
             "avg_days": 3.0
           },
           "breakout": {
-            "trades": 37,
-            "win_rate": 32.4,
+            "trades": 38,
+            "win_rate": 31.6,
             "avg_win_pct": 4.59,
-            "avg_loss_pct": -3.94,
-            "expectancy_pct": -1.177,
-            "expectancy_r": -0.392,
-            "profit_factor": 0.56,
+            "avg_loss_pct": -4.13,
+            "expectancy_pct": -1.374,
+            "expectancy_r": -0.409,
+            "profit_factor": 0.51,
             "avg_days": 9.9
           }
         }
@@ -1715,14 +1741,14 @@
             "avg_days": 3.3
           },
           "breakout": {
-            "trades": 30,
-            "win_rate": 43.3,
-            "avg_win_pct": 6.77,
+            "trades": 29,
+            "win_rate": 41.4,
+            "avg_win_pct": 6.76,
             "avg_loss_pct": -5.93,
-            "expectancy_pct": -0.43,
-            "expectancy_r": -0.08,
-            "profit_factor": 0.87,
-            "avg_days": 10.5
+            "expectancy_pct": -0.68,
+            "expectancy_r": -0.143,
+            "profit_factor": 0.8,
+            "avg_days": 10.4
           }
         }
       },
@@ -1731,13 +1757,13 @@
         "market": "US",
         "setups": {
           "pullback": {
-            "trades": 57,
-            "win_rate": 64.9,
+            "trades": 56,
+            "win_rate": 64.3,
             "avg_win_pct": 4.93,
             "avg_loss_pct": -9.39,
-            "expectancy_pct": -0.097,
-            "expectancy_r": -0.008,
-            "profit_factor": 0.97,
+            "expectancy_pct": -0.182,
+            "expectancy_r": -0.019,
+            "profit_factor": 0.95,
             "avg_days": 3.4
           },
           "breakout": {
@@ -1793,14 +1819,14 @@
             "avg_days": 3.4
           },
           "breakout": {
-            "trades": 36,
-            "win_rate": 66.7,
+            "trades": 37,
+            "win_rate": 64.9,
             "avg_win_pct": 11.79,
-            "avg_loss_pct": -7.68,
-            "expectancy_pct": 5.301,
-            "expectancy_r": 0.672,
-            "profit_factor": 3.07,
-            "avg_days": 8.8
+            "avg_loss_pct": -7.97,
+            "expectancy_pct": 4.846,
+            "expectancy_r": 0.625,
+            "profit_factor": 2.73,
+            "avg_days": 8.6
           }
         }
       },
@@ -1835,13 +1861,13 @@
         "market": "US",
         "setups": {
           "pullback": {
-            "trades": 75,
-            "win_rate": 54.7,
+            "trades": 76,
+            "win_rate": 53.9,
             "avg_win_pct": 1.52,
-            "avg_loss_pct": -2.42,
-            "expectancy_pct": -0.269,
-            "expectancy_r": -0.033,
-            "profit_factor": 0.76,
+            "avg_loss_pct": -2.5,
+            "expectancy_pct": -0.335,
+            "expectancy_r": -0.047,
+            "profit_factor": 0.71,
             "avg_days": 3.6
           },
           "breakout": {
@@ -1913,13 +1939,13 @@
         "market": "US",
         "setups": {
           "pullback": {
-            "trades": 84,
-            "win_rate": 61.9,
-            "avg_win_pct": 1.58,
+            "trades": 83,
+            "win_rate": 61.4,
+            "avg_win_pct": 1.57,
             "avg_loss_pct": -2.32,
-            "expectancy_pct": 0.094,
-            "expectancy_r": -0.008,
-            "profit_factor": 1.11,
+            "expectancy_pct": 0.068,
+            "expectancy_r": -0.017,
+            "profit_factor": 1.08,
             "avg_days": 2.7
           },
           "breakout": {
@@ -1975,14 +2001,14 @@
             "avg_days": 3.5
           },
           "breakout": {
-            "trades": 24,
-            "win_rate": 45.8,
+            "trades": 23,
+            "win_rate": 47.8,
             "avg_win_pct": 3.81,
-            "avg_loss_pct": -1.81,
-            "expectancy_pct": 0.765,
-            "expectancy_r": 0.265,
-            "profit_factor": 1.78,
-            "avg_days": 11.2
+            "avg_loss_pct": -1.76,
+            "expectancy_pct": 0.903,
+            "expectancy_r": 0.328,
+            "profit_factor": 1.98,
+            "avg_days": 11.4
           }
         }
       },
@@ -1991,24 +2017,24 @@
         "market": "US",
         "setups": {
           "pullback": {
-            "trades": 81,
-            "win_rate": 54.3,
-            "avg_win_pct": 0.92,
+            "trades": 82,
+            "win_rate": 54.9,
+            "avg_win_pct": 0.9,
             "avg_loss_pct": -1.67,
-            "expectancy_pct": -0.264,
-            "expectancy_r": -0.064,
-            "profit_factor": 0.65,
+            "expectancy_pct": -0.259,
+            "expectancy_r": -0.063,
+            "profit_factor": 0.66,
             "avg_days": 3.2
           },
           "breakout": {
-            "trades": 26,
-            "win_rate": 46.2,
-            "avg_win_pct": 4.27,
+            "trades": 27,
+            "win_rate": 48.1,
+            "avg_win_pct": 4.15,
             "avg_loss_pct": -3.89,
-            "expectancy_pct": -0.126,
-            "expectancy_r": 0.131,
-            "profit_factor": 0.94,
-            "avg_days": 10.0
+            "expectancy_pct": -0.022,
+            "expectancy_r": 0.149,
+            "profit_factor": 0.99,
+            "avg_days": 10.2
           }
         }
       },
@@ -2053,14 +2079,14 @@
             "avg_days": 3.7
           },
           "breakout": {
-            "trades": 39,
-            "win_rate": 41.0,
+            "trades": 40,
+            "win_rate": 40.0,
             "avg_win_pct": 6.29,
-            "avg_loss_pct": -3.27,
-            "expectancy_pct": 0.649,
-            "expectancy_r": 0.096,
-            "profit_factor": 1.34,
-            "avg_days": 10.3
+            "avg_loss_pct": -3.29,
+            "expectancy_pct": 0.543,
+            "expectancy_r": 0.075,
+            "profit_factor": 1.28,
+            "avg_days": 10.4
           }
         }
       },
@@ -2134,11 +2160,11 @@
             "trades": 23,
             "win_rate": 47.8,
             "avg_win_pct": 5.08,
-            "avg_loss_pct": -4.93,
-            "expectancy_pct": -0.145,
-            "expectancy_r": 0.14,
-            "profit_factor": 0.94,
-            "avg_days": 9.2
+            "avg_loss_pct": -5.04,
+            "expectancy_pct": -0.199,
+            "expectancy_r": 0.119,
+            "profit_factor": 0.92,
+            "avg_days": 9.0
           }
         }
       },
@@ -2329,13 +2355,13 @@
         "market": "US",
         "setups": {
           "pullback": {
-            "trades": 59,
-            "win_rate": 55.9,
-            "avg_win_pct": 1.47,
+            "trades": 58,
+            "win_rate": 55.2,
+            "avg_win_pct": 1.48,
             "avg_loss_pct": -4.51,
-            "expectancy_pct": -1.162,
-            "expectancy_r": -0.198,
-            "profit_factor": 0.41,
+            "expectancy_pct": -1.205,
+            "expectancy_r": -0.207,
+            "profit_factor": 0.4,
             "avg_days": 3.9
           },
           "breakout": {
