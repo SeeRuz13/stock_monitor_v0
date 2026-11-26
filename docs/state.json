@@ -1,12 +1,37 @@
 {
-  "updated": "2026-11-25T04:25+00:00",
+  "updated": "2026-11-26T03:41+00:00",
   "pac_market": {
     "reference": "CW8.PA",
-    "drawdown_pct": -4.25,
-    "above_sma_pct": 3.16,
-    "multiplier": 1.0
+    "drawdown_pct": -5.84,
+    "above_sma_pct": 1.41,
+    "multiplier": 1.25
   },
   "setups_today": [
+    {
+      "ticker": "DIS",
+      "name": "Disney",
+      "eligible": true,
+      "score": 0.002,
+      "stats": {
+        "trades": 21,
+        "win_rate": 52.4,
+        "avg_win_pct": 3.99,
+        "avg_loss_pct": -3.67,
+        "expectancy_pct": 0.344,
+        "expectancy_r": 0.002,
+        "profit_factor": 1.2,
+        "avg_days": 10.0
+      },
+      "setup": "breakout",
+      "signal_date": "2026-11-25",
+      "entry_ref": 125.6,
+      "stop": 119.1853,
+      "target": 138.4294,
+      "exit_on_sma": false,
+      "max_days": 15,
+      "atr": 3.2074,
+      "indicative_target": 138.4294
+    },
     {
       "ticker": "ENI.MI",
       "name": "Eni",
@@ -23,43 +48,84 @@
         "avg_days": 3.4
       },
       "setup": "pullback",
-      "signal_date": "2026-11-23",
-      "entry_ref": 23.84,
-      "stop": 22.4626,
+      "signal_date": "2026-11-24",
+      "entry_ref": 23.805,
+      "stop": 22.4652,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.551,
-      "indicative_target": 24.4297
+      "atr": 0.5359,
+      "indicative_target": 24.126
     },
     {
-      "ticker": "TTE.PA",
-      "name": "TotalEnergies",
+      "ticker": "TEN.MI",
+      "name": "Tenaris",
       "eligible": false,
-      "score": -0.071,
+      "score": -0.106,
       "stats": {
-        "trades": 69,
-        "win_rate": 66.7,
-        "avg_win_pct": 1.48,
-        "avg_loss_pct": -2.98,
-        "expectancy_pct": -0.01,
-        "expectancy_r": -0.071,
-        "profit_factor": 0.99,
-        "avg_days": 3.3
+        "trades": 61,
+        "win_rate": 55.7,
+        "avg_win_pct": 2.45,
+        "avg_loss_pct": -4.0,
+        "expectancy_pct": -0.405,
+        "expectancy_r": -0.106,
+        "profit_factor": 0.77,
+        "avg_days": 3.7
       },
       "setup": "pullback",
-      "signal_date": "2026-11-23",
-      "entry_ref": 77.49,
-      "stop": 73.2209,
+      "signal_date": "2026-11-24",
+      "entry_ref": 24.54,
+      "stop": 22.7007,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 1.7077,
-      "indicative_target": 79.326
+      "atr": 0.7357,
+      "indicative_target": 25.1664
+    },
+    {
+      "ticker": "SAN.PA",
+      "name": "Sanofi",
+      "eligible": false,
+      "score": -0.45,
+      "stats": {
+        "trades": 20,
+        "win_rate": 20.0,
+        "avg_win_pct": 5.76,
+        "avg_loss_pct": -3.15,
+        "expectancy_pct": -1.37,
+        "expectancy_r": -0.45,
+        "profit_factor": 0.46,
+        "avg_days": 9.2
+      },
+      "setup": "breakout",
+      "signal_date": "2026-11-24",
+      "entry_ref": 93.58,
+      "stop": 88.9256,
+      "target": 102.8887,
+      "exit_on_sma": false,
+      "max_days": 15,
+      "atr": 2.3272,
+      "indicative_target": 102.8887
     }
   ],
   "paper": {
-    "open": [],
+    "open": [
+      {
+        "id": "DIS-2026-11-25-breakout",
+        "ticker": "DIS",
+        "name": "Disney",
+        "status": "pending",
+        "setup": "breakout",
+        "signal_date": "2026-11-25",
+        "entry_ref": 125.6,
+        "stop": 119.1853,
+        "target": 138.4294,
+        "exit_on_sma": false,
+        "max_days": 15,
+        "atr": 3.2074,
+        "indicative_target": 138.4294
+      }
+    ],
     "recent_closed": [],
     "stats": {
       "trades": 0

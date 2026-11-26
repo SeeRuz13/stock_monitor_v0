@@ -1,4 +1,20 @@
 {
-  "last_signal_date": "2026-11-24",
-  "trades": []
+  "last_signal_date": "2026-11-25",
+  "trades": [
+    {
+      "id": "DIS-2026-11-25-breakout",
+      "ticker": "DIS",
+      "name": "Disney",
+      "status": "pending",
+      "setup": "breakout",
+      "signal_date": "2026-11-25",
+      "entry_ref": 125.6,
+      "stop": 119.1853,
+      "target": 138.4294,
+      "exit_on_sma": false,
+      "max_days": 15,
+      "atr": 3.2074,
+      "indicative_target": 138.4294
+    }
+  ]
 }
