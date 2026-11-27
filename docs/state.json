@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-26T03:41+00:00",
+  "updated": "2026-11-27T03:42+00:00",
   "pac_market": {
     "reference": "CW8.PA",
-    "drawdown_pct": -5.84,
-    "above_sma_pct": 1.41,
+    "drawdown_pct": -7.55,
+    "above_sma_pct": -0.48,
     "multiplier": 1.25
   },
   "setups_today": [
@@ -48,14 +48,39 @@
         "avg_days": 3.4
       },
       "setup": "pullback",
-      "signal_date": "2026-11-24",
-      "entry_ref": 23.805,
-      "stop": 22.4652,
+      "signal_date": "2026-11-25",
+      "entry_ref": 23.74,
+      "stop": 22.4272,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.5359,
-      "indicative_target": 24.126
+      "atr": 0.5251,
+      "indicative_target": 23.9388
+    },
+    {
+      "ticker": "G.MI",
+      "name": "Generali",
+      "eligible": false,
+      "score": -0.049,
+      "stats": {
+        "trades": 80,
+        "win_rate": 62.5,
+        "avg_win_pct": 1.16,
+        "avg_loss_pct": -2.13,
+        "expectancy_pct": -0.078,
+        "expectancy_r": -0.049,
+        "profit_factor": 0.9,
+        "avg_days": 3.5
+      },
+      "setup": "pullback",
+      "signal_date": "2026-11-25",
+      "entry_ref": 42.87,
+      "stop": 41.065,
+      "target": null,
+      "exit_on_sma": true,
+      "max_days": 10,
+      "atr": 0.722,
+      "indicative_target": 43.268
     },
     {
       "ticker": "TEN.MI",
@@ -73,14 +98,14 @@
         "avg_days": 3.7
       },
       "setup": "pullback",
-      "signal_date": "2026-11-24",
+      "signal_date": "2026-11-25",
       "entry_ref": 24.54,
-      "stop": 22.7007,
+      "stop": 22.7375,
       "target": null,
       "exit_on_sma": true,
       "max_days": 10,
-      "atr": 0.7357,
-      "indicative_target": 25.1664
+      "atr": 0.721,
+      "indicative_target": 24.9307
     },
     {
       "ticker": "SAN.PA",
@@ -98,14 +123,14 @@
         "avg_days": 9.2
       },
       "setup": "breakout",
-      "signal_date": "2026-11-24",
-      "entry_ref": 93.58,
-      "stop": 88.9256,
-      "target": 102.8887,
+      "signal_date": "2026-11-25",
+      "entry_ref": 98.16,
+      "stop": 93.0838,
+      "target": 108.3124,
       "exit_on_sma": false,
       "max_days": 15,
-      "atr": 2.3272,
-      "indicative_target": 102.8887
+      "atr": 2.5381,
+      "indicative_target": 108.3124
     }
   ],
   "paper": {
