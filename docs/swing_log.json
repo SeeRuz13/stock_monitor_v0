@@ -1,11 +1,11 @@
 {
-  "last_signal_date": "2026-11-26",
+  "last_signal_date": "2026-11-27",
   "trades": [
     {
       "id": "DIS-2026-11-25-breakout",
       "ticker": "DIS",
       "name": "Disney",
-      "status": "pending",
+      "status": "open",
       "setup": "breakout",
       "signal_date": "2026-11-25",
       "entry_ref": 125.6,
@@ -14,7 +14,14 @@
       "exit_on_sma": false,
       "max_days": 15,
       "atr": 3.2074,
-      "indicative_target": 138.4294
+      "indicative_target": 138.4294,
+      "entry_date": "2026-11-27",
+      "entry": 125.45,
+      "return_pct": 1.022,
+      "r_multiple": 0.205,
+      "last_price": 127.24,
+      "days": 1
     }
-  ]
+  ],
+  "last_weekly_summary": "2026-11-27"
 }

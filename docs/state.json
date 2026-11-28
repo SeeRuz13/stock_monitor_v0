@@ -1,145 +1,19 @@
 {
-  "updated": "2026-11-27T03:42+00:00",
+  "updated": "2026-11-28T03:24+00:00",
   "pac_market": {
     "reference": "CW8.PA",
-    "drawdown_pct": -7.55,
-    "above_sma_pct": -0.48,
-    "multiplier": 1.25
+    "drawdown_pct": -4.94,
+    "above_sma_pct": 2.28,
+    "multiplier": 1.0
   },
-  "setups_today": [
-    {
-      "ticker": "DIS",
-      "name": "Disney",
-      "eligible": true,
-      "score": 0.002,
-      "stats": {
-        "trades": 21,
-        "win_rate": 52.4,
-        "avg_win_pct": 3.99,
-        "avg_loss_pct": -3.67,
-        "expectancy_pct": 0.344,
-        "expectancy_r": 0.002,
-        "profit_factor": 1.2,
-        "avg_days": 10.0
-      },
-      "setup": "breakout",
-      "signal_date": "2026-11-25",
-      "entry_ref": 125.6,
-      "stop": 119.1853,
-      "target": 138.4294,
-      "exit_on_sma": false,
-      "max_days": 15,
-      "atr": 3.2074,
-      "indicative_target": 138.4294
-    },
-    {
-      "ticker": "ENI.MI",
-      "name": "Eni",
-      "eligible": false,
-      "score": -0.033,
-      "stats": {
-        "trades": 71,
-        "win_rate": 63.4,
-        "avg_win_pct": 1.58,
-        "avg_loss_pct": -2.99,
-        "expectancy_pct": -0.094,
-        "expectancy_r": -0.033,
-        "profit_factor": 0.91,
-        "avg_days": 3.4
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-25",
-      "entry_ref": 23.74,
-      "stop": 22.4272,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.5251,
-      "indicative_target": 23.9388
-    },
-    {
-      "ticker": "G.MI",
-      "name": "Generali",
-      "eligible": false,
-      "score": -0.049,
-      "stats": {
-        "trades": 80,
-        "win_rate": 62.5,
-        "avg_win_pct": 1.16,
-        "avg_loss_pct": -2.13,
-        "expectancy_pct": -0.078,
-        "expectancy_r": -0.049,
-        "profit_factor": 0.9,
-        "avg_days": 3.5
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-25",
-      "entry_ref": 42.87,
-      "stop": 41.065,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.722,
-      "indicative_target": 43.268
-    },
-    {
-      "ticker": "TEN.MI",
-      "name": "Tenaris",
-      "eligible": false,
-      "score": -0.106,
-      "stats": {
-        "trades": 61,
-        "win_rate": 55.7,
-        "avg_win_pct": 2.45,
-        "avg_loss_pct": -4.0,
-        "expectancy_pct": -0.405,
-        "expectancy_r": -0.106,
-        "profit_factor": 0.77,
-        "avg_days": 3.7
-      },
-      "setup": "pullback",
-      "signal_date": "2026-11-25",
-      "entry_ref": 24.54,
-      "stop": 22.7375,
-      "target": null,
-      "exit_on_sma": true,
-      "max_days": 10,
-      "atr": 0.721,
-      "indicative_target": 24.9307
-    },
-    {
-      "ticker": "SAN.PA",
-      "name": "Sanofi",
-      "eligible": false,
-      "score": -0.45,
-      "stats": {
-        "trades": 20,
-        "win_rate": 20.0,
-        "avg_win_pct": 5.76,
-        "avg_loss_pct": -3.15,
-        "expectancy_pct": -1.37,
-        "expectancy_r": -0.45,
-        "profit_factor": 0.46,
-        "avg_days": 9.2
-      },
-      "setup": "breakout",
-      "signal_date": "2026-11-25",
-      "entry_ref": 98.16,
-      "stop": 93.0838,
-      "target": 108.3124,
-      "exit_on_sma": false,
-      "max_days": 15,
-      "atr": 2.5381,
-      "indicative_target": 108.3124
-    }
-  ],
+  "setups_today": [],
   "paper": {
     "open": [
       {
         "id": "DIS-2026-11-25-breakout",
         "ticker": "DIS",
         "name": "Disney",
-        "status": "pending",
+        "status": "open",
         "setup": "breakout",
         "signal_date": "2026-11-25",
         "entry_ref": 125.6,
@@ -148,7 +22,13 @@
         "exit_on_sma": false,
         "max_days": 15,
         "atr": 3.2074,
-        "indicative_target": 138.4294
+        "indicative_target": 138.4294,
+        "entry_date": "2026-11-27",
+        "entry": 125.45,
+        "return_pct": 1.022,
+        "r_multiple": 0.205,
+        "last_price": 127.24,
+        "days": 1
       }
     ],
     "recent_closed": [],
